@@ -1,4 +1,4 @@
-import { CardSlot } from "../components/CardSlot";
+import { CardSlot } from "../../components/CardSlot";
 
 type HomeTwoColProps = {
   title: string;

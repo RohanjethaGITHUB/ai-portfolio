@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useRef, useState, useEffect } from "react";
-import { CardSlot } from "../components/CardSlot";
+import { CardSlot } from "../../components/CardSlot";
 
 type Item = {
   title: string;

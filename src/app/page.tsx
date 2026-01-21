@@ -1,8 +1,8 @@
 import { FloatingCardLayer } from "../components/FloatingCardLayer";
-import { HomeHero } from "../sections/HomeHero";
-import { WhatICanDo } from "../sections/WhatICanDo";
-import { AboutMe } from "../sections/AboutMe";
-import { FeaturedProjects } from "../sections/FeaturedProjects";
+import { HomeHero } from "../sections/home/HomeHero";
+import { WhatICanDo } from "../sections/home/WhatICanDo";
+import { AboutMe } from "../sections/home/AboutMe";
+import { FeaturedProjects } from "../sections/home/FeaturedProjects";
 
 export default function Page() {
   return (
