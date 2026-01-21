@@ -945,6 +945,275 @@ body{
   from{ transform: translateY(-6px); opacity: 0; }
   to{ transform: translateY(0); opacity: 1; }
 }
+
+/* =========================
+   Portfolio mega menu (2-col)
+   ========================= */
+
+.megaMenu{
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(100% - 2px); /* less overlap so it doesn't look like it cuts */
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+.megaMenu.isClosed{
+  opacity: 0;
+  transform: translateY(-6px) scale(0.985);
+  pointer-events: none;
+}
+
+.megaMenu.isOpen{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  animation: megaIn 160ms ease-out;
+}
+
+@keyframes megaIn{
+  from{ opacity: 0; transform: translateY(-8px) scale(0.985); }
+  to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.megaGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.megaLinks{
+  display: grid;
+  gap: 6px;
+}
+
+
+.megaLink:hover{
+  background: rgba(255,255,255,0.80);
+  border-color: rgba(122,75,42,0.20);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
+}
+
+.megaLink:focus-visible{
+  outline: none;
+  border-color: rgba(122,75,42,0.35);
+  box-shadow: 0 0 0 3px rgba(122,75,42,0.14), 0 14px 34px rgba(0,0,0,0.08);
+}
+
+.megaHint{
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(0,0,0,0.52);
+  padding: 0 4px;
+}
+
+@media (max-width: 520px){
+  .megaGrid{
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================
+   Portfolio mega menu v2
+   Modern glass, less boxes
+   ========================= */
+
+.megaMenu{
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  width: min(640px, 92vw);
+
+  background: rgba(255,255,255,0.80);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 22px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.16);
+  backdrop-filter: blur(18px);
+
+  padding: 16px 16px 14px;
+  transform-origin: top left;
+  overflow: hidden;
+}
+
+.megaMenu::before{
+  content:"";
+  position:absolute;
+  inset:-40px;
+  background:
+    radial-gradient(60% 50% at 20% 10%, rgba(122,75,42,0.14), transparent 60%),
+    radial-gradient(60% 50% at 80% 20%, rgba(0,0,0,0.10), transparent 60%),
+    radial-gradient(60% 60% at 50% 100%, rgba(122,75,42,0.10), transparent 60%);
+  pointer-events:none;
+}
+
+.megaMenu.isClosed{
+  opacity: 0;
+  transform: translateY(-10px) scale(0.985);
+  pointer-events: none;
+}
+
+.megaMenu.isOpen{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  animation: megaIn2 180ms ease-out;
+}
+
+@keyframes megaIn2{
+  from{ opacity: 0; transform: translateY(-12px) scale(0.982); }
+  to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.megaGrid{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  z-index: 1;
+}
+
+.megaCol{
+  background: transparent;
+  border: 0;
+  padding: 6px 6px 2px;
+}
+
+.megaHeading{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: rgba(0,0,0,0.60);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  width: 100%;
+}
+
+.megaHeading::after{
+  content:"";
+  height: 6px;
+  width: 42px;
+  border-radius: 999px;
+  background: rgba(122,75,42,0.20);
+  box-shadow: 0 10px 26px rgba(122,75,42,0.18);
+  margin-left: auto;
+  transform: translateY(1px);
+}
+
+.megaLinks{
+  display: grid;
+  gap: 8px;
+}
+
+.megaLink{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 2px;
+
+  text-decoration: none;
+  color: rgba(0,0,0,0.84);
+
+  padding: 12px 12px 11px 14px;
+  border-radius: 16px;
+
+  background: rgba(255,255,255,0.46);
+  border: 1px solid rgba(0,0,0,0.06);
+
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  overflow: hidden;
+}
+
+.megaLink::before{
+  content:"";
+  position:absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 999px;
+  background: rgba(122,75,42,0.25);
+  opacity: 0.7;
+}
+
+.megaLink::after{
+  content:"";
+  position:absolute;
+  inset:-40px;
+  background: radial-gradient(40% 35% at 20% 20%, rgba(122,75,42,0.18), transparent 55%);
+  opacity: 0;
+  transition: opacity 180ms ease;
+  pointer-events:none;
+}
+
+.megaLink:hover{
+  background: rgba(255,255,255,0.70);
+  border-color: rgba(122,75,42,0.18);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+.megaLink:hover::after{
+  opacity: 1;
+}
+
+.megaLink:focus-visible{
+  outline: none;
+  border-color: rgba(122,75,42,0.28);
+  box-shadow: 0 0 0 3px rgba(122,75,42,0.14), 0 18px 50px rgba(0,0,0,0.12);
+}
+
+.megaLinkTitle{
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.megaLinkMeta{
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 12px;
+  color: rgba(0,0,0,0.56);
+}
+
+.megaLinkArrow{
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  justify-self: end;
+  color: rgba(0,0,0,0.32);
+  transform: translateX(-2px);
+  transition: transform 160ms ease, color 160ms ease;
+}
+
+.megaLink:hover .megaLinkArrow{
+  color: rgba(0,0,0,0.55);
+  transform: translateX(2px);
+}
+
+.megaHint{
+  position: relative;
+  z-index: 1;
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(0,0,0,0.52);
+  padding: 0 6px;
+}
+
+@media (max-width: 560px){
+  .megaGrid{ grid-template-columns: 1fr; }
+}
+
+
 /* =========================
    Paper grain overlay (global)
    ========================= */
@@ -975,4 +1244,158 @@ body::before{
   position: relative;
   z-index: 1;
   min-height: 100vh;
+}
+/* Submenu text tone to match hero */
+.megaLinkTitle{
+  color: rgba(0,0,0,0.70);
+}
+
+.megaLinkMeta{
+  color: rgba(0,0,0,0.50);
+}
+
+.megaHeading{
+  color: rgba(0,0,0,0.50);
+}
+/* Make submenu attach to nav pill */
+.siteNav{
+  position: relative;
+}
+
+.megaMenu{
+  top: calc(100% - 6px); /* overlaps slightly so it feels attached */
+  left: 50%;
+  transform: translateX(-50%);
+
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  box-shadow: 0 26px 70px rgba(0,0,0,0.14);
+  border-color: rgba(0,0,0,0.05);
+}
+/* Nav expands feel when menu is open */
+.siteNavWrap[data-portfolio-open="true"] .siteNav{
+  box-shadow: 0 18px 55px rgba(0,0,0,0.12);
+}
+
+.siteNavWrap[data-portfolio-open="true"] .siteNav::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: -10px;
+  height: 14px;
+
+  background: rgba(255,255,255,0.80);
+  border-left: 1px solid rgba(0,0,0,0.05);
+  border-right: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+
+  z-index: 2;
+  pointer-events: none;
+}
+/* Small soft shadow so the bridge feels intentional */
+.siteNavWrap[data-portfolio-open="true"] .siteNav::before{
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: -14px;
+  height: 18px;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  box-shadow: 0 18px 35px rgba(0,0,0,0.10);
+  z-index: 1;
+  pointer-events: none;
+}
+/* Warm accent on main nav items */
+.siteNavLink,
+.siteNavBtn{
+  color: rgba(0,0,0,0.64);
+  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.siteNavLink:hover,
+.siteNavBtn:hover{
+  color: rgba(0,0,0,0.72);
+  background: rgba(122,75,42,0.08);
+}
+
+.siteNavBtn{
+  border-radius: 999px;
+  padding: 10px 14px;
+}
+
+/* When portfolio is open, give the trigger a warm active look */
+.siteNavWrap[data-portfolio-open="true"] .siteNavBtn{
+  background: rgba(122,75,42,0.10);
+  box-shadow: inset 0 0 0 1px rgba(122,75,42,0.10);
+}
+/* Larger main nav size */
+.siteNav{
+  position: relative;
+  z-index: 50;
+}
+
+.siteNavLink{
+  font-size: 15px;
+  padding: 10px 14px;
+}
+
+.siteNavCta{
+  font-size: 15px;
+  padding: 10px 16px;
+}
+/* ===== Column grouping that feels modern ===== */
+
+.megaGrid{
+  gap: 16px;
+}
+
+.megaCol{
+  border-radius: 18px;
+  padding: 12px;
+  background: rgba(255,255,255,0.40);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.megaHeading{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 0 0 10px 0;
+  padding: 10px 12px;
+
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.06);
+
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 850;
+  color: rgba(0,0,0,0.52);
+}
+
+.megaHeading::after{
+  content: "";
+  height: 6px;
+  width: 46px;
+  border-radius: 999px;
+  background: rgba(122,75,42,0.22);
+  box-shadow: 0 10px 26px rgba(122,75,42,0.14);
+}
+
+/* tighten links inside grouped column */
+.megaLinks{
+  gap: 10px;
+}
+
+.megaLink{
+  background: rgba(255,255,255,0.52);
 }
