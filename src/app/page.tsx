@@ -1,4 +1,4 @@
-import { FloatingCardLayer } from "../components/FloatingCardLayer";
+import { FloatingCardLayer } from "../features/floating-card/FloatingCardLayer";
 import { HomeHero } from "../sections/home/HomeHero";
 import { WhatICanDo } from "../sections/home/WhatICanDo";
 import { AboutMe } from "../sections/home/AboutMe";

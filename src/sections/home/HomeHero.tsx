@@ -1,4 +1,4 @@
-import { CardSlot } from "../../components/CardSlot";
+import { CardSlot } from "../../features/floating-card/CardSlot";
 
 export function HomeHero() {
   return (
