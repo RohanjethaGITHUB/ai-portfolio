@@ -1,5 +1,5 @@
 import "./globals.css";
-import { SiteNav } from "@/components/SiteNav";
+import { SiteNav } from "@/components/site/SiteNav";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
