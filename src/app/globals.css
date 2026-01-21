@@ -1,0 +1,978 @@
+@import url("https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap");
+
+html, body {
+  height: 100%;
+}
+
+body{
+  background:
+    radial-gradient(900px 500px at 50% 78%, rgba(120, 90, 55, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 50% 78%, rgba(0, 0, 0, 0.06), transparent 65%),
+    #fbfbfa;
+}
+
+#dr-portfolio .sr-only{
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+#dr-portfolio{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  position: relative;
+
+  --cardW: clamp(264px, 28.6vw, 396px);
+  --radius: 22px;
+  --persp: 1200px;
+
+  /* White-silver base */
+  --bg0: #f7f7f6;
+  --bg1: #efefee;
+
+  /* Ink */
+  --ink: rgba(18, 18, 18, 0.78);
+  --muted: rgba(18, 18, 18, 0.58);
+   /* Leather brown accent */
+  --accent: #7a4b2a;
+  --accent2: rgba(122,75,42,0.09);
+  --shadowAccent: rgba(122,75,42,0.14);
+
+
+  background:
+  radial-gradient(900px 600px at 50% 240px, rgba(122,75,42,0.10), rgba(122,75,42,0) 60%),
+  radial-gradient(800px 520px at 18% 900px, rgba(0,0,0,0.04), rgba(0,0,0,0) 62%),
+  linear-gradient(180deg, #fbfbfa 0%, #f6f6f4 55%, #f7f7f6 100%);
+  color: var(--ink);
+}
+#dr-portfolio > *{
+  position: relative;
+  z-index: 2;
+}
+
+
+#dr-portfolio *{ box-sizing:border-box; }
+
+#dr-portfolio .wrap{
+  width:min(1180px, calc(100% - 64px));
+  margin:0 auto;
+}
+
+#dr-portfolio .section{
+  min-height: 86vh;
+  display:flex;
+  align-items:center;
+  position:relative;
+  padding: 84px 0;
+  overflow:hidden;
+  background: transparent;
+}
+
+/* Keep hero as the only "full screen" section */
+#dr-portfolio #hero.section{
+  min-height: 100vh;
+  padding: 140px 0;
+}
+
+
+/* HERO layout */
+#dr-portfolio .hero-grid{
+  display:grid;
+  grid-template-columns: 1fr var(--cardW) 1fr;
+  column-gap: 22px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+#dr-portfolio .hero-left{
+  justify-self:end;
+  text-align:right;
+  padding-right: 12px;
+}
+
+#dr-portfolio .hero-right{
+  justify-self:start;
+  text-align:left;
+  padding-left: 30px;
+}
+
+/* Section layout */
+#dr-portfolio .two-col{
+  display:grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap:56px;
+  align-items:center;
+}
+
+#dr-portfolio .two-col.flip{
+  grid-template-columns: 0.85fr 1.15fr;
+}
+
+/* Slot anchors */
+#dr-portfolio .card-slot{
+  width: var(--cardW);
+  aspect-ratio: 3 / 4;
+  justify-self:center;
+  align-self:center;
+  pointer-events:none;
+}
+
+/* Typography */
+#dr-portfolio .kicker{
+  letter-spacing:0.12em;
+  font-weight:700;
+  font-size:13px;
+  color: var(--accent);
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+#dr-portfolio .h1{
+  margin:0;
+  font-family:"Antonio", system-ui, sans-serif;
+  font-weight:700;
+  text-transform:uppercase;
+  line-height:0.90;
+  font-size: clamp(64px, 7.2vw, 110px);
+}
+
+#dr-portfolio .sub{
+  margin-top:14px;
+  font-size:16px;
+  line-height:1.6;
+  color: var(--muted);
+  max-width:44ch;
+}
+
+#dr-portfolio .h2{
+  margin:0;
+  font-family:"Antonio", system-ui, sans-serif;
+  font-weight:700;
+  text-transform:uppercase;
+  font-size: clamp(44px, 5.6vw, 86px);
+  line-height:0.92;
+}
+
+#dr-portfolio .p{
+  margin:14px 0 0;
+  max-width:60ch;
+  color: var(--muted);
+  line-height:1.65;
+  font-size:16px;
+}
+
+/* Floating layer */
+#dr-portfolio .card-layer{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:10;
+}
+
+#dr-portfolio .card{
+  position:absolute;
+  width: var(--cardW);
+  aspect-ratio: 3 / 4;
+  perspective: var(--persp);
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+}
+
+#dr-portfolio .card-inner{
+  width:100%;
+  height:100%;
+  transform-style:preserve-3d;
+  will-change: transform;
+}
+
+#dr-portfolio .card-back{
+  transform: rotateY(180deg);
+}
+#dr-portfolio .card-face{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+}
+#dr-portfolio .cardMedia{
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+
+
+#dr-portfolio .card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  border-radius: var(--radius);
+  filter:
+    drop-shadow(0 14px 34px rgba(0,0,0,0.14))
+    drop-shadow(0 20px 56px var(--shadowAccent));
+}
+
+#dr-portfolio .cardImg.is-hero{
+    filter: saturate(0.95) contrast(0.98) brightness(0.98);
+
+  transform: scale(1.08);
+  transform-origin: center;
+}
+#dr-portfolio .card.is-hero-seg .cardImg{
+  transform: scale(1.16);
+  transform-origin: center;
+  /* filter: saturate(0.92) contrast(0.98); */
+  filter: saturate(0.88) contrast(0.98) brightness(1.02);
+
+}
+#dr-portfolio .card,
+#dr-portfolio .card-face{
+  overflow: visible !important;
+}
+
+
+/* Hi bubble */
+#dr-portfolio .hi-bubble{
+  position:absolute;
+  left:-14px !important;
+  z-index: 5;
+  bottom:-14px!important;
+  width:54px;
+  height:54px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background: rgba(122,75,42,0.92);
+  box-shadow:
+    0 18px 44px rgba(0,0,0,0.20),
+    0 18px 55px rgba(122,75,42,0.18);
+  opacity:0;
+  transform: translateY(6px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+#dr-portfolio .hi-bubble.is-on{
+  opacity:1;
+  transform: translateY(0);
+}
+#dr-portfolio .hi-icon{
+  font-size:22px;
+  display:inline-block;
+  transform-origin:70% 70%;
+  animation: drWave 1.2s ease-in-out infinite;
+}
+@keyframes drWave{
+  0%{ transform: rotate(0deg); }
+  15%{ transform: rotate(14deg); }
+  30%{ transform: rotate(-10deg); }
+  45%{ transform: rotate(14deg); }
+  60%{ transform: rotate(-6deg); }
+  75%{ transform: rotate(10deg); }
+  100%{ transform: rotate(0deg); }
+}
+
+/* Orbits */
+#dr-portfolio #hero .wrap{ position: relative; }
+
+#dr-portfolio .hero-orbits{
+  position: absolute;
+  inset: -90px;              /* was -40px, makes it wider */
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.34;              /* was 0.65 */
+  -webkit-mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 78%);
+  mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 78%);
+}
+
+
+#dr-portfolio .orbits-svg{
+  width: min(930px, 110vw);
+  height: auto;
+  overflow: visible;
+
+  filter:
+    drop-shadow(0 18px 50px rgba(0,0,0,0.06))
+    drop-shadow(0 0 16px rgba(122,75,42,0.07));
+}
+
+#dr-portfolio .orbit ellipse{
+  fill: none;
+  stroke: rgba(20,20,20,0.10);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 14 22;
+}
+
+#dr-portfolio .orbit-b ellipse{
+  stroke: rgba(122,75,42,0.12);
+  stroke-dasharray: 12 24;
+}
+#dr-portfolio .orbit-c ellipse{
+  stroke: rgba(20,20,20,0.10);
+  stroke-dasharray: 18 28;
+}
+
+#dr-portfolio .orbit-d ellipse{
+  stroke: rgba(122,75,42,0.10);
+  stroke-dasharray: 18 30;
+}
+
+
+#dr-portfolio .orbit-b ellipse{
+  stroke: rgba(122,75,42,0.20);
+  stroke-dasharray: 10 22;
+}
+#dr-portfolio .orbit-c ellipse{
+  stroke: rgba(20,20,20,0.10);
+  stroke-dasharray: 18 26;
+}
+
+#dr-portfolio .orbit-a{
+  transform-origin: 400px 400px;
+  animation: drOrbitSpinA 18s linear infinite;
+}
+#dr-portfolio .orbit-b{
+  transform-origin: 400px 400px;
+  animation: drOrbitSpinB 24s linear infinite reverse;
+}
+#dr-portfolio .orbit-c{
+  transform-origin: 400px 400px;
+  animation: drOrbitSpinC 30s linear infinite;
+}
+
+#dr-portfolio .orbit-a{ animation: drOrbitSpinA 14s linear infinite; }
+#dr-portfolio .orbit-b{ animation: drOrbitSpinB 20s linear infinite reverse; }
+#dr-portfolio .orbit-c{ animation: drOrbitSpinC 26s linear infinite; }
+
+@keyframes drOrbitSpinD{ to{ transform: rotate(360deg); } }
+
+
+@keyframes drOrbitSpinA{ to{ transform: rotate(360deg); } }
+@keyframes drOrbitSpinB{ to{ transform: rotate(360deg); } }
+@keyframes drOrbitSpinC{ to{ transform: rotate(360deg); } }
+@keyframes drOrbitSpinD{ to{ transform: rotate(360deg); } }
+
+@keyframes drDash{ to{ stroke-dashoffset: -120; } }
+
+@media (max-width: 980px){
+  #dr-portfolio .wrap{ width:min(1180px, calc(100% - 40px)); }
+  #dr-portfolio .hero-grid{ grid-template-columns:1fr; gap:18px; }
+  #dr-portfolio .hero-left,
+  #dr-portfolio .hero-right{
+    text-align:left;
+    justify-self:start;
+    padding:0;
+  }
+  #dr-portfolio .two-col,
+  #dr-portfolio .two-col.flip{ grid-template-columns:1fr; gap:28px; }
+
+  #dr-portfolio .card-layer{ display:none; }
+  #dr-portfolio .card-slot{ display:none; }
+  #dr-portfolio .hero-orbits{ display:none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #dr-portfolio .hi-icon{ animation:none; }
+  #dr-portfolio .orbit-a,
+  #dr-portfolio .orbit-b,
+  #dr-portfolio .orbit-c,
+  #dr-portfolio .orbit ellipse{
+    animation: none;
+  }
+}
+#dr-portfolio .orbit{
+  position: relative;
+}
+
+#dr-portfolio .orbit-dot{
+  transform-origin: 400px 400px;
+  animation: drOrbitSpinDot 12s linear infinite;
+  opacity: 0.55;
+}
+
+
+#dr-portfolio .orbit-dot circle{
+  fill: rgba(122,75,42,0.55);
+  filter: drop-shadow(0 0 8px rgba(122,75,42,0.16));
+}
+#dr-portfolio .orbit-dot.is-cool{
+  opacity: 0.45;
+}
+#dr-portfolio .orbit-dot.is-cool circle{
+  fill: rgba(20,20,20,0.40);
+  filter: drop-shadow(0 0 8px rgba(20,20,20,0.10));
+}
+
+@keyframes drOrbitSpinDot{
+  to{ transform: rotate(360deg); }
+}
+
+/* tighter spacing like Portavia */
+#dr-portfolio .section{
+  min-height: 86vh;
+  padding: 84px 0;
+}
+#dr-portfolio #hero.section{
+  min-height: 100vh;
+  padding: 140px 0;
+}
+
+#dr-portfolio .mini-kicker{
+  letter-spacing:0.14em;
+  font-weight:700;
+  font-size:12px;
+  color: var(--accent);
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+/* What I can do layout tweaks */
+#dr-portfolio .what-grid{
+  align-items: start;
+}
+#dr-portfolio .what-visual{
+  position: relative;
+}
+#dr-portfolio .hover-hint{
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Accordion */
+#dr-portfolio .dr-accordion{
+  margin-top: 22px;
+  border-top: 1px solid rgba(20,20,20,0.12);
+}
+#dr-portfolio .dr-hover-follower{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 260px;
+  height: 150px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: rotate(-4deg) translateY(6px);
+  transition: opacity 140ms ease, transform 180ms ease;
+}
+
+#dr-portfolio .dr-hover-follower.is-on{
+  opacity: 1;
+  transform: rotate(-4deg) translateY(0);
+}
+
+#dr-portfolio .dr-hover-follower-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+  border: 1px solid rgba(20,20,20,0.10);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.16);
+}
+
+#dr-portfolio .dr-acc-item{
+  border-bottom: 1px solid rgba(20,20,20,0.12);
+}
+
+#dr-portfolio .dr-acc-btn{
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  color: var(--ink);
+}
+
+#dr-portfolio .dr-acc-title{
+  font-size: 16px;
+  font-weight: 650;
+}
+
+#dr-portfolio .dr-acc-icon{
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  width: 26px;
+  text-align: right;
+}
+
+#dr-portfolio .dr-acc-panel{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 260ms ease;
+}
+
+#dr-portfolio .dr-acc-item.is-open .dr-acc-panel{
+  max-height: 360px;
+}
+
+#dr-portfolio .dr-acc-list{
+  margin: 0 0 16px;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+#dr-portfolio .dr-acc-list li{
+  margin: 8px 0;
+}
+
+/* About blocks */
+#dr-portfolio .about-blocks{
+  margin-top: 22px;
+  display: grid;
+  gap: 14px;
+}
+
+#dr-portfolio .about-card{
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(20,20,20,0.10);
+  border-radius: 14px;
+  padding: 14px 14px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+}
+
+#dr-portfolio .about-title{
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+#dr-portfolio .about-body{
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 14px;
+}
+
+@media (max-width: 980px){
+  #dr-portfolio .dr-acc-item.is-open .dr-acc-panel{
+    max-height: 520px;
+  }
+  #dr-portfolio .hover-hint{
+    display:none;
+  }
+}
+/* tighter type like Portavia */
+#dr-portfolio .h2-tight{
+  font-size: clamp(34px, 4.2vw, 64px);
+  line-height: 0.95;
+}
+#dr-portfolio .p-tight{
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 62ch;
+}
+
+/* Accordion layout improvements */
+#dr-portfolio .dr-accordion{
+  margin-top: 18px;
+  border-top: 1px solid rgba(20,20,20,0.12);
+}
+
+#dr-portfolio .dr-acc-item{
+  border-bottom: 1px solid rgba(20,20,20,0.12);
+}
+
+#dr-portfolio .dr-acc-btn{
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 16px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  color: var(--ink);
+  gap: 18px;
+}
+
+#dr-portfolio .dr-acc-left{
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+#dr-portfolio .dr-acc-num{
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  font-weight: 800;
+  color: var(--accent);
+  margin-top: 2px;
+  width: 30px;
+  flex: 0 0 30px;
+}
+
+#dr-portfolio .dr-acc-head{
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+#dr-portfolio .dr-acc-title{
+  font-size: 16px;
+  font-weight: 720;
+  text-transform: none;
+}
+
+#dr-portfolio .dr-acc-body{
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+#dr-portfolio .dr-acc-icon{
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  width: 26px;
+  text-align: right;
+  margin-top: 2px;
+}
+
+#dr-portfolio .dr-acc-panel{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 260ms ease;
+}
+
+#dr-portfolio .dr-acc-item.is-open .dr-acc-panel{
+  max-height: 360px;
+}
+
+#dr-portfolio .dr-acc-list{
+  margin: 0 0 16px;
+  padding-left: 58px; /* aligns under text, not under number */
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 13px;
+}
+
+#dr-portfolio .dr-acc-list li{
+  margin: 8px 0;
+}
+
+/* Hover preview card (separate from traveling card) */
+#dr-portfolio .what-visual{
+  position: relative;
+}
+
+#dr-portfolio .hover-preview{
+  position: absolute;
+  right: -18px;
+  bottom: -18px;
+  width: min(280px, 38vw);
+  aspect-ratio: 4 / 3;
+  pointer-events: none;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.50);
+  border: 1px solid rgba(20,20,20,0.10);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+
+#dr-portfolio .hover-preview-inner{
+  width: 100%;
+  height: 100%;
+}
+
+#dr-portfolio .hover-preview-img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: saturate(1.05) contrast(1.02);
+  transform: scale(1.02);
+}
+
+/* Responsive: hide hover preview on mobile */
+@media (max-width: 980px){
+  #dr-portfolio .hover-preview{
+    display:none;
+  }
+  #dr-portfolio .dr-acc-item.is-open .dr-acc-panel{
+    max-height: 520px;
+  }
+}
+/* Make the row titles much bigger */
+#dr-portfolio .dr-acc-title{
+  font-size: 32px; /* ~2x */
+  font-weight: 780;
+  line-height: 1.05;
+}
+
+/* Title row wrapper so hover image can sit next to heading */
+#dr-portfolio .dr-acc-titleRow{
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+/* Bigger expand/collapse icon */
+#dr-portfolio .dr-acc-icon{
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--accent);
+  width: 44px;
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* Because title is bigger, tune body spacing */
+#dr-portfolio .dr-acc-body{
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin-top: 8px;
+}
+
+/* Keep list aligned under text */
+#dr-portfolio .dr-acc-list{
+  padding-left: 58px;
+  font-size: 13px;
+}
+
+/* Responsive: hide hover images on small screens */
+@media (max-width: 980px){
+  #dr-portfolio .dr-hover-pop{
+    display:none;
+  }
+  #dr-portfolio .dr-acc-title{
+    font-size: 22px;
+  }
+  #dr-portfolio .dr-acc-icon{
+    font-size: 28px;
+    width: 36px;
+  }
+}
+/* My Core Skills hover image behavior */
+.wicdHeadingHit {
+  position: relative;
+  display: inline-block;
+}
+
+.wicdHoverImgWrap {
+  position: absolute;
+  top: -18px;
+  left: calc(100% + 24px);
+  width: 260px; /* about 50% of traveling card, adjust if needed */
+  max-width: 34vw;
+  pointer-events: none; /* critical: hovering image does not keep it alive */
+  transform: translateY(0) rotate(-6deg);
+  opacity: 0;
+  animation: wicdHoverIn 160ms ease-out forwards;
+}
+
+@keyframes wicdHoverIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) rotate(-6deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-6deg);
+  }
+}
+
+.wicdHoverImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* When the accordion is open, make sure no hover image can appear */
+.wicdRow .wicdPanel.isOpen + .wicdHoverImgWrap {
+  display: none;
+}
+.dr-acc-titleRow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+/* -------------------- */
+/* Portavia-style pill nav */
+/* -------------------- */
+
+.siteNavWrap{
+  position: sticky;
+  top: 14px;
+  z-index: 80;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.siteNav{
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  backdrop-filter: blur(10px);
+}
+
+.siteNavLink,
+.siteNavBtn,
+.siteNavCta{
+  font: inherit;
+  color: rgba(0,0,0,0.72);
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.siteNavLink:hover,
+.siteNavBtn:hover{
+  background: rgba(0,0,0,0.04);
+  color: rgba(0,0,0,0.82);
+}
+
+.siteNavCta{
+  background: rgba(0,0,0,0.78);
+  color: rgba(255,255,255,0.92);
+  padding: 10px 16px;
+}
+
+.siteNavCta:hover{
+  background: rgba(0,0,0,0.88);
+}
+
+.siteNavItem{
+  position: relative;
+}
+
+.chev{
+  display: inline-block;
+  margin-left: 6px;
+  transform: translateY(-1px);
+  transition: transform 160ms ease;
+  opacity: 0.7;
+}
+
+.chev.isOpen{
+  transform: translateY(-1px) rotate(180deg);
+}
+
+/* Menus */
+.menu{
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 240px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.10);
+  backdrop-filter: blur(12px);
+  padding: 8px;
+}
+
+.menuLvl1{
+  animation: menuIn 140ms ease-out;
+}
+
+.menuRow{
+  position: relative;
+}
+
+.menuBtn,
+.menuLink{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  color: rgba(0,0,0,0.78);
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+.menuBtn:hover,
+.menuLink:hover{
+  background: rgba(0,0,0,0.04);
+}
+
+.menuArrow{
+  opacity: 0.55;
+  font-size: 16px;
+}
+
+.menuLvl2{
+  top: 0;
+  left: calc(100% + 10px);
+  min-width: 230px;
+  animation: menuIn 140ms ease-out;
+}
+
+@keyframes menuIn{
+  from{ transform: translateY(-6px); opacity: 0; }
+  to{ transform: translateY(0); opacity: 1; }
+}
+/* =========================
+   Paper grain overlay (global)
+   ========================= */
+
+/* --- GLOBAL GRAIN OVERLAY (covers entire page) --- */
+html, body { height: 100%; }
+body { margin: 0; }
+
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  /* stronger “crumbly” grain */
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+
+  /* makes it look more “crumbly” than smooth */
+  filter: contrast(140%) brightness(105%);
+}
+
+/* make sure the app sits above the grain */
+#dr-portfolio{
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
