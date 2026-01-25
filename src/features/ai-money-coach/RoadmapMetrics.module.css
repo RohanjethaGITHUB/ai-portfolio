@@ -1,0 +1,374 @@
+.scope {
+  width: 100%;
+}
+
+/* Top header row */
+.topRow {
+  margin-top: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ctrlBtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(55, 32, 18, 0.12);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 22px rgba(30, 18, 10, 0.06);
+  font-weight: 800;
+  font-size: 16px;
+  color: rgba(38, 22, 12, 0.82);
+  cursor: pointer;
+}
+
+.ctrlBtn:hover {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.ctrlToggle {
+  width: 52px;
+  font-size: 14px;
+}
+
+/* Story shell background */
+.storyShell {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 26px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background:
+    radial-gradient(900px 520px at 20% 0%, rgba(176, 122, 85, 0.10), transparent 60%),
+    radial-gradient(700px 420px at 90% 30%, rgba(55, 32, 18, 0.06), transparent 55%),
+    rgba(255, 255, 255, 0.55);
+  box-shadow: 0 18px 44px rgba(30, 18, 10, 0.07);
+}
+
+/* Story bars */
+.bars {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.bar {
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background: rgba(255, 255, 255, 0.62);
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: rgba(176, 122, 85, 0.42);
+  box-shadow: 0 0 0 3px rgba(176, 122, 85, 0.10);
+}
+
+.isNow {
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.isDone .fill {
+  width: 100%;
+}
+
+/* Main card */
+.stageCard {
+  border-radius: 22px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background: radial-gradient(900px 420px at 30% 0%, rgba(176, 122, 85, 0.08), transparent 62%),
+    rgba(255, 255, 255, 0.64);
+  padding: 18px;
+}
+
+.stageTop {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+/* Pill */
+.stagePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.stageNum {
+  font-size: 12px;
+  font-weight: 850;
+  color: rgba(38, 22, 12, 0.90);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stageKicker {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(38, 22, 12, 0.62);
+}
+
+/* Title */
+.stageTitle {
+  font-size: 18px;
+  font-weight: 850;
+  color: rgba(38, 22, 12, 0.92);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* Goal row */
+.goalRow {
+  margin-top: 2px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.goalLabel {
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(38, 22, 12, 0.55);
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.goalText {
+  font-size: 13px;
+  font-weight: 560;
+  color: rgba(38, 22, 12, 0.66);
+  line-height: 1.45;
+}
+
+/* Highlight chips */
+.highlights {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hChip {
+  font-size: 12px;
+  font-weight: 650;
+  color: rgba(38, 22, 12, 0.70);
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+/* Section header for scope block */
+.sectionHead {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 12px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background: rgba(255, 255, 255, 0.68);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 900;
+  color: rgba(38, 22, 12, 0.90);
+  letter-spacing: -0.01em;
+}
+
+.sectionHint {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(38, 22, 12, 0.58);
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  .sectionHead {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Two columns */
+.cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+.colCard {
+  border-radius: 18px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background: rgba(255, 255, 255, 0.70);
+  padding: 14px;
+}
+
+.colTitle {
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(38, 22, 12, 0.82);
+  margin-bottom: 10px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Lists */
+.list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+  color: rgba(38, 22, 12, 0.68);
+  font-weight: 560;
+  line-height: 1.45;
+}
+
+.list li {
+  font-weight: 560;
+}
+
+/* Divider between scope and metrics */
+.sectionDivider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(55, 32, 18, 0.14),
+    transparent
+  );
+}
+
+/* Metrics */
+.metricsWrap {
+  margin-top: 0;
+  border-radius: 18px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background:
+    radial-gradient(700px 320px at 20% 0%, rgba(176, 122, 85, 0.10), transparent 60%),
+    rgba(255, 255, 255, 0.66);
+  padding: 14px;
+}
+
+.metricsHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.metricsKicker {
+  font-size: 14px;
+  font-weight: 950;
+  color: rgba(38, 22, 12, 0.92);
+  letter-spacing: -0.01em;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.metricsHint {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(38, 22, 12, 0.58);
+  line-height: 1.4;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .metricsHead {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.metric {
+  border-radius: 16px;
+  border: 1px solid rgba(55, 32, 18, 0.10);
+  background: rgba(255, 255, 255, 0.74);
+  padding: 12px;
+}
+
+.metricK {
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(38, 22, 12, 0.60);
+}
+
+.metricV {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 850;
+  color: rgba(38, 22, 12, 0.90);
+  letter-spacing: -0.01em;
+}
+
+.metricS {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(38, 22, 12, 0.60);
+  line-height: 1.45;
+}
+
+/* Microcopy */
+.micro {
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(38, 22, 12, 0.56);
+  line-height: 1.4;
+}

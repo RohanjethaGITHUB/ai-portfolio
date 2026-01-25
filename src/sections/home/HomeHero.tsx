@@ -43,7 +43,7 @@ export function HomeHero() {
             <div className="kicker">ROHAN JETHA</div>
             <h1 className="h1">ARTIFICIAL</h1>
           </div>
-          <CardSlot imgSrc="/hero.png" />
+          <CardSlot imgSrc="/hero2.png" />
           {/* <CardSlot imgSrc="https://lightcyan-kangaroo-505256.hostingersite.com/wp-content/uploads/2025/12/ChatGPT-Image-Dec-18-2025-03_25_31-PM.png" /> */}
 
           <div className="hero-right">

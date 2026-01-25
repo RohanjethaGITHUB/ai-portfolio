@@ -1,0 +1,27 @@
+/* AiLeadGenPage.module.css
+   Keep this file intentionally small.
+   The page chrome (amc-*) is styled by your existing ai-money-coach.css.
+   This module is only for tiny page-specific overrides if needed.
+*/
+
+.page {
+  width: 100%;
+  position: relative;
+}
+
+/* Optional: slightly tighten spacing on this page only */
+:global(.amc-hero) {
+  padding-top: 56px;
+}
+
+/* Optional: reduce hero card height a bit on smaller screens */
+@media (max-width: 900px) {
+  :global(.amc-hero) {
+    padding-top: 44px;
+  }
+}
+
+/* If you ever need to slightly alter chips just for this page */
+:global(.amc-stageChip) {
+  /* leave empty for now to avoid unintended differences */
+}

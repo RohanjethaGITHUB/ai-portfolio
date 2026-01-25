@@ -3,20 +3,47 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-type MenuKey = "portfolio" | "teardowns" | "systems" | null;
+type TopMenu = "portfolio" | null;
 
 export function SiteNav() {
-  const [open, setOpen] = useState<MenuKey>(null);
+  const [openTop, setOpenTop] = useState<TopMenu>(null);
   const rootRef = useRef<HTMLDivElement | null>(null);
+
+  const closeTimerRef = useRef<number | null>(null);
+
+  function clearCloseTimer() {
+    if (closeTimerRef.current) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }
+
+  function closeAll() {
+    clearCloseTimer();
+    setOpenTop(null);
+  }
+
+  function openPortfolio() {
+    clearCloseTimer();
+    setOpenTop("portfolio");
+  }
+
+  function scheduleClose(ms = 120) {
+    clearCloseTimer();
+    closeTimerRef.current = window.setTimeout(() => {
+      setOpenTop(null);
+      closeTimerRef.current = null;
+    }, ms);
+  }
 
   useEffect(() => {
     function onDocMouseDown(e: MouseEvent) {
       const el = rootRef.current;
       if (!el) return;
-      if (!el.contains(e.target as Node)) setOpen(null);
+      if (!el.contains(e.target as Node)) closeAll();
     }
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(null);
+      if (e.key === "Escape") closeAll();
     }
 
     document.addEventListener("mousedown", onDocMouseDown);
@@ -27,95 +54,189 @@ export function SiteNav() {
     };
   }, []);
 
-  const toggle = (key: MenuKey) => setOpen((v) => (v === key ? null : key));
+  const topIsOpen = openTop === "portfolio";
+
+  const linkStyle: React.CSSProperties = {
+    textDecoration: "none",
+    color: "inherit",
+  };
+
+  const btnReset: React.CSSProperties = {
+    appearance: "none",
+    border: "none",
+    background: "transparent",
+    padding: 0,
+    margin: 0,
+    font: "inherit",
+    color: "inherit",
+    lineHeight: "inherit",
+    cursor: "pointer",
+  };
 
   return (
-    <div className="siteNavWrap" ref={rootRef}>
+    <div
+      className="siteNavWrap"
+      ref={rootRef}
+      data-portfolio-open={topIsOpen ? "true" : "false"}
+      style={{
+        position: "fixed",
+        top: 18,
+        left: "50%",
+        transform: "translateX(-50%)",
+        zIndex: 1000,
+        width: "max-content",
+      }}
+      onMouseEnter={() => clearCloseTimer()}
+      onMouseLeave={() => scheduleClose(140)}
+    >
       <nav className="siteNav" aria-label="Primary">
-        <Link className="siteNavLink" href="/">
+        <Link className="siteNavLink" href="/" style={linkStyle}>
           Home
         </Link>
 
+        {/* Portfolio */}
         <div
-            className="siteNavItem"
-            onMouseEnter={() => setOpen("portfolio")}
-            onMouseLeave={() => setOpen(null)}
-            >
+          className="siteNavItem"
+          style={{ position: "relative" }}
+          onMouseEnter={() => openPortfolio()}
+          onMouseLeave={() => scheduleClose(140)}
+        >
           <button
             type="button"
             className="siteNavBtn"
             aria-haspopup="menu"
-            aria-expanded={open === "portfolio"}
-            onClick={() => setOpen((v) => (v === "portfolio" ? null : "portfolio"))}
+            aria-expanded={topIsOpen}
+            onMouseEnter={() => openPortfolio()}
+            onFocus={() => openPortfolio()}
+            onClick={() => {
+              // Keep click support for touch devices
+              setOpenTop((v) => (v === "portfolio" ? null : "portfolio"));
+            }}
+            style={{
+              ...btnReset,
+            }}
           >
-            Portfolio <span className={`chev ${open === "portfolio" ? "isOpen" : ""}`}>▾</span>
+            Portfolio <span className={`chev ${topIsOpen ? "isOpen" : ""}`}>▾</span>
           </button>
 
-          {open === "portfolio" ? (
-            <div className="menu menuLvl1" role="menu">
-              <div className="menuRow">
-                <button
-                  type="button"
-                  className="menuBtn"
-                  role="menuitem"
-                  aria-haspopup="menu"
-                  aria-expanded={open === "teardowns"}
-                  onMouseEnter={() => setOpen("teardowns")}
-                  onFocus={() => setOpen("teardowns")}
-                  onClick={() => toggle("teardowns")}
-                >
-                  Company Tear Downs <span className="menuArrow">›</span>
-                </button>
+          {/* 2-column mega menu */}
+          <div
+            className={`megaMenu ${topIsOpen ? "isOpen" : "isClosed"}`}
+            role="menu"
+            aria-label="Portfolio"
+            onMouseEnter={() => openPortfolio()}
+            onMouseLeave={() => scheduleClose(140)}
+          >
+            <div className="megaGrid">
+              {/* Column 1 */}
+              <div className="megaCol">
+                <div className="megaHeading">Company Tear Downs</div>
+                <div className="megaLinks">
+                 <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/company-teardowns/razorpay"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
+                    <span className="megaLinkTitle">Razorpay</span>
+                    <span className="megaLinkArrow">›</span>
+                  </Link>
 
-                {open === "teardowns" ? (
-                  <div className="menu menuLvl2" role="menu">
-                    <Link className="menuLink" role="menuitem" href="/portfolio/company-teardowns/marlee">
-                      Marlee
-                    </Link>
-                    <Link className="menuLink" role="menuitem" href="/portfolio/company-teardowns/google">
-                      Google
-                    </Link>
-                  </div>
-                ) : null}
+
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/company-teardowns/google"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
+                    <span className="megaLinkTitle">Google</span>
+                    <span className="megaLinkArrow">›</span>
+                  </Link>
+
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/company-teardowns/stripe"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
+                    <span className="megaLinkTitle">Stripe (dummy)</span>
+                    <span className="megaLinkArrow">›</span>
+                  </Link>
+
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/company-teardowns/canva"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
+                    <span className="megaLinkTitle">Canva (dummy)</span>
+                    <span className="megaLinkArrow">›</span>
+                  </Link>
+                </div>
               </div>
 
-              <div className="menuRow">
-                <button
-                  type="button"
-                  className="menuBtn"
-                  role="menuitem"
-                  aria-haspopup="menu"
-                  aria-expanded={open === "systems"}
-                  onMouseEnter={() => setOpen("systems")}
-                  onFocus={() => setOpen("systems")}
-                  onClick={() => toggle("systems")}
-                >
-                  AI Systems Built <span className="menuArrow">›</span>
-                </button>
+              {/* Column 2 */}
+              <div className="megaCol">
+                <div className="megaHeading">AI Systems Built</div>
+                <div className="megaLinks">
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/ai-money-coach"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
+                    <span className="megaLinkTitle">AI Money Coach</span>
+                    <span className="megaLinkArrow">›</span>
+                  </Link>
 
-                {open === "systems" ? (
-                  <div className="menu menuLvl2" role="menu">
-                    <Link className="menuLink" role="menuitem" href="/portfolio/ai-systems/ai-money-coach">
-                      AI Money Coach
-                    </Link>
-                    <Link className="menuLink" role="menuitem" href="/portfolio/ai-systems/ai-personalized-lead-gen">
-                      AI Personalized Lead Gen
-                    </Link>
-                    <Link className="menuLink" role="menuitem" href="/portfolio/ai-systems/ai-end-to-end-recruiter">
-                      AI End-to-End Recruiter
-                    </Link>
-                  </div>
-                ) : null}
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/ai-lead-gen"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
+                    <span className="megaLinkTitle">AI Personalized Lead Gen</span>
+                    <span className="megaLinkArrow">›</span>
+                  </Link>
+
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/ai-end-to-end-recruiter"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
+                    <span className="megaLinkTitle">AI End-to-End Recruiter</span>
+                    <span className="megaLinkArrow">›</span>
+                  </Link>
+
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/influencer-discovery"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
+                    <span className="megaLinkTitle">Influencer Discovery (dummy)</span>
+                    <span className="megaLinkArrow">›</span>
+                  </Link>
+                </div>
               </div>
             </div>
-          ) : null}
+          </div>
         </div>
 
-        <Link className="siteNavLink" href="/about">
+        <Link className="siteNavLink" href="/about" style={linkStyle}>
           About
         </Link>
 
-        <Link className="siteNavCta" href="/contact">
+        <Link className="siteNavCta" href="/contact" style={linkStyle}>
           Contact
         </Link>
       </nav>

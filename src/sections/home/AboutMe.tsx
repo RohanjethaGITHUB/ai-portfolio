@@ -5,42 +5,70 @@ export function AboutMe() {
     <section className="section" id="about">
       <div className="wrap two-col flip">
         <div className="col-visual">
-          <CardSlot imgSrc="/rohan.png" />
+          <CardSlot imgSrc="/rohan-j.png" />
         </div>
 
         <div className="col-text">
-          <div className="mini-kicker">ABOUT</div>
-          <h2 className="h2">Builder mindset, product clarity</h2>
+          {/* Title + intro (matches reference structure) */}
+          <h2 className="h2">ABOUT ME</h2>
+
           <p className="p">
-            I care about two things: making decisions obvious, and shipping systems that hold up in
-            the real world.
+            Hi, I am Rohan, a product focused builder working at the intersection of UX, automation,
+            and AI. I care about crafting meaningful and impactful digital experiences that hold up
+            in the real world.
           </p>
 
-          <div className="about-blocks">
-            <div className="about-card">
-              <div className="about-title">How I work</div>
-              <div className="about-body">
-                Start with the user journey, pick a single decision to improve, then build the
-                smallest system that moves the metric.
-              </div>
+          {/* Stats row (3 columns) */}
+          <div className="aboutRefStats">
+            <div className="aboutRefStat">
+              <div className="aboutRefStatNum">10+</div>
+              <div className="aboutRefStatLabel">Years of Experience</div>
             </div>
 
-            <div className="about-card">
-              <div className="about-title">What I optimize for</div>
-              <div className="about-body">
-                Reliability, speed to value, and clean interfaces. If it needs constant babysitting,
-                it is not done.
-              </div>
+            <div className="aboutRefStat">
+              <div className="aboutRefStatNum">50+</div>
+              <div className="aboutRefStatLabel">Automations Shipped</div>
             </div>
 
-            <div className="about-card">
-              <div className="about-title">Where I add leverage</div>
-              <div className="about-body">
-                Turning messy requirements into a crisp plan, then executing with automation and
-                strong UX details.
-              </div>
+            <div className="aboutRefStat">
+              <div className="aboutRefStatNum">20+</div>
+              <div className="aboutRefStatLabel">Case Studies and Builds</div>
             </div>
           </div>
+
+          {/* Contact row (2 columns) */}
+          <div className="aboutRefContact">
+            <div className="aboutRefContactItem">
+              <div className="aboutRefContactTitle">Call Today :</div>
+              <div className="aboutRefContactValue">+61 (000) 000 000</div>
+            </div>
+
+            <div className="aboutRefContactItem">
+              <div className="aboutRefContactTitle">Email :</div>
+              <div className="aboutRefContactValue">rohan@yourdomain.com</div>
+            </div>
+          </div>
+
+          {/* Social icons row
+          <div className="aboutRefSocials" aria-label="Social links">
+            <a className="aboutRefSocial" href="#" aria-label="X">
+              X
+            </a>
+            <a className="aboutRefSocial" href="#" aria-label="Instagram">
+              IG
+            </a>
+            <a className="aboutRefSocial" href="#" aria-label="Behance">
+              Be
+            </a>
+            <a className="aboutRefSocial" href="#" aria-label="Dribbble">
+              Db
+            </a>
+          </div> */}
+
+          {/* Button */}
+          <a className="aboutRefBtn" href="https://www.linkedin.com/in/rohan-jetha-1fb13415133/">
+            LinkedIn
+          </a>
         </div>
       </div>
     </section>
