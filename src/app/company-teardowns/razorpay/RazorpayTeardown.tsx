@@ -27,6 +27,22 @@ export default function RazorpayTeardown() {
   const [activeId, setActiveId] = useState<Tab["id"]>("context");
   const [isFading, setIsFading] = useState(false);
 
+  const panelTint = useMemo(() => {
+    // Keep these subtle so the panel wash and arrow notch feel premium
+    switch (activeId) {
+      case "context":
+        return "rgba(120, 72, 40, 0.18)";
+      case "ai-capabilities":
+        return "rgba(70, 85, 120, 0.16)";
+      case "platform-architecture":
+        return "rgba(55, 95, 80, 0.14)";
+      case "execution-governance":
+        return "rgba(105, 75, 120, 0.14)";
+      default:
+        return "rgba(120, 72, 40, 0.18)";
+    }
+  }, [activeId]);
+
   const switchTab = (nextId: Tab["id"]) => {
     if (nextId === activeId) return;
 
@@ -80,25 +96,32 @@ export default function RazorpayTeardown() {
       </header>
 
       <section className={styles.ctShell}>
-        {/* Keep shell as a layout wrapper, not a competing card */}
         <div className={styles.ctShellInner}>
-          {/* Single connected container: tabs are the "top" of the content box */}
-          <div className={styles.ctSectionTabsWrap}>
-            <nav className={styles.ctTopTabs} aria-label="Sections">
-              {tabs.map((t) => (
-                <button
-                  key={t.id}
-                  type="button"
-                  onClick={() => switchTab(t.id)}
-                  className={`${styles.ctTab} ${activeId === t.id ? styles.ctTabActive : ""}`}
-                  aria-current={activeId === t.id ? "page" : undefined}
-                >
-                  {t.label}
-                </button>
-              ))}
-            </nav>
+          {/* One connected box, but ONLY the tabs bar is sticky */}
+          <div
+            className={styles.ctSectionTabsWrap}
+            style={{ ["--ctPanelTopTint" as any]: panelTint }}
+          >
+            <div className={styles.ctStickyTabsBar}>
+              <nav className={styles.ctTopTabs} aria-label="Sections">
+                {tabs.map((t) => (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => switchTab(t.id)}
+                    className={`${styles.ctTab} ${activeId === t.id ? styles.ctTabActive : ""}`}
+                    aria-current={activeId === t.id ? "page" : undefined}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </nav>
+            </div>
 
-            <div className={`${styles.ctPanel} ${isFading ? styles.ctPanelFading : ""}`} aria-live="polite">
+            <div
+              className={`${styles.ctPanel} ${isFading ? styles.ctPanelFading : ""}`}
+              aria-live="polite"
+            >
               {activeId === "context" && <Context />}
               {activeId === "ai-capabilities" && <AICapabilities />}
               {activeId === "platform-architecture" && <PlatformArchitecture />}

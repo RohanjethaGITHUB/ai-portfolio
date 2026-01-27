@@ -1,21 +1,23 @@
+/* Context.module.css */
+
+/* wrapper */
 .ctxSingle {
   width: 100%;
 }
 
-/* Shell */
+/* -------------------------
+   Rotator shell
+   ------------------------- */
 .storyWrap {
   border: 1px solid rgba(0, 0, 0, 0.10);
   border-radius: 18px;
   overflow: hidden;
-
   background:
-    radial-gradient(520px 260px at 18% 0%, rgba(120, 72, 40, 0.07), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.74);
-
+    radial-gradient(620px 300px at 18% 0%, rgba(120, 72, 40, 0.07), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.76);
   box-shadow:
     0 1px 0 rgba(0, 0, 0, 0.05),
-    0 14px 32px rgba(0, 0, 0, 0.05);
-
+    0 16px 34px rgba(0, 0, 0, 0.05);
   outline: none;
 }
 
@@ -24,7 +26,63 @@
   outline-offset: 3px;
 }
 
-/* Top rail */
+/* -------------------------
+   Slide header (fix for your hierarchy problem)
+   ------------------------- */
+.slideHeader {
+  padding: 22px 18px 12px;
+  background:
+    radial-gradient(640px 260px at 18% 0%, rgba(120, 72, 40, 0.10), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.90);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.slideTitle {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+  color: rgba(20, 16, 14, 0.94);
+}
+
+.slideDesc {
+  margin: 6px 0 0;
+  max-width: 980px;
+  font-size: 14.8px;
+  line-height: 1.65;
+  color: rgba(20, 16, 14, 0.78);
+}
+
+/* colored header tags under the slide heading */
+.headerTagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.hTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 850;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.70);
+  color: rgba(20, 16, 14, 0.84);
+}
+
+.hTag_conversion { background: rgba(120, 72, 40, 0.10); border-color: rgba(120, 72, 40, 0.20); }
+.hTag_risk { background: rgba(160, 74, 74, 0.10); border-color: rgba(160, 74, 74, 0.22); }
+.hTag_ops { background: rgba(70, 120, 120, 0.12); border-color: rgba(70, 120, 120, 0.22); }
+.hTag_measurable { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.12); }
+.hTag_platform { background: rgba(120, 72, 40, 0.10); border-color: rgba(120, 72, 40, 0.20); }
+.hTag_compliance { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.12); }
+
+/* -------------------------
+   Top rail: pills, controls, timeline
+   ------------------------- */
 .storyTop {
   padding: 14px 14px 10px;
   background: rgba(255, 255, 255, 0.45);
@@ -32,11 +90,90 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.storyBars {
-  display: grid;
-  grid-template-columns: repeat(var(--storyCount, 3), 1fr);
+.storyTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.storyMetaRow {
+  display: flex;
+  align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
+  justify-content: flex-start;
+}
+
+.storyPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.86);
+  font-size: 13px;
+  font-weight: 900;
+  color: rgba(60, 34, 18, 0.92);
+}
+
+.storyPillMuted {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  font-weight: 800;
+  opacity: 0.88;
+}
+
+.storyNavTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iconBtn {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.80);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.04),
+    0 10px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 140ms ease, opacity 140ms ease;
+}
+
+.iconBtn:hover {
+  transform: translateY(-1px);
+}
+
+.iconBtn:active {
+  transform: translateY(0);
+}
+
+.iconBtn:focus-visible {
+  outline: 2px solid rgba(120, 72, 40, 0.55);
+  outline-offset: 3px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: rgba(20, 16, 14, 0.78);
+}
+
+.storyBars {
+  --storyCount: 3;
+  display: grid;
+  grid-template-columns: repeat(var(--storyCount), 1fr);
+  gap: 10px;
 }
 
 .storyBar {
@@ -63,39 +200,12 @@
   background: rgba(120, 72, 40, 0.45);
 }
 
-.storyMetaRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.storyPill {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.80);
-  font-size: 13px;
-  font-weight: 800;
-  color: rgba(60, 34, 18, 0.92);
-}
-
-.storyPillMuted {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.65);
-  font-size: 13px;
-  opacity: 0.85;
-}
-
-/* Viewport */
+/* -------------------------
+   Viewport
+   ------------------------- */
 .storyViewport {
   position: relative;
-  padding: 16px 14px 14px;
+  padding: 16px 14px 16px;
 }
 
 .storyZones {
@@ -113,7 +223,6 @@
   cursor: pointer;
 }
 
-/* Main content layout */
 .storyGrid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
@@ -122,65 +231,58 @@
 }
 
 .storySlide {
-  padding: 16px;
+  padding: 18px;
   border-radius: 16px;
   border: 1px solid rgba(0, 0, 0, 0.10);
-
   background:
     radial-gradient(520px 240px at 20% 0%, rgba(120, 72, 40, 0.06), rgba(255, 255, 255, 0)),
     rgba(255, 255, 255, 0.82);
 }
 
-.storySide {
-  padding: 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.72);
-}
-
 .tagRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 7px 10px;
+  padding: 8px 12px;
   border-radius: 999px;
   border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.78);
-  font-size: 12.5px;
-  font-weight: 750;
-  color: rgba(50, 30, 18, 0.88);
+  background: rgba(255, 255, 255, 0.80);
+  font-size: 13px;
+  font-weight: 850;
+  opacity: 0.92;
 }
 
-.storyTitle {
+.panelTitle {
   margin: 0 0 8px;
   font-size: 18px;
+  font-weight: 950;
   color: rgba(20, 16, 14, 0.92);
 }
 
-.storyText {
-  margin: 0 0 12px;
-  opacity: 0.86;
-  line-height: 1.6;
+.panelBody {
+  margin: 0 0 14px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(20, 16, 14, 0.78);
 }
 
 .cardGrid {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 10px;
-  margin: 12px 0;
+  margin: 12px 0 14px;
 }
 
 .miniCard {
   border-radius: 14px;
   border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.72);
-  padding: 12px;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 12px 12px;
 }
 
 .miniCardTop {
@@ -192,329 +294,331 @@
 }
 
 .miniCardTitle {
-  font-weight: 850;
-  font-size: 14px;
+  font-weight: 950;
   color: rgba(20, 16, 14, 0.90);
 }
 
 .miniTag {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 9px;
+  padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid rgba(120, 72, 40, 0.18);
   background: rgba(120, 72, 40, 0.08);
-  font-size: 12px;
-  font-weight: 800;
+  font-weight: 850;
+  font-size: 12.5px;
   color: rgba(60, 34, 18, 0.88);
 }
 
 .miniCardDesc {
-  font-size: 13.5px;
-  line-height: 1.55;
-  opacity: 0.85;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(20, 16, 14, 0.76);
 }
 
 .storyList {
   margin: 0;
   padding-left: 18px;
-  opacity: 0.92;
   line-height: 1.65;
+  color: rgba(20, 16, 14, 0.78);
 }
 
 .callout {
-  margin-top: 12px;
-  padding: 12px 12px;
+  margin-top: 14px;
+  padding: 14px 14px;
   border-radius: 14px;
-  border: 1px solid rgba(120, 72, 40, 0.16);
+  border: 1px solid rgba(0, 0, 0, 0.10);
   background: rgba(120, 72, 40, 0.06);
 }
 
 .calloutTitle {
-  font-weight: 900;
-  font-size: 13px;
-  margin-bottom: 6px;
-  color: rgba(50, 28, 14, 0.92);
-  letter-spacing: 0.2px;
+  font-weight: 950;
   text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+  margin-bottom: 6px;
+  color: rgba(60, 34, 18, 0.90);
 }
 
 .calloutBody {
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.6;
-  opacity: 0.88;
+  color: rgba(20, 16, 14, 0.78);
 }
 
-
-
-.iconBtn {
-  appearance: none;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  background: rgba(255, 255, 255, 0.74);
-  border-radius: 999px;
-
-  width: 56px;
-  height: 56px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.05),
-    0 14px 26px rgba(0, 0, 0, 0.06);
-
-  transition: transform 140ms ease, opacity 140ms ease;
-}
-
-.iconBtn:hover {
-  transform: translateY(-1px);
-}
-
-.iconBtn:active {
-  transform: translateY(0);
-}
-
-.iconBtn:focus-visible {
-  outline: 2px solid rgba(120, 72, 40, 0.55);
-  outline-offset: 3px;
-}
-
-.icon {
-  width: 22px;
-  height: 22px;
-  color: rgba(40, 28, 18, 0.84);
-}
-
-/* Excal figure */
-.excalWrap {
+.storySide {
   width: 100%;
 }
 
-.excalSvg {
+.imageBox {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 12px;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.04),
+    0 12px 26px rgba(0, 0, 0, 0.05);
+}
+
+.image {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 12px;
 }
 
-.excalFrame {
-  fill: rgba(255, 255, 255, 0.70);
-  stroke: rgba(40, 28, 18, 0.26);
-  stroke-width: 2;
-}
-
-.excalTitle {
-  font-size: 18px;
-  font-weight: 900;
-  fill: rgba(40, 28, 18, 0.86);
-}
-
-.excalBox {
-  fill: rgba(255, 255, 255, 0.70);
-  stroke: rgba(40, 28, 18, 0.28);
-  stroke-width: 2;
-}
-
-.excalLabel {
-  font-size: 16px;
-  font-weight: 850;
-  fill: rgba(40, 28, 18, 0.84);
-}
-
-.excalArrow {
-  fill: none;
-  stroke: rgba(40, 28, 18, 0.36);
-  stroke-width: 2.2;
-  stroke-linecap: round;
-}
-
-.excalArrowHead {
-  fill: none;
-  stroke: rgba(40, 28, 18, 0.36);
-  stroke-width: 2.2;
-  stroke-linecap: round;
-}
-
-.excalNote {
-  fill: rgba(120, 72, 40, 0.06);
-  stroke: rgba(120, 72, 40, 0.22);
-  stroke-width: 2;
-}
-
-.excalNoteText {
-  font-size: 16px;
-  font-weight: 800;
-  fill: rgba(60, 34, 18, 0.86);
-}
-
-.excalGrain {
-  fill: rgba(255, 255, 255, 0.0);
-}
-
-/* Responsive */
-@media (max-width: 980px) {
-  .storyGrid {
-    grid-template-columns: 1fr;
-  }
-}
-/* Top row with arrows, above the timeline */
-.storyTopRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* -------------------------
+   Lift layout
+   ------------------------- */
+.liftViewport {
+  display: grid;
   gap: 14px;
+}
+
+.bannerBox {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 12px;
+  overflow: hidden;
+}
+
+.bannerImg {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+.recommendedRow {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.recommendedBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.80);
+  font-size: 12.5px;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(20, 16, 14, 0.72);
+}
+
+.solutionsHead {
+  padding: 0 2px;
+}
+
+.solutionsTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 950;
+  color: rgba(20, 16, 14, 0.92);
+}
+
+.solutionsSub {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(20, 16, 14, 0.74);
+}
+
+.liftGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+/* lift cards */
+.liftCard {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background:
+    radial-gradient(520px 260px at 18% 0%, rgba(120, 72, 40, 0.06), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.86);
+  padding: 14px;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.04),
+    0 12px 28px rgba(0, 0, 0, 0.05);
+}
+
+.solutionBadgeRow {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.solutionBadge {
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 950;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.80);
+}
+
+.liftCardHead {
   margin-bottom: 12px;
 }
 
-.storyNavTop {
+.liftTitleRow {
   display: flex;
-  gap: 12px;
   align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
 }
 
-/* Make the icon buttons match your screenshot style a bit more */
-.iconBtn {
-  appearance: none;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  background: rgba(255, 255, 255, 0.80);
+.liftTitle {
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.liftMetric {
+  padding: 7px 12px;
   border-radius: 999px;
-
-  width: 56px;
-  height: 56px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.05),
-    0 14px 26px rgba(0, 0, 0, 0.06);
-
-  transition: transform 140ms ease, opacity 140ms ease;
+  font-size: 12.5px;
+  font-weight: 900;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.78);
+  color: rgba(20, 16, 14, 0.80);
 }
 
-.iconBtn:hover {
-  transform: translateY(-1px);
+.liftSubtitle {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(20, 16, 14, 0.74);
 }
 
-.iconBtn:active {
-  transform: translateY(0);
-}
-
-.iconBtn:focus-visible {
-  outline: 2px solid rgba(120, 72, 40, 0.55);
-  outline-offset: 3px;
-}
-.headerTagRow {
+.chipRow {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 12px;
 }
 
-.hTag {
+.chip {
   display: inline-flex;
   align-items: center;
-  padding: 8px 11px;
+  padding: 8px 12px;
   border-radius: 999px;
   border: 1px solid rgba(0, 0, 0, 0.10);
   background: rgba(255, 255, 255, 0.78);
-  font-size: 12.5px;
+  font-size: 12.8px;
   font-weight: 850;
-  letter-spacing: 0.1px;
 }
 
-/* tones */
-.hTag_conversion {
-  border-color: rgba(140, 92, 42, 0.28);
-  background: rgba(140, 92, 42, 0.10);
-  color: rgba(70, 40, 16, 0.92);
-}
-
-.hTag_risk {
-  border-color: rgba(160, 70, 70, 0.26);
-  background: rgba(160, 70, 70, 0.10);
-  color: rgba(80, 26, 26, 0.92);
-}
-
-.hTag_ops {
-  border-color: rgba(70, 120, 120, 0.24);
-  background: rgba(70, 120, 120, 0.10);
-  color: rgba(18, 54, 54, 0.92);
-}
-
-.hTag_measurable {
-  border-color: rgba(90, 90, 90, 0.18);
-  background: rgba(90, 90, 90, 0.08);
-  color: rgba(30, 30, 30, 0.88);
-}
-
-.hTag_platform {
-  border-color: rgba(120, 72, 40, 0.22);
-  background: rgba(120, 72, 40, 0.09);
-  color: rgba(60, 34, 18, 0.92);
-}
-
-.hTag_compliance {
-  border-color: rgba(100, 90, 140, 0.22);
-  background: rgba(100, 90, 140, 0.10);
-  color: rgba(34, 30, 60, 0.92);
-}
-.panelTitle {
-  margin: 0 0 8px;
-  font-size: 16px;
-  font-weight: 900;
-  color: rgba(20, 16, 14, 0.92);
-}
-
-.panelBody {
+.liftList {
   margin: 0 0 12px;
-  opacity: 0.86;
+  padding-left: 18px;
   line-height: 1.65;
+  color: rgba(20, 16, 14, 0.78);
 }
-.imageBox {
-  width: 100%;
-  border-radius: 16px;
+
+/* RICE */
+.riceWrap {
+  border-radius: 14px;
   border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.74);
+  padding: 12px;
+}
+
+.riceTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.riceLabel {
+  font-weight: 950;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(20, 16, 14, 0.70);
+}
+
+.riceScore {
+  font-weight: 950;
+  font-size: 16px;
+}
+
+.riceGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.riceItem {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.riceKey {
+  font-size: 13px;
+  font-weight: 900;
+  color: rgba(20, 16, 14, 0.72);
+}
+
+.riceBar,
+.riceBarEffort {
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(0, 0, 0, 0.04);
   overflow: hidden;
 }
 
-.imageBoxInner {
-  min-height: 260px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 18px;
-  gap: 8px;
-
-  background:
-    radial-gradient(520px 220px at 18% 0%, rgba(120, 72, 40, 0.06), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.72);
-}
-
-.imageBoxTitle {
-  font-weight: 950;
-  font-size: 14px;
-  letter-spacing: 0.2px;
-  color: rgba(20, 16, 14, 0.86);
-  text-transform: uppercase;
-}
-
-.imageBoxSub {
-  font-size: 13.5px;
-  opacity: 0.78;
-  line-height: 1.55;
-}
-
-.image {
-  width: 100%;
-  height: 100%;
+.riceBarFill {
   display: block;
-  object-fit: cover; /* use contain if you prefer no cropping */
-  border-radius: 16px;
+  height: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: rgba(120, 72, 40, 0.45);
+}
+
+.riceHint {
+  grid-column: 2 / 3;
+  font-size: 12px;
+  margin-top: 4px;
+  color: rgba(20, 16, 14, 0.60);
+}
+
+/* tone helpers */
+.toneText_conversion { color: rgba(60, 34, 18, 0.92); }
+.toneText_risk { color: rgba(120, 46, 46, 0.92); }
+.toneText_ops { color: rgba(32, 86, 86, 0.92); }
+
+.toneBorder_conversion { border-color: rgba(120, 72, 40, 0.18); }
+.toneBorder_risk { border-color: rgba(160, 74, 74, 0.22); }
+.toneBorder_ops { border-color: rgba(70, 120, 120, 0.22); }
+
+.tonePill_conversion { background: rgba(120, 72, 40, 0.10); border-color: rgba(120, 72, 40, 0.18); }
+.tonePill_risk { background: rgba(160, 74, 74, 0.10); border-color: rgba(160, 74, 74, 0.20); }
+.tonePill_ops { background: rgba(70, 120, 120, 0.12); border-color: rgba(70, 120, 120, 0.20); }
+
+.toneChip_conversion { background: rgba(120, 72, 40, 0.08); border-color: rgba(120, 72, 40, 0.16); }
+.toneChip_risk { background: rgba(160, 74, 74, 0.08); border-color: rgba(160, 74, 74, 0.16); }
+.toneChip_ops { background: rgba(70, 120, 120, 0.10); border-color: rgba(70, 120, 120, 0.18); }
+
+/* -------------------------
+   Responsive
+   ------------------------- */
+@media (max-width: 980px) {
+  .storyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .liftGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .bannerImg {
+    height: 200px;
+  }
 }

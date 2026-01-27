@@ -4,6 +4,7 @@ import { WhatICanDo } from "../sections/home/WhatICanDo";
 import { AboutMe } from "../sections/home/AboutMe";
 import { FeaturedProjects } from "../sections/home/FeaturedProjects";
 
+
 export default function Page() {
   return (
     <main id="dr-portfolio">

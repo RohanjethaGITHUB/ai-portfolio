@@ -106,43 +106,54 @@ html {
 }
 
 /* -------------------------
-   Sticky container
+   Connected container
    ------------------------- */
 
 .ctSectionTabsWrap {
-  position: sticky;
-  top: 92px;
-  z-index: 30;
+  --ctPanelTopTint: rgba(120, 72, 40, 0.18);
 
-  /* Single source of truth for the panel top wash */
-  --ctPanelTopTint: rgba(120, 72, 40, 0.10);
-
-  border-radius: 18px;
+  border-radius: 26px;
   border: 1px solid rgba(0, 0, 0, 0.10);
-  overflow: hidden;
 
   background:
-    radial-gradient(900px 420px at 40% 0%, rgba(120, 72, 40, 0.08), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.74);
+    radial-gradient(900px 520px at 45% 0%, rgba(120, 72, 40, 0.10), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.58);
 
-  box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.05),
-    0 18px 40px rgba(0, 0, 0, 0.07),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
 }
 
-/* Tabs row */
+/* -------------------------
+   Sticky tabs bar (ONLY this sticks)
+   ------------------------- */
+
+.ctStickyTabsBar {
+  position: sticky;
+  top: 74px;
+  z-index: 80;
+
+  /* Reserve space so content never slides under the sticky bar */
+  margin-bottom: 18px;
+
+  background:
+    radial-gradient(900px 420px at 40% 0%, rgba(70, 40, 25, 0.22), rgba(255, 255, 255, 0)),
+    rgba(232, 224, 216, 0.92);
+
+  backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+}
+
 .ctTopTabs {
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 14px;
+  padding: 18px;
   flex-wrap: wrap;
-  gap: 12px;
-
-  padding: 18px 18px 14px;
+  overflow: visible; /* notch arrow must not get clipped */
   margin: 0;
-
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(10px);
 }
 
 /* Tabs */
@@ -214,36 +225,8 @@ html {
   outline-offset: 2px;
 }
 
-/* -------------------------
-   Content panel
-   ------------------------- */
-
-.ctPanel {
-  padding: 30px 22px 22px;
-
-  background:
-    linear-gradient(
-      to bottom,
-      var(--ctPanelTopTint),
-      rgba(255, 255, 255, 0) 190px
-    );
-
-  position: relative;
-
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 160ms ease, transform 160ms ease;
-}
-
-.ctPanelFading {
-  opacity: 0;
-  transform: translateY(6px);
-}
-
 /* =========================
    Notch arrow (blended)
-   This is a real element with a gradient,
-   so it matches the panel top wash instead of a flat triangle.
    ========================= */
 
 .ctTabActive::before {
@@ -265,11 +248,10 @@ html {
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   pointer-events: none;
 
-  /* keep it subtle so it feels like part of the panel */
   filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.06));
 }
 
-/* Very soft edge, not an outline */
+/* Soft edge behind arrow */
 .ctTabActive::after {
   content: "";
   position: absolute;
@@ -285,6 +267,33 @@ html {
   pointer-events: none;
 
   z-index: -1;
+}
+
+/* -------------------------
+   Content panel (scrolls normally)
+   ------------------------- */
+
+.ctPanel {
+  padding: 34px 22px 22px;   /* also helps your #2 request */
+  background:
+    linear-gradient(
+      to bottom,
+      var(--ctPanelTopTint),
+      rgba(255, 255, 255, 0) 190px
+    );
+
+  position: relative;
+
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 160ms ease, transform 160ms ease;
+    display: flow-root;
+
+}
+
+.ctPanelFading {
+  opacity: 0;
+  transform: translateY(6px);
 }
 
 /* -------------------------
@@ -450,17 +459,19 @@ html {
     justify-content: flex-start;
   }
 
-  .ctSectionTabsWrap {
-    top: 86px;
+  .ctStickyTabsBar {
+    top: 86px; /* mobile nav tends to be taller */
+    margin-bottom: 14px;
   }
 
   .ctTopTabs {
-    justify-content: flex-start;
+    padding: 14px;
+    gap: 10px;
   }
 
   .ctPanel {
-    padding: 18px 18px 18px;
-  }
+ padding: 40px 22px 22px;
+  display: flow-root;  }
 
   .card {
     grid-column: span 12;

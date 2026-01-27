@@ -1,3 +1,4 @@
+// Context.tsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "../razorpay.module.css";
 import context from "./Context.module.css";
@@ -9,23 +10,48 @@ type HeaderTag = {
   tone: Tone;
 };
 
+type Rice = {
+  reach: number; // 1..10
+  impact: number; // 1..10
+  confidence: number; // 1..10
+  effort: number; // 1..10 (lower is better)
+};
+
+type LiftItem = {
+  tone: "conversion" | "risk" | "ops";
+  title: string;
+  subtitle: string;
+  chips: string[];
+  bullets: string[];
+  metric: string;
+  rice: Rice;
+};
+
+type SlideKey = "platform" | "constraints" | "lift";
+type SlideLayout = "default" | "lift";
+
 type Slide = {
-  key: "platform" | "constraints" | "lift";
+  key: SlideKey;
   label: string;
   title: string;
   body: string;
-
   headerTags: HeaderTag[];
 
-  tags: string[];
-  bullets: string[];
-  cards: { title: string; desc: string; tag?: string }[];
-  calloutTitle: string;
-  calloutBody: string;
+  layout: SlideLayout;
 
-  // New, non duplicate copy for the content card
-  panelTitle: string;
-  panelBody: string;
+  // default layout fields
+  tags?: string[];
+  bullets?: string[];
+  cards?: { title: string; desc: string; tag?: string }[];
+  calloutTitle?: string;
+  calloutBody?: string;
+  panelTitle?: string;
+  panelBody?: string;
+  imageSrc?: string;
+
+  // lift layout fields
+  bannerSrc?: string;
+  liftItems?: LiftItem[];
 };
 
 function IconChevronLeft() {
@@ -86,100 +112,175 @@ function IconPlay() {
   );
 }
 
+function clamp01(n: number) {
+  return Math.max(0, Math.min(1, n));
+}
+
+function riceScore(r: Rice) {
+  const score = (r.reach * r.impact * r.confidence) / Math.max(1, r.effort);
+  return Math.round(score * 10) / 10;
+}
+
+function RiceRow({ tone, rice }: { tone: LiftItem["tone"]; rice: Rice }) {
+  const score = riceScore(rice);
+
+  const mkBar = (value: number) => {
+    const p = clamp01(value / 10);
+    return <span className={context.riceBarFill} style={{ transform: `scaleX(${p})` }} />;
+  };
+
+  return (
+    <div className={context.riceWrap}>
+      <div className={context.riceTop}>
+        <div className={context.riceLabel}>RICE</div>
+        <div className={`${context.riceScore} ${context[`toneText_${tone}`]}`}>{score}</div>
+      </div>
+
+      <div className={context.riceGrid}>
+        <div className={context.riceItem}>
+          <div className={context.riceKey}>Reach</div>
+          <div className={context.riceBar}>{mkBar(rice.reach)}</div>
+        </div>
+
+        <div className={context.riceItem}>
+          <div className={context.riceKey}>Impact</div>
+          <div className={context.riceBar}>{mkBar(rice.impact)}</div>
+        </div>
+
+        <div className={context.riceItem}>
+          <div className={context.riceKey}>Confidence</div>
+          <div className={context.riceBar}>{mkBar(rice.confidence)}</div>
+        </div>
+
+        <div className={context.riceItem}>
+          <div className={context.riceKey}>Effort</div>
+          <div className={context.riceBarEffort}>{mkBar(10 - rice.effort)}</div>
+          <div className={context.riceHint}>Lower effort scores higher</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LiftCard({ item }: { item: LiftItem }) {
+  return (
+    <div className={`${context.liftCard} ${context[`toneBorder_${item.tone}`]}`}>
+      <div className={context.solutionBadgeRow}>
+        <span className={`${context.solutionBadge} ${context[`tonePill_${item.tone}`]}`}>
+          Suggested AI solution
+        </span>
+      </div>
+
+      <div className={context.liftCardHead}>
+        <div className={context.liftTitleRow}>
+          <div className={`${context.liftTitle} ${context[`toneText_${item.tone}`]}`}>{item.title}</div>
+          <span className={`${context.liftMetric} ${context[`tonePill_${item.tone}`]}`}>
+            Metric: {item.metric}
+          </span>
+        </div>
+
+        <div className={context.liftSubtitle}>{item.subtitle}</div>
+
+        <div className={context.chipRow}>
+          {item.chips.map((c) => (
+            <span key={c} className={`${context.chip} ${context[`toneChip_${item.tone}`]}`}>
+              {c}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <ul className={context.liftList}>
+        {item.bullets.map((b, idx) => (
+          <li key={`${item.title}-b-${idx}`}>{b}</li>
+        ))}
+      </ul>
+
+      <RiceRow tone={item.tone} rice={item.rice} />
+    </div>
+  );
+}
+
 function StoryRotator({
   slides,
   ariaLabel,
-  autoMs = 7500,
-  onActiveChange,
 }: {
   slides: Slide[];
   ariaLabel: string;
-  autoMs?: number;
-  onActiveChange?: (slide: Slide, index: number) => void;
 }) {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+const [active, setActive] = useState(0);
+const [paused, setPaused] = useState(false);
+const [progress, setProgress] = useState(0);
 
   const rafRef = useRef<number | null>(null);
-  const startedAtRef = useRef<number | null>(null);
-  const elapsedRef = useRef(0);
-  const [progress, setProgress] = useState(0);
+  const lastRef = useRef<number | null>(null);
 
-  const count = slides.length;
+  const activeSlide = slides[Math.max(0, Math.min(slides.length - 1, active))];
 
   const goTo = (idx: number) => {
-    const next = (idx + count) % count;
-    setActive(next);
-    elapsedRef.current = 0;
-    startedAtRef.current = null;
+    const clamped = Math.max(0, Math.min(slides.length - 1, idx));
+    setActive(clamped);
     setProgress(0);
   };
 
-  const prev = () => goTo(active - 1);
-  const next = () => goTo(active + 1);
-
-  useEffect(() => {
-    onActiveChange?.(slides[active], active);
-  }, [active, slides, onActiveChange]);
+  const next = () => goTo(active + 1 >= slides.length ? 0 : active + 1);
+  const prev = () => goTo(active - 1 < 0 ? slides.length - 1 : active - 1);
 
   useEffect(() => {
     if (paused) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
-      startedAtRef.current = null;
+      lastRef.current = null;
       return;
     }
 
-    const tick = (t: number) => {
-      if (startedAtRef.current === null) startedAtRef.current = t;
+    const durationMs = 9000;
 
-      const delta = t - startedAtRef.current;
-      startedAtRef.current = t;
+    const tick = (ts: number) => {
+      if (lastRef.current == null) lastRef.current = ts;
+      const dt = ts - lastRef.current;
+      lastRef.current = ts;
 
-      elapsedRef.current += delta;
-
-      const p = Math.min(1, elapsedRef.current / autoMs);
-      setProgress(p);
-
-      if (p >= 1) {
-        goTo(active + 1);
-        return;
-      }
+      setProgress((p) => {
+        const nextP = p + dt / durationMs;
+        if (nextP >= 1) {
+          // advance slide
+          setTimeout(() => next(), 0);
+          return 0;
+        }
+        return nextP;
+      });
 
       rafRef.current = requestAnimationFrame(tick);
     };
 
     rafRef.current = requestAnimationFrame(tick);
-
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
-      startedAtRef.current = null;
+      lastRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active, paused, autoMs]);
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft") prev();
-    if (e.key === "ArrowRight") next();
-    if (e.key === " " || e.key === "Spacebar") {
-      e.preventDefault();
-      setPaused((v) => !v);
-    }
-  };
-
-  const activeSlide = slides[active];
+  }, [paused, active]);
 
   return (
-    <div
-      className={context.storyWrap}
-      role="group"
-      aria-label={ariaLabel}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onKeyDown={onKeyDown}
-      tabIndex={0}
-    >
+    <div className={context.storyWrap} aria-label={ariaLabel} tabIndex={0}>
+      {/* Slide heading now lives INSIDE the rotator so it is visually attached */}
+      <div className={context.slideHeader}>
+        <h2 className={context.slideTitle}>{activeSlide.title}</h2>
+        <p className={context.slideDesc}>{activeSlide.body}</p>
+
+        {activeSlide.headerTags?.length ? (
+          <div className={context.headerTagRow}>
+            {activeSlide.headerTags.map((t) => (
+              <span key={t.label} className={`${context.hTag} ${context[`hTag_${t.tone}`]}`}>
+                {t.label}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </div>
+
       <div className={context.storyTop}>
         <div className={context.storyTopRow}>
           <div className={context.storyMetaRow}>
@@ -195,9 +296,10 @@ function StoryRotator({
             <button
               type="button"
               className={context.iconBtn}
-              onClick={() => setPaused((v) => !v)}
+              onClick={() => setPaused((p) => !p)}
               aria-label={paused ? "Play" : "Pause"}
-              aria-pressed={paused}
+              aria-pressed={!paused}
+
             >
               {paused ? <IconPlay /> : <IconPause />}
             </button>
@@ -238,57 +340,96 @@ function StoryRotator({
           <button type="button" className={context.storyZone} onClick={next} aria-label="Next" tabIndex={-1} />
         </div>
 
-        <div className={context.storyGrid}>
-          <article className={context.storySlide}>
-            <div className={context.tagRow}>
-              {activeSlide.tags.map((t) => (
-                <span key={t} className={context.tag}>
-                  {t}
-                </span>
-              ))}
-            </div>
-
-            {/* NEW COPY: no duplicate title/body */}
-            <h3 className={context.panelTitle}>{activeSlide.panelTitle}</h3>
-            <p className={context.panelBody}>{activeSlide.panelBody}</p>
-
-            <div className={context.cardGrid}>
-              {activeSlide.cards.map((c, idx) => (
-                <div key={`${c.title}-${idx}`} className={context.miniCard}>
-                  <div className={context.miniCardTop}>
-                    <div className={context.miniCardTitle}>{c.title}</div>
-                    {c.tag ? <span className={context.miniTag}>{c.tag}</span> : null}
-                  </div>
-                  <div className={context.miniCardDesc}>{c.desc}</div>
-                </div>
-              ))}
-            </div>
-
-            <ul className={context.storyList}>
-              {activeSlide.bullets.map((b, idx) => (
-                <li key={`${activeSlide.label}-b-${idx}`}>{b}</li>
-              ))}
-            </ul>
-
-            <div className={context.callout}>
-              <div className={context.calloutTitle}>{activeSlide.calloutTitle}</div>
-              <div className={context.calloutBody}>{activeSlide.calloutBody}</div>
-            </div>
-          </article>
-
-          {/* RIGHT COLUMN: image placeholder (PNG later) */}
-          <aside className={context.storySide}>
-            <div className={context.imageBox}>
+        {activeSlide.layout === "lift" ? (
+          <div className={context.liftViewport}>
+            <div className={context.bannerBox}>
               <img
-                src="/context.png"
-                alt="Core surface areas diagram"
-                className={context.image}
+                src={activeSlide.bannerSrc ?? "/lift.png"}
+                alt="AI lift summary"
+                className={context.bannerImg}
                 loading="lazy"
               />
             </div>
-          </aside>
 
-        </div>
+            <div className={context.recommendedRow}>
+              <span className={context.recommendedBadge}>Recommended</span>
+            </div>
+
+            <div className={context.solutionsHead}>
+              <h3 className={context.solutionsTitle}>Suggested AI solutions</h3>
+              <p className={context.solutionsSub}>
+                Three solution packs, each tied to a primary metric and a quick RICE estimate.
+              </p>
+            </div>
+
+            <div className={context.liftGrid}>
+              {(activeSlide.liftItems ?? []).map((it) => (
+                <LiftCard key={it.title} item={it} />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className={context.storyGrid}>
+            <article className={context.storySlide}>
+              {activeSlide.tags?.length ? (
+                <div className={context.tagRow}>
+                  {activeSlide.tags.map((t) => (
+                    <span key={t} className={context.tag}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+
+              {activeSlide.panelTitle ? <h3 className={context.panelTitle}>{activeSlide.panelTitle}</h3> : null}
+              {activeSlide.panelBody ? <p className={context.panelBody}>{activeSlide.panelBody}</p> : null}
+
+              {activeSlide.cards?.length ? (
+                <div className={context.cardGrid}>
+                  {activeSlide.cards.map((c, idx) => (
+                    <div key={`${c.title}-${idx}`} className={context.miniCard}>
+                      <div className={context.miniCardTop}>
+                        <div className={context.miniCardTitle}>{c.title}</div>
+                        {c.tag ? <span className={context.miniTag}>{c.tag}</span> : null}
+                      </div>
+                      <div className={context.miniCardDesc}>{c.desc}</div>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+
+              {activeSlide.bullets?.length ? (
+                <ul className={context.storyList}>
+                  {activeSlide.bullets.map((b, idx) => (
+                    <li key={`${activeSlide.label}-b-${idx}`}>{b}</li>
+                  ))}
+                </ul>
+              ) : null}
+
+              {activeSlide.calloutTitle || activeSlide.calloutBody ? (
+                <div className={context.callout}>
+                  {activeSlide.calloutTitle ? (
+                    <div className={context.calloutTitle}>{activeSlide.calloutTitle}</div>
+                  ) : null}
+                  {activeSlide.calloutBody ? (
+                    <div className={context.calloutBody}>{activeSlide.calloutBody}</div>
+                  ) : null}
+                </div>
+              ) : null}
+            </article>
+
+            <aside className={context.storySide}>
+              <div className={context.imageBox}>
+                <img
+                  src={activeSlide.imageSrc ?? "/context.png"}
+                  alt={`${activeSlide.title} diagram`}
+                  className={context.image}
+                  loading="lazy"
+                />
+              </div>
+            </aside>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -303,18 +444,16 @@ export default function Context() {
         title: "What the platform does",
         body:
           "Razorpay is a payments and money movement platform. It helps businesses accept payments, move funds, and reconcile money flows across multiple rails.",
-
         headerTags: [
           { label: "Payments OS", tone: "platform" },
           { label: "Money movement", tone: "ops" },
           { label: "Merchant tooling", tone: "measurable" },
         ],
-
+        layout: "default",
         tags: ["Surface area", "Reliability first", "Multi product"],
         panelTitle: "Core surface areas (quick map)",
         panelBody:
-          "Think of Razorpay as three connected surfaces: checkout completion, money movement, and reporting. The most important thing is not features. It is where failures show up and how teams recover.",
-
+          "Think of Razorpay as three connected surfaces: checkout completion, money movement, and reporting. The most important thing is where failures show up and how teams recover.",
         cards: [
           { title: "Accept", desc: "Checkout orchestration across cards, UPI, netbanking, wallets.", tag: "Conversion" },
           { title: "Move", desc: "Payouts, refunds, settlements, dispute flows.", tag: "Reliability" },
@@ -327,6 +466,7 @@ export default function Context() {
         ],
         calloutTitle: "Context lens",
         calloutBody: "Before AI, map the surface area and the failure modes. Safe automation starts there.",
+        imageSrc: "/context.png",
       },
       {
         key: "constraints",
@@ -334,18 +474,16 @@ export default function Context() {
         title: "Primary constraints",
         body:
           "Payments systems operate under strict reliability, fraud, and compliance constraints. Small regressions can become expensive trust failures.",
-
         headerTags: [
           { label: "Latency budgets", tone: "conversion" },
           { label: "Fraud pressure", tone: "risk" },
           { label: "Auditability", tone: "compliance" },
         ],
-
+        layout: "default",
         tags: ["Non negotiables", "Fallbacks", "Monitoring"],
         panelTitle: "Constraints you cannot negotiate",
         panelBody:
           "Payments is adversarial and time sensitive. Any intelligence layer must stay controllable, debuggable, and reversible. A smart feature that cannot be explained becomes a support liability.",
-
         cards: [
           { title: "Latency", desc: "Checkout must feel instant. Slow paths kill completion.", tag: "Real time" },
           { title: "Fraud", desc: "Adversarial behavior changes constantly.", tag: "Adaptive" },
@@ -358,6 +496,7 @@ export default function Context() {
         ],
         calloutTitle: "Guardrail rule",
         calloutBody: "If the system cannot explain a decision to a human, it should not be making that decision.",
+        imageSrc: "/constraints.png",
       },
       {
         key: "lift",
@@ -365,72 +504,64 @@ export default function Context() {
         title: "Where AI can drive lift",
         body:
           "AI should lift conversion, reduce fraud losses, and improve ops efficiency while staying measurable and explainable.",
-
-        // These are the new tags that will appear under the main heading (section header)
         headerTags: [
           { label: "Conversion", tone: "conversion" },
           { label: "Risk", tone: "risk" },
           { label: "Ops efficiency", tone: "ops" },
           { label: "Measurable", tone: "measurable" },
         ],
-
-        tags: ["Start assistive", "Instrument first", "Scale carefully"],
-        panelTitle: "Lift levers (practical and safe)",
-        panelBody:
-          "The fastest wins come from assistive workflows: explain patterns, suggest next actions, and reduce time to resolution. Automation comes after the system proves it can be measured and rolled back.",
-
-        cards: [
-          { title: "Conversion", desc: "Smarter retries, routing hints, drop off diagnosis.", tag: "Revenue" },
-          { title: "Risk", desc: "Anomaly detection, merchant risk briefings, adaptive friction.", tag: "Losses" },
-          { title: "Support", desc: "Ticket triage, plain language root cause, next best action.", tag: "Efficiency" },
+        layout: "lift",
+        bannerSrc: "/lift.png", // you can swap this with your final image later
+        liftItems: [
+          {
+            tone: "conversion",
+            title: "Conversion lift",
+            subtitle: "Reduce avoidable checkout failures and shorten the path to success.",
+            metric: "Payment success rate",
+            chips: ["Retry intelligence", "Drop off diagnosis", "Routing hints"],
+            bullets: [
+              "Explain why failures cluster by method, issuer, device, or time",
+              "Recommend the next best retry path based on recent patterns",
+              "Surface the top friction points by cohort, not raw logs",
+            ],
+            rice: { reach: 9, impact: 7, confidence: 8, effort: 5 },
+          },
+          {
+            tone: "risk",
+            title: "Risk lift",
+            subtitle: "Improve loss outcomes with explainable signals and targeted friction.",
+            metric: "Chargeback rate",
+            chips: ["Anomaly narratives", "Merchant risk brief", "Adaptive friction"],
+            bullets: [
+              "Summarize what changed and why it matters for risk teams",
+              "Prioritize investigations using clusters, not single events",
+              "Suggest where to add friction with a clear reason and rollback",
+            ],
+            rice: { reach: 6, impact: 6, confidence: 7, effort: 5 },
+          },
+          {
+            tone: "ops",
+            title: "Ops efficiency",
+            subtitle: "Cut time to resolution by turning system signals into clear actions.",
+            metric: "Time to resolution",
+            chips: ["Ticket triage", "Plain language root cause", "Next steps"],
+            bullets: [
+              "Classify tickets by likely root cause, not symptom text",
+              "Translate logs and webhooks into readable incident summaries",
+              "Recommend next best actions and owner routing for faster closure",
+            ],
+            rice: { reach: 9, impact: 7, confidence: 8, effort: 4 },
+          },
         ],
-        bullets: [
-          "Tie lift to one metric per feature: success rate, chargeback rate, time to resolution",
-          "Start with suggestions and summaries, then expand to automation",
-          "Ship in increments: measure, then scale",
-        ],
-        calloutTitle: "What matters",
-        calloutBody: "Lift is outcomes with guardrails. Every change needs a success metric and a rollback path.",
       },
     ],
     []
   );
 
-  const [activeTitle, setActiveTitle] = useState(slides[0]?.title ?? "Context");
-  const [activeSub, setActiveSub] = useState(slides[0]?.body ?? "");
-  const [activeHeaderTags, setActiveHeaderTags] = useState<HeaderTag[]>(slides[0]?.headerTags ?? []);
-
   return (
     <section id="context" className={styles.section}>
-      <div className={styles.sectionHeader}>
-        <h2 className={styles.sectionTitle}>{activeTitle}</h2>
-        <p className={styles.sectionDesc}>{activeSub}</p>
-
-        {/* NEW: colored tags under the heading in the same header box */}
-        {activeHeaderTags.length > 0 ? (
-          <div className={context.headerTagRow}>
-            {activeHeaderTags.map((t) => (
-              <span
-                key={t.label}
-                className={`${context.hTag} ${context[`hTag_${t.tone}`]}`}
-              >
-                {t.label}
-              </span>
-            ))}
-          </div>
-        ) : null}
-      </div>
-
       <div className={context.ctxSingle}>
-        <StoryRotator
-          slides={slides}
-          ariaLabel="Context story"
-          onActiveChange={(s) => {
-            setActiveTitle(s.title);
-            setActiveSub(s.body);
-            setActiveHeaderTags(s.headerTags ?? []);
-          }}
-        />
+        <StoryRotator slides={slides} ariaLabel="Context story" />
       </div>
     </section>
   );
