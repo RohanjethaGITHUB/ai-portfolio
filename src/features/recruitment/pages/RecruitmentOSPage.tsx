@@ -11,14 +11,12 @@ import { Coverage } from "../sections/Coverage";
 import { Control } from "../sections/Control";
 import { HowItRuns } from "../sections/HowItRuns";
 import { Impact } from "../sections/Impact";
-import { Implementation } from "../sections/Implementation";
 
 const SECTIONS = [
   { id: "recruitment-coverage", label: "System Overview", tag: "1" },
   { id: "control", label: "Control", tag: "2" },
   { id: "how-it-runs", label: "How it runs", tag: "3" },
   { id: "impact", label: "Impact", tag: "4" },
-  { id: "implementation", label: "Implementation", tag: "5" },
 ] as const;
 
 type SectionId = (typeof SECTIONS)[number]["id"];
@@ -92,7 +90,6 @@ export default function RecruitmentOSPage() {
               {activeId === "control" ? <Control id="control" /> : null}
               {activeId === "how-it-runs" ? <HowItRuns id="how-it-runs" /> : null}
               {activeId === "impact" ? <Impact id="impact" /> : null}
-              {activeId === "implementation" ? <Implementation id="implementation" /> : null}
             </div>
           </div>
         }

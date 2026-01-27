@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 type TopMenu = "portfolio" | null;
 
 export function SiteNav() {
   const [openTop, setOpenTop] = useState<TopMenu>(null);
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname();
 
   const closeTimerRef = useRef<number | null>(null);
 
@@ -56,6 +58,14 @@ export function SiteNav() {
 
   const topIsOpen = openTop === "portfolio";
 
+  // Treat both /portfolio/* and /company-teardowns/* as Portfolio routes
+  const isPortfolioRoute =
+    pathname?.startsWith("/portfolio") || pathname?.startsWith("/company-teardowns");
+
+  const isAboutRoute = pathname === "/about";
+  const isHomeRoute = pathname === "/";
+  const isContactRoute = pathname === "/contact";
+
   const linkStyle: React.CSSProperties = {
     textDecoration: "none",
     color: "inherit",
@@ -90,7 +100,11 @@ export function SiteNav() {
       onMouseLeave={() => scheduleClose(140)}
     >
       <nav className="siteNav" aria-label="Primary">
-        <Link className="siteNavLink" href="/" style={linkStyle}>
+        <Link
+          className={`siteNavLink ${isHomeRoute ? "isActive" : ""}`}
+          href="/"
+          style={linkStyle}
+        >
           Home
         </Link>
 
@@ -103,18 +117,15 @@ export function SiteNav() {
         >
           <button
             type="button"
-            className="siteNavBtn"
+            className={`siteNavBtn ${isPortfolioRoute ? "isActive" : ""}`}
             aria-haspopup="menu"
             aria-expanded={topIsOpen}
             onMouseEnter={() => openPortfolio()}
             onFocus={() => openPortfolio()}
             onClick={() => {
-              // Keep click support for touch devices
               setOpenTop((v) => (v === "portfolio" ? null : "portfolio"));
             }}
-            style={{
-              ...btnReset,
-            }}
+            style={{ ...btnReset }}
           >
             Portfolio <span className={`chev ${topIsOpen ? "isOpen" : ""}`}>▾</span>
           </button>
@@ -132,7 +143,7 @@ export function SiteNav() {
               <div className="megaCol">
                 <div className="megaHeading">Company Tear Downs</div>
                 <div className="megaLinks">
-                 <Link
+                  <Link
                     className="megaLink"
                     role="menuitem"
                     href="/company-teardowns/razorpay"
@@ -142,7 +153,6 @@ export function SiteNav() {
                     <span className="megaLinkTitle">Razorpay</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
-
 
                   <Link
                     className="megaLink"
@@ -232,11 +242,19 @@ export function SiteNav() {
           </div>
         </div>
 
-        <Link className="siteNavLink" href="/about" style={linkStyle}>
+        <Link
+          className={`siteNavLink ${isAboutRoute ? "isActive" : ""}`}
+          href="/about"
+          style={linkStyle}
+        >
           About
         </Link>
 
-        <Link className="siteNavCta" href="/contact" style={linkStyle}>
+        <Link
+          className={`siteNavCta ${isContactRoute ? "isActive" : "isGhost"}`}
+          href="/contact"
+          style={linkStyle}
+        >
           Contact
         </Link>
       </nav>

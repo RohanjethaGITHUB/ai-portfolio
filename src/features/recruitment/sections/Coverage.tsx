@@ -25,13 +25,10 @@ function toneForImpactLabel(label: string): string {
   if (t.includes("time")) return "time";
   if (t.includes("quality")) return "quality";
   if (t.includes("risk")) return "risk";
-
   if (t.includes("signal")) return "signal";
   if (t.includes("ops")) return "ops";
-
   if (t.includes("effort")) return "effort";
   if (t.includes("speed")) return "speed";
-
   if (t.includes("alignment")) return "alignment";
   if (t.includes("focus")) return "focus";
   if (t.includes("consistency")) return "consistency";
@@ -271,6 +268,53 @@ export function Coverage({ id }: Props) {
               </div>
               <div className={cstyles.storyHint}>Hover to pause</div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Fixed section below the rotator */}
+      <div className={cstyles.fixedBelow}>
+        <div className={cstyles.designDecisions}>
+          <div className={cstyles.designTitle}>Design decisions I made</div>
+
+          <p className={cstyles.designOneLiner}>
+  Built by running this system live, watching it break, and tightening it based on cost,
+  latency, and recruiter feedback.
+</p>
+
+<ul className={cstyles.designList}>
+  <li>
+    <span className={cstyles.ddKey}>I added approval gates</span>
+    <span className={cstyles.ddVal}>
+      {" "}after early runs showed automation moving faster than recruiter comfort
+    </span>
+  </li>
+  <li>
+    <span className={cstyles.ddKey}>I made every decision traceable</span>
+    <span className={cstyles.ddVal}>
+      {" "}so I could debug outcomes instead of guessing
+    </span>
+  </li>
+  <li>
+    <span className={cstyles.ddKey}>I routed models by impact</span>
+    <span className={cstyles.ddVal}>
+      {" "}after testing where heavier models actually changed decisions
+    </span>
+  </li>
+  <li>
+    <span className={cstyles.ddKey}>I treated token budgets as a hard constraint</span>
+    <span className={cstyles.ddVal}>
+      {" "}once costs started compounding at scale
+    </span>
+  </li>
+</ul>
+
+
+          <div className={cstyles.designTags}>
+            <span className={cstyles.designTag}>Live-tested in Placify</span>
+            <span className={cstyles.designTag}>Cost and latency constrained</span>
+            <span className={cstyles.designTag}>Peer reviewed by recruiters</span>
+            <span className={cstyles.designTag}>Iterated across runs</span>
           </div>
         </div>
       </div>

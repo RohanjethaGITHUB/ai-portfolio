@@ -3,7 +3,6 @@ export const recruitmentSections = [
   { id: "how-it-runs", label: "How It Runs", num: 2 },
   { id: "control", label: "Control", num: 3 },
   { id: "impact", label: "Impact", num: 4 },
-  { id: "implementation", label: "Implementation", num: 5 },
 ] as const;
 
 

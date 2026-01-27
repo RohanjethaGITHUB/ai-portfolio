@@ -356,3 +356,313 @@
     aspect-ratio: 16 / 8;
   }
 }
+
+/* ===== System Overview: Design decisions I made ===== */
+
+.designDecisions {
+  margin-top: 14px;
+  padding: 14px 14px 12px;
+  border: 1px solid rgba(90, 60, 30, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 10px 28px rgba(40, 24, 12, 0.08);
+  backdrop-filter: blur(10px);
+  max-width: 92ch;
+}
+
+.designTitle {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(70, 45, 22, 0.72);
+  margin: 0 0 8px 0;
+  font-weight: 820;
+}
+
+.designNote {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 640;
+  color: rgba(56, 43, 33, 0.70);
+  max-width: 86ch;
+}
+
+.designList {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+  color: rgba(50, 32, 16, 0.84);
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 640;
+}
+
+.designList li {
+  margin: 0;
+}
+
+.designTags {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.designTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(90, 60, 30, 0.16);
+  background: linear-gradient(180deg, rgba(192, 138, 69, 0.10), rgba(255, 255, 255, 0.62));
+  color: rgba(50, 32, 16, 0.80);
+  font-size: 12.5px;
+  white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(30, 18, 10, 0.05);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.designTag:hover {
+  transform: translateY(-1px);
+  border-color: rgba(139, 90, 60, 0.22);
+  background: linear-gradient(180deg, rgba(192, 138, 69, 0.14), rgba(255, 255, 255, 0.70));
+}
+
+/* Optional: make it sit more naturally under rosLead */
+@media (max-width: 980px) {
+  .designDecisions {
+    max-width: 100%;
+  }
+}
+.designTitle {
+  font-weight: 600;
+}
+
+.designList {
+  font-weight: 400;
+  font-size: 13.5px;
+  line-height: 1.5;
+  gap: 6px;
+  color: rgba(50, 32, 16, 0.78);
+}
+
+.designList li {
+  font-weight: 400;
+}
+
+.designDecisions {
+  padding: 14px 16px;
+}
+
+.designTags {
+  margin-top: 10px;
+  gap: 8px;
+}
+
+.designTag {
+  font-size: 12px;
+  padding: 6px 10px;
+  border: 1px solid rgba(90, 60, 30, 0.10);
+  background: rgba(255, 255, 255, 0.45);
+  color: rgba(50, 32, 16, 0.68);
+}
+/* Fixed block below the rotator */
+.fixedBelow {
+  margin-top: 18px;
+  max-width: 92ch;
+}
+
+/* Design decisions box */
+.designDecisions {
+  padding: 14px 16px 14px;
+  border: 1px solid rgba(90, 60, 30, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.52);
+  box-shadow: 0 10px 28px rgba(40, 24, 12, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.designTitle {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(70, 45, 22, 0.72);
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.designOneLiner {
+  margin: 0 0 10px 0;
+  color: rgba(50, 32, 16, 0.72);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+/* Short, scannable bullets */
+.designList {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 7px;
+  color: rgba(50, 32, 16, 0.78);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.designList li {
+  margin: 0;
+}
+
+.ddKey {
+  font-weight: 650;
+  color: rgba(50, 32, 16, 0.88);
+}
+
+.ddVal {
+  font-weight: 400;
+  color: rgba(50, 32, 16, 0.76);
+}
+
+/* Tags, more subtle and readable */
+.designTags {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.designTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(90, 60, 30, 0.10);
+  background: rgba(255, 255, 255, 0.40);
+  color: rgba(50, 32, 16, 0.68);
+  font-size: 12px;
+  white-space: nowrap;
+}
+/* ===== Design Decisions panel (premium, more presence) ===== */
+
+.fixedBelow {
+  margin-top: 18px;
+
+  /* Make it match the rotator width rather than a narrow text block */
+  max-width: 100%;
+}
+
+.designDecisions {
+  margin-top: 0;
+  padding: 18px 20px 16px;
+  border-radius: 18px;
+
+  /* Stronger card presence */
+  border: 1px solid rgba(90, 60, 30, 0.16);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(210, 170, 120, 0.20), rgba(255, 255, 255, 0.60) 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.46));
+  box-shadow:
+    0 18px 46px rgba(40, 24, 12, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+}
+
+/* Bigger, more premium title */
+.designTitle {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(55, 34, 16, 0.78);
+  margin: 0 0 10px 0;
+  font-weight: 700;
+}
+
+/* One-liner gets more emphasis but not bold */
+.designOneLiner {
+  margin: 0 0 12px 0;
+  color: rgba(50, 32, 16, 0.74);
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 92ch;
+}
+
+/* Bullets: slightly larger and cleaner spacing */
+.designList {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 9px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(50, 32, 16, 0.78);
+}
+
+.ddKey {
+  font-weight: 750;
+  color: rgba(45, 28, 14, 0.92);
+}
+
+.ddVal {
+  font-weight: 450;
+  color: rgba(50, 32, 16, 0.74);
+}
+
+/* ===== Tags: make them look designed, not boring ===== */
+
+.designTags {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.designTag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(90, 60, 30, 0.12);
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow:
+    0 10px 22px rgba(40, 24, 12, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+
+  color: rgba(45, 28, 14, 0.76);
+  font-size: 12.5px;
+  white-space: nowrap;
+
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+/* Small accent dot on each tag */
+.designTag::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+
+  background: rgba(170, 120, 70, 0.55);
+  box-shadow: 0 0 0 4px rgba(210, 170, 120, 0.18);
+  flex: 0 0 auto;
+}
+
+.designTag:hover {
+  transform: translateY(-1px);
+  border-color: rgba(90, 60, 30, 0.18);
+  box-shadow:
+    0 16px 34px rgba(40, 24, 12, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+/* Mobile spacing */
+@media (max-width: 980px) {
+  .designDecisions {
+    padding: 16px 16px 14px;
+  }
+}

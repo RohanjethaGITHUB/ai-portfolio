@@ -830,20 +830,18 @@ body::after{
 }
 
 
-
-
 /* =========================
-   NAV + PORTFOLIO MEGA MENU
-   Single source of truth
+   SITE NAV + PORTFOLIO MEGA MENU
+   Single source of truth (clean)
    ========================= */
 
-/* Nav base */
 .siteNavWrap{
   position: fixed;
   top: 22px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 999;
+  z-index: 9999;
+  width: max-content;
 }
 
 .siteNav{
@@ -856,11 +854,10 @@ body::after{
   padding: 10px 12px;
   border-radius: 999px;
 
-  /* subtle warm tint like submenu */
   background:
     radial-gradient(80% 140% at 20% 0%, rgba(122,75,42,0.10), transparent 55%),
     radial-gradient(80% 140% at 80% 0%, rgba(122,75,42,0.06), transparent 55%),
-    rgba(255,255,255,0.78);
+    rgba(255,255,255,0.90);
 
   border: 1px solid rgba(0,0,0,0.06);
   box-shadow:
@@ -870,9 +867,7 @@ body::after{
   backdrop-filter: blur(18px);
 }
 
-.siteNavItem{
-  position: relative;
-}
+.siteNavItem{ position: relative; }
 
 .siteNavLink,
 .siteNavBtn{
@@ -889,26 +884,22 @@ body::after{
   background: transparent;
   border: 0;
   cursor: pointer;
+  text-decoration: none;
 
   transition:
     background 160ms ease,
     color 160ms ease,
     box-shadow 160ms ease,
     transform 160ms ease;
-
-  text-decoration: none;
 }
 
-/* warm hover */
 .siteNavLink:hover,
 .siteNavBtn:hover{
   background: rgba(122,75,42,0.09);
-  box-shadow:
-    inset 0 0 0 1px rgba(122,75,42,0.10);
+  box-shadow: inset 0 0 0 1px rgba(122,75,42,0.10);
   color: rgba(0,0,0,0.72);
 }
 
-/* underline glow detail */
 .siteNavLink::after,
 .siteNavBtn::after{
   content: "";
@@ -930,21 +921,42 @@ body::after{
   transform: translateY(0);
 }
 
+.siteNavLink.isActive,
+.siteNavBtn.isActive{
+  background: rgba(122,75,42,0.14);
+  box-shadow: inset 0 0 0 1px rgba(122,75,42,0.16);
+  color: rgba(0,0,0,0.78);
+}
+
 .siteNavCta{
   font-size: 15px;
   padding: 10px 16px;
   border-radius: 999px;
   text-decoration: none;
 
-  background: rgba(0,0,0,0.78);
-  color: rgba(255,255,255,0.92);
-
-  transition: transform 160ms ease, background 160ms ease;
+  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
 }
 
-.siteNavCta:hover{
+.siteNavCta.isGhost{
+  background: transparent;
+  color: rgba(0,0,0,0.64);
+  box-shadow: none;
+}
+
+.siteNavCta.isGhost:hover{
+  background: rgba(122,75,42,0.09);
+  box-shadow: inset 0 0 0 1px rgba(122,75,42,0.10);
+  color: rgba(0,0,0,0.72);
+}
+
+.siteNavCta.isActive{
+  background: rgba(0,0,0,0.82);
+  color: rgba(255,255,255,0.92);
+}
+
+.siteNavCta.isActive:hover{
   transform: translateY(-1px);
-  background: rgba(0,0,0,0.86);
+  background: rgba(0,0,0,0.88);
 }
 
 .chev{
@@ -958,41 +970,27 @@ body::after{
   opacity: 0.7;
 }
 
-/* Active state for Portfolio when mega menu is open */
-.siteNavWrap[data-portfolio-open="true"] .siteNavBtn{
-  background: rgba(122,75,42,0.12);
-  box-shadow: inset 0 0 0 1px rgba(122,75,42,0.14);
-}
-
-/* Ensure nav content stays above any decorative layers */
-.siteNav > *{
-  position: relative;
-  z-index: 2;
-}
-
 /* Mega menu container */
 .megaMenu{
   position: fixed;
   left: 50%;
+  top: 64px;
   transform: translateX(-50%);
-  top: 64px; /* no blank space */
 
   width: min(760px, 92vw);
-  padding: 16px 16px 14px;
+  padding: 14px 14px 12px;
 
-  background: rgba(255,255,255,0.78);
+  background: rgba(255,255,255,0.86);
   border: 1px solid rgba(0,0,0,0.06);
   border-radius: 22px;
   backdrop-filter: blur(18px);
 
   box-shadow: 0 30px 90px rgba(0,0,0,0.16);
-
   transform-origin: top center;
   overflow: hidden;
   z-index: 1000;
 }
 
-/* warm ambient background inside mega menu */
 .megaMenu::before{
   content:"";
   position:absolute;
@@ -1004,7 +1002,6 @@ body::after{
   pointer-events:none;
 }
 
-/* Notch connector */
 .megaMenu::after{
   content: "";
   position: absolute;
@@ -1014,7 +1011,7 @@ body::after{
   height: 20px;
   transform: translateX(-50%) rotate(45deg);
 
-  background: rgba(255,255,255,0.78);
+  background: rgba(255,255,255,0.86);
   border-left: 1px solid rgba(0,0,0,0.06);
   border-top: 1px solid rgba(0,0,0,0.06);
   border-top-left-radius: 6px;
@@ -1045,67 +1042,71 @@ body::after{
   z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
 }
 
-/* Column grouping */
 .megaCol{
   border-radius: 18px;
-  padding: 12px;
+  padding: 10px;
   background: rgba(255,255,255,0.38);
   border: 1px solid rgba(0,0,0,0.05);
 }
 
-/* Column headers: dominant */
+/* Keep your headers style as-is, just clean it */
 .megaHeading{
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
   padding: 10px 12px;
 
   border-radius: 14px;
-  background: rgba(255,255,255,0.60);
-  border: 1px solid rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.70);
+  border: 1px solid rgba(0,0,0,0.10);
 
-  font-size: 13px;
-  letter-spacing: 0.20em;
+  font-family: "Antonio", system-ui, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
   text-transform: uppercase;
-  font-weight: 950;
 
   color: rgba(0,0,0,0.70);
 }
 
 .megaHeading::after{
   content: "";
-  height: 8px;
-  width: 68px;
+  height: 7px;
+  width: 54px;
   border-radius: 999px;
   background: rgba(122,75,42,0.34);
-  box-shadow: 0 12px 30px rgba(122,75,42,0.16);
+  opacity: 0.65;
 }
 
+/* Links list centered */
 .megaLinks{
   display: grid;
   gap: 10px;
+  justify-items: center; /* key: center the pills */
+  padding-top: 2px;
 }
 
-/* Link tiles */
+/* Link pill shrinks to text width */
 .megaLink{
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto;
-  column-gap: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 
-  text-decoration: none;
-
-  padding: 12px 14px;
-  border-radius: 16px;
+  width: fit-content;       /* key: shrink to content */
+  max-width: 100%;
+  padding: 10px 14px;
+  border-radius: 999px;
 
   background: rgba(255,255,255,0.54);
   border: 1px solid rgba(0,0,0,0.06);
+  text-decoration: none;
 
   transition:
     transform 160ms ease,
@@ -1119,34 +1120,20 @@ body::after{
 .megaLink::before{
   content:"";
   position:absolute;
-  left: 0;
-  top: 10px;
-  bottom: 10px;
+  left: 10px;
+  top: 7px;
+  bottom: 7px;
   width: 3px;
   border-radius: 999px;
   background: rgba(122,75,42,0.25);
   opacity: 0.75;
 }
 
-.megaLink::after{
-  content:"";
-  position:absolute;
-  inset:-40px;
-  background: radial-gradient(40% 35% at 20% 20%, rgba(122,75,42,0.16), transparent 55%);
-  opacity: 0;
-  transition: opacity 180ms ease;
-  pointer-events:none;
-}
-
 .megaLink:hover{
-  background: rgba(255,255,255,0.70);
+  background: rgba(255,255,255,0.72);
   border-color: rgba(122,75,42,0.18);
   box-shadow: 0 18px 50px rgba(0,0,0,0.12);
   transform: translateY(-2px);
-}
-
-.megaLink:hover::after{
-  opacity: 1;
 }
 
 .megaLink:focus-visible{
@@ -1155,30 +1142,18 @@ body::after{
   box-shadow: 0 0 0 3px rgba(122,75,42,0.14), 0 18px 50px rgba(0,0,0,0.12);
 }
 
-/* Links: smaller + lighter */
 .megaLinkTitle{
-  grid-column: 1;
-  grid-row: 1;
-
-  font-size: 14px;
-  font-weight: 650;
+  font-size: 15px;
+  font-weight: 640;
   letter-spacing: -0.01em;
-  color: rgba(0,0,0,0.62);
-}
-
-.megaLink:hover .megaLinkTitle{
-  color: rgba(0,0,0,0.70);
+  color: rgba(0,0,0,0.64);
+  white-space: nowrap;
 }
 
 .megaLinkArrow{
-  grid-column: 2;
-  grid-row: 1;
-  align-self: center;
-  justify-self: end;
-
-  color: rgba(0,0,0,0.38);
+  color: rgba(0,0,0,0.40);
   font-size: 18px;
-
+  line-height: 1;
   transform: translateX(0);
   transition: transform 160ms ease, color 160ms ease;
 }
@@ -1190,303 +1165,4 @@ body::after{
 
 @media (max-width: 560px){
   .megaGrid{ grid-template-columns: 1fr; }
-}
-body.amcLightNav nav[data-site-nav]{
-  background: rgba(255,255,255,.82) !important;
-  border: 1px solid rgba(92,64,45,.18) !important;
-  box-shadow: 0 18px 50px rgba(30,18,10,.14) !important;
-  backdrop-filter: blur(14px);
-}
-/* ================================
-   SiteNav: make header + dropdown opaque
-   Put at END of globals.css
-   ================================ */
-
-/* 1) The pill header container */
-header nav,
-header [role="navigation"],
-.site-nav,
-.SiteNav,
-.nav-pill,
-.navPill {
-  background: rgba(255, 250, 245, 0.98) !important; /* warm off white */
-  border: 1px solid rgba(120, 72, 36, 0.18) !important; /* brown border */
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  box-shadow: 0 18px 50px rgba(40, 20, 10, 0.12) !important;
-}
-
-/* 2) Dropdown panel itself */
-header nav ul,
-header nav [data-dropdown],
-header nav .dropdown,
-header nav .menu,
-header nav .popover,
-.site-nav ul,
-.site-nav .dropdown,
-.site-nav .menu,
-.SiteNav ul,
-.SiteNav .dropdown,
-.SiteNav .menu {
-  background: rgba(255, 250, 245, 0.99) !important;
-  border: 1px solid rgba(120, 72, 36, 0.16) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  box-shadow: 0 22px 60px rgba(40, 20, 10, 0.14) !important;
-}
-
-/* Optional: make dropdown text crisp */
-header nav a,
-.site-nav a,
-.SiteNav a {
-  color: rgba(45, 25, 12, 0.92) !important;
-}
-/* === Force opaque SiteNav (white-brown theme) === */
-.siteNavWrap{
-  position: relative;
-  z-index: 9999;
-}
-
-.siteNav{
-  background: #fbf7f1 !important;          /* opaque */
-  border: 1px solid rgba(88, 60, 40, .18);
-  box-shadow: 0 18px 50px rgba(0,0,0,.12);
-  backdrop-filter: none !important;        /* remove glass blur */
-  -webkit-backdrop-filter: none !important;
-}
-
-.siteNavLink,
-.siteNavBtn{
-  color: #2b1d14 !important;
-}
-
-.siteNavCta{
-  background: #2b1d14 !important;
-  color: #fbf7f1 !important;
-}
-
-/* Dropdown container should also be opaque */
-.megaMenu{
-  background: #fbf7f1 !important;
-  border: 1px solid rgba(88, 60, 40, .18);
-  box-shadow: 0 18px 60px rgba(0,0,0,.14);
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
-.megaHeading,
-.megaLinkTitle{
-  color: #2b1d14 !important;
-}
-
-.megaLink{
-  background: #fffdf9 !important;
-  border: 1px solid rgba(88, 60, 40, .14);
-}
-
-.megaLinkArrow{
-  color: rgba(43, 29, 20, .65) !important;
-}
-/* AMC theme override: remove ALL green from hero */
-.amc{
-  /* ensure accents are warm, not green */
-  --a1: #8b5a2b;  /* brown */
-  --a2: #c8a06a;  /* warm sand */
-}
-
-/* kill any green-tinted hero layers */
-.amc-hero::before,
-.amc-heroInner{
-  background:
-    radial-gradient(60% 60% at 18% 18%, rgba(122,75,42,.20), transparent 60%),
-    radial-gradient(60% 60% at 82% 22%, rgba(0,0,0,.06), transparent 62%),
-    radial-gradient(80% 80% at 50% 110%, rgba(122,75,42,.14), transparent 60%) !important;
-}
-/* Global warm background like AI Money Coach */
-:root{
-  --paper-0: #fbf7f2;
-  --paper-1: #f6efe6;
-  --warm-1: rgba(120, 72, 38, 0.18);
-  --warm-2: rgba(160, 120, 70, 0.14);
-  --warm-3: rgba(110, 70, 40, 0.10);
-}
-
-html, body{
-  height: 100%;
-}
-
-body{
-  background:
-    radial-gradient(1200px 600px at 20% 10%, var(--warm-1), transparent 60%),
-    radial-gradient(900px 500px at 80% 25%, var(--warm-2), transparent 55%),
-    radial-gradient(700px 500px at 50% 90%, var(--warm-3), transparent 60%),
-    linear-gradient(180deg, var(--paper-0) 0%, var(--paper-1) 45%, var(--paper-0) 100%);
-  background-attachment: fixed;
-}
-/* AboutMe reference layout (stats, contact, socials, button)
-   Paste into globals.css
-*/
-
-/* Keep it scoped to your portfolio wrapper so it inherits your site colors */
-#dr-portfolio .aboutRefStats{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
-  margin-top: 34px;
-  margin-bottom: 26px;
-}
-
-#dr-portfolio .aboutRefStat{
-  min-width: 0;
-}
-
-#dr-portfolio .aboutRefStatNum{
-  font-family: "Antonio", system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 0.95;
-  font-size: clamp(54px, 5.4vw, 92px);
-  color: var(--accent); /* your brown */
-  margin-bottom: 8px;
-}
-
-#dr-portfolio .aboutRefStatLabel{
-  font-size: 18px;
-  font-weight: 750;
-  line-height: 1.15;
-  color: rgba(18, 18, 18, 0.78); /* matches your ink */
-}
-
-/* Contact row */
-#dr-portfolio .aboutRefContact{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 26px 44px;
-  margin-top: 10px;
-  margin-bottom: 24px;
-}
-
-#dr-portfolio .aboutRefContactTitle{
-  font-size: 22px;
-  font-weight: 850;
-  color: rgba(18, 18, 18, 0.78);
-  margin-bottom: 6px;
-}
-
-#dr-portfolio .aboutRefContactValue{
-  font-size: 18px;
-  color: var(--muted);
-}
-
-/* Social row */
-#dr-portfolio .aboutRefSocials{
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-top: 8px;
-  margin-bottom: 30px;
-}
-
-#dr-portfolio .aboutRefSocial{
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  text-decoration: none;
-
-  background: rgba(255,255,255,0.60);
-  border: 1px solid rgba(20,20,20,0.10);
-  box-shadow: 0 10px 26px rgba(0,0,0,0.08);
-
-  color: rgba(18, 18, 18, 0.74);
-  font-weight: 850;
-  letter-spacing: -0.02em;
-
-  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
-}
-
-#dr-portfolio .aboutRefSocial:hover{
-  transform: translateY(-2px);
-  background: rgba(255,255,255,0.78);
-  border-color: rgba(122,75,42,0.18);
-  box-shadow: 0 18px 44px rgba(0,0,0,0.12);
-}
-
-#dr-portfolio .aboutRefSocial:focus-visible{
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(122,75,42,0.16), 0 18px 44px rgba(0,0,0,0.12);
-}
-
-/* Button */
-#dr-portfolio .aboutRefBtn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 16px 34px;
-  border-radius: 999px;
-  text-decoration: none;
-
-  font-family: "Antonio", system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  font-size: 26px;
-
-  color: var(--accent);
-  background: rgba(255,255,255,0.30);
-  border: 1.5px solid rgba(122,75,42,0.45);
-
-  box-shadow: 0 16px 48px rgba(0,0,0,0.10);
-  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
-}
-
-#dr-portfolio .aboutRefBtn:hover{
-  transform: translateY(-2px);
-  background: rgba(122,75,42,0.08);
-  border-color: rgba(122,75,42,0.60);
-  box-shadow: 0 22px 62px rgba(0,0,0,0.14);
-}
-
-#dr-portfolio .aboutRefBtn:focus-visible{
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(122,75,42,0.16), 0 22px 62px rgba(0,0,0,0.14);
-}
-
-/* Responsive */
-@media (max-width: 980px){
-  #dr-portfolio .aboutRefStats{
-    grid-template-columns: 1fr;
-    gap: 18px;
-    margin-top: 24px;
-    margin-bottom: 20px;
-  }
-
-  #dr-portfolio .aboutRefStatNum{
-    font-size: clamp(52px, 12vw, 78px);
-  }
-
-  #dr-portfolio .aboutRefStatLabel{
-    font-size: 17px;
-  }
-
-  #dr-portfolio .aboutRefContact{
-    grid-template-columns: 1fr;
-    gap: 18px;
-    margin-bottom: 18px;
-  }
-
-  #dr-portfolio .aboutRefContactTitle{
-    font-size: 20px;
-  }
-
-  #dr-portfolio .aboutRefContactValue{
-    font-size: 16px;
-  }
-
-  #dr-portfolio .aboutRefBtn{
-    width: 100%;
-    justify-content: center;
-  }
 }
