@@ -1,23 +1,17 @@
 /* =========================
    Razorpay Teardown
-   Tabs + panel with a blended notch arrow
+   Premium tabs + connected panel
    ========================= */
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
-.ctPage {
-  min-height: 100vh;
-}
+.ctPage { min-height: 100vh; }
 
 /* -------------------------
    HERO
    ------------------------- */
 
-.ctHero {
-  padding: 54px 18px 18px;
-}
+.ctHero { padding: 54px 18px 18px; }
 
 .ctHeroInner {
   max-width: 1120px;
@@ -92,9 +86,7 @@ html {
    MAIN WRAPPER
    ------------------------- */
 
-.ctShell {
-  padding: 16px 18px 90px;
-}
+.ctShell { padding: 16px 18px 90px; }
 
 .ctShellInner {
   max-width: 1120px;
@@ -106,54 +98,73 @@ html {
 }
 
 /* -------------------------
-   Connected container
+   Connected container (tabs + panel)
    ------------------------- */
 
 .ctSectionTabsWrap {
-  --ctPanelTopTint: rgba(120, 72, 40, 0.18);
+  --ctPanelTopTint: rgba(120, 72, 40, 0.06);
 
   border-radius: 26px;
   border: 1px solid rgba(0, 0, 0, 0.10);
 
+  /* lighter top glow so it doesn't show through the rounded edges */
   background:
-    radial-gradient(900px 520px at 45% 0%, rgba(120, 72, 40, 0.10), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.58);
+    radial-gradient(900px 420px at 50% 0%, rgba(120, 72, 40, 0.045), rgba(255, 255, 255, 0) 60%),
+    rgba(255, 255, 255, 0.72);
 
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.06);
   overflow: hidden;
+  padding-top: 0;
 }
 
+
+
 /* -------------------------
-   Sticky tabs bar (ONLY this sticks)
+   Sticky tabs bar
+   This should NOT look like a massive header strip.
+   Only the pill control should be visible.
    ------------------------- */
 
 .ctStickyTabsBar {
   position: sticky;
-  top: 74px;
+  top: 18px;
   z-index: 80;
 
-  /* Reserve space so content never slides under the sticky bar */
-  margin-bottom: 18px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 
-  background:
-    radial-gradient(900px 420px at 40% 0%, rgba(70, 40, 25, 0.22), rgba(255, 255, 255, 0)),
-    rgba(232, 224, 216, 0.92);
-
-  backdrop-filter: blur(14px);
-
-  border-bottom: 1px solid rgba(0, 0, 0, 0.10);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+  /* tighter so there is no "header strip" feeling */
+  padding: 10px 14px 10px;
+  margin: 0;
 }
 
+
+/* The actual "control" */
 .ctTopTabs {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  padding: 18px;
+  gap: 12px;
+
+  padding: 12px 14px;
   flex-wrap: wrap;
-  overflow: visible; /* notch arrow must not get clipped */
+  overflow: visible;
   margin: 0;
+
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+
+  background:
+    radial-gradient(900px 240px at 40% 0%, rgba(120, 72, 40, 0.14), rgba(255, 255, 255, 0)),
+    rgba(255, 255, 255, 0.72);
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.06),
+    0 12px 26px rgba(0, 0, 0, 0.08);
+     position: relative;
 }
 
 /* Tabs */
@@ -162,21 +173,22 @@ html {
   cursor: pointer;
   user-select: none;
 
-  padding: 14px 20px;
+  padding: 13px 18px;
   border-radius: 16px;
 
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  background: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  background: rgba(255, 255, 255, 0.72);
 
-  font-weight: 850;
+  font-weight: 820;
   font-size: 15px;
   letter-spacing: 0.01em;
 
   color: rgba(20, 16, 14, 0.78);
 
   box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.70),
     0 1px 0 rgba(0, 0, 0, 0.06),
-    0 14px 26px rgba(0, 0, 0, 0.06);
+    0 12px 20px rgba(0, 0, 0, 0.06);
 
   opacity: 0.92;
   position: relative;
@@ -193,14 +205,12 @@ html {
 .ctTab:hover {
   opacity: 1;
   transform: translateY(-1px);
-  border-color: rgba(0, 0, 0, 0.24);
+  border-color: rgba(0, 0, 0, 0.22);
   color: rgba(20, 16, 14, 0.92);
+  background: rgba(255, 255, 255, 0.84);
 }
 
-.ctTab:active {
-  opacity: 1;
-  transform: translateY(0);
-}
+.ctTab:active { transform: translateY(0); }
 
 .ctTab:focus-visible {
   outline: 2px solid rgba(120, 72, 40, 0.55);
@@ -213,73 +223,50 @@ html {
   color: rgba(60, 34, 18, 0.98);
 
   background:
-    radial-gradient(240px 80px at 50% 30%, rgba(120, 72, 40, 0.20), rgba(255, 255, 255, 0.85));
+    radial-gradient(240px 80px at 50% 30%, rgba(120, 72, 40, 0.20), rgba(255, 255, 255, 0.86));
 
-  border-color: rgba(120, 72, 40, 0.42);
+  border-color: rgba(120, 72, 40, 0.40);
 
   box-shadow:
     0 2px 0 rgba(0, 0, 0, 0.08),
     0 18px 34px rgba(0, 0, 0, 0.10);
 
-  outline: 2px solid rgba(120, 72, 40, 0.18);
+  outline: 2px solid rgba(120, 72, 40, 0.14);
   outline-offset: 2px;
 }
 
-/* =========================
-   Notch arrow (blended)
-   ========================= */
-
+/* Small notch arrow, softer and less "stuck on" */
 .ctTabActive::before {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -14px;
+  bottom: -12px;
   transform: translateX(-50%);
 
-  width: 28px;
-  height: 16px;
+  width: 22px;
+  height: 12px;
 
-  background: linear-gradient(
-    to bottom,
-    var(--ctPanelTopTint),
-    rgba(255, 255, 255, 0)
-  );
-
+  background: linear-gradient(to bottom, var(--ctPanelTopTint), rgba(255, 255, 255, 0));
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   pointer-events: none;
 
-  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.06));
-}
-
-/* Soft edge behind arrow */
-.ctTabActive::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -15px;
-  transform: translateX(-50%);
-
-  width: 30px;
-  height: 18px;
-
-  background: rgba(120, 72, 40, 0.08);
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  pointer-events: none;
-
-  z-index: -1;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.05));
 }
 
 /* -------------------------
-   Content panel (scrolls normally)
+   Content panel
+   Fix headings being too close to top.
    ------------------------- */
 
 .ctPanel {
-  padding: 34px 22px 22px;   /* also helps your #2 request */
+  padding: 46px 22px 22px;
+
+  /* lighter and fades sooner */
   background:
     linear-gradient(
       to bottom,
-      var(--ctPanelTopTint),
-      rgba(255, 255, 255, 0) 190px
+      rgba(120, 72, 40, 0.07),
+      rgba(255, 255, 255, 0) 120px
     );
 
   position: relative;
@@ -287,9 +274,9 @@ html {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 160ms ease, transform 160ms ease;
-    display: flow-root;
-
+  display: flow-root;
 }
+
 
 .ctPanelFading {
   opacity: 0;
@@ -297,16 +284,12 @@ html {
 }
 
 /* -------------------------
-   Sections + inner cards
+   Generic section helpers
    ------------------------- */
 
-.section {
-  padding: 0;
-}
+.section { padding: 0; }
 
-.sectionHeader {
-  margin-bottom: 18px;
-}
+.sectionHeader { margin-bottom: 18px; }
 
 .sectionTitle {
   font-size: 22px;
@@ -318,6 +301,7 @@ html {
   opacity: 0.8;
 }
 
+/* Cards */
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -340,17 +324,11 @@ html {
     0 14px 32px rgba(0, 0, 0, 0.05);
 }
 
-.cardTitle {
-  margin: 0 0 10px;
-  font-size: 16px;
-}
+.cardTitle { margin: 0 0 10px; font-size: 16px; }
 
-.cardBody {
-  margin: 0;
-  opacity: 0.85;
-}
+.cardBody { margin: 0; opacity: 0.85; }
 
-/* AI Capabilities columns */
+/* 3 columns */
 .columns3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -380,24 +358,13 @@ html {
   align-items: baseline;
 }
 
-.pillarTitle {
-  margin: 0;
-  font-size: 16px;
-}
+.pillarTitle { margin: 0; font-size: 16px; }
 
-.pillarHint {
-  margin: 0;
-  opacity: 0.75;
-  font-size: 13px;
-}
+.pillarHint { margin: 0; opacity: 0.75; font-size: 13px; }
 
-.bullets {
-  margin: 0;
-  padding-left: 18px;
-  opacity: 0.9;
-}
+.bullets { margin: 0; padding-left: 18px; opacity: 0.9; }
 
-/* Platform Architecture 2-col layout */
+/* 2 columns */
 .twoCol {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -429,11 +396,7 @@ html {
   opacity: 0.75;
 }
 
-.miniNote {
-  margin: 10px 0 0;
-  font-size: 13px;
-  opacity: 0.75;
-}
+.miniNote { margin: 10px 0 0; font-size: 13px; opacity: 0.75; }
 
 /* -------------------------
    Responsive
@@ -445,9 +408,7 @@ html {
     text-align: left;
   }
 
-  .ctTitle {
-    font-size: 42px;
-  }
+  .ctTitle { font-size: 42px; }
 
   .ctSubTitle {
     font-size: 16px;
@@ -455,33 +416,20 @@ html {
     margin-right: 0;
   }
 
-  .ctMetaRow {
-    justify-content: flex-start;
-  }
+  .ctMetaRow { justify-content: flex-start; }
 
   .ctStickyTabsBar {
-    top: 86px; /* mobile nav tends to be taller */
-    margin-bottom: 14px;
+    top: 24px;
+    padding: 12px 10px 10px;
   }
 
-  .ctTopTabs {
-    padding: 14px;
-    gap: 10px;
-  }
+  .ctTopTabs { padding: 12px; gap: 10px; }
 
-  .ctPanel {
- padding: 40px 22px 22px;
-  display: flow-root;  }
+  .ctPanel { padding: 44px 18px 18px; }
 
-  .card {
-    grid-column: span 12;
-  }
+  .card { grid-column: span 12; }
 
-  .columns3 {
-    grid-template-columns: 1fr;
-  }
+  .columns3 { grid-template-columns: 1fr; }
 
-  .twoCol {
-    grid-template-columns: 1fr;
-  }
+  .twoCol { grid-template-columns: 1fr; }
 }

@@ -18,9 +18,6 @@ export function HomeHero() {
             <g className="orbit orbit-d">
               <ellipse cx="400" cy="400" rx="360" ry="235" />
             </g>
-                        <g className="orbit orbit-d">
-              <ellipse cx="400" cy="400" rx="360" ry="235" />
-            </g>
 
             {/* moving nodes for stronger AI feel */}
             <g className="orbit-dot" style={{ animationDuration: "9s" }}>
@@ -34,17 +31,19 @@ export function HomeHero() {
             <g className="orbit-dot" style={{ animationDuration: "17s" }}>
               <circle cx="560" cy="620" r="5" />
             </g>
-
           </svg>
         </div>
+
+        {/* subtle AI glow behind the hero card so the orbit layer reads better */}
+        <div className="hero-aura" aria-hidden="true" />
 
         <div className="hero-grid">
           <div className="hero-left">
             <div className="kicker">ROHAN JETHA</div>
             <h1 className="h1">ARTIFICIAL</h1>
           </div>
+
           <CardSlot imgSrc="/hero2.png" />
-          {/* <CardSlot imgSrc="https://lightcyan-kangaroo-505256.hostingersite.com/wp-content/uploads/2025/12/ChatGPT-Image-Dec-18-2025-03_25_31-PM.png" /> */}
 
           <div className="hero-right">
             <h1 className="h1">INTELLIGENCE</h1>

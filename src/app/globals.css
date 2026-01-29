@@ -46,6 +46,8 @@ body::after{
 
   /* Ink */
   --ink: rgba(18, 18, 18, 0.78);
+  /* Slightly softer hero headline ink */
+  --heroInk: rgba(18, 18, 18, 0.70);
   --muted: rgba(18, 18, 18, 0.58);
    /* Leather brown accent */
   --accent: #7a4b2a;
@@ -104,6 +106,10 @@ body::after{
   justify-self:end;
   text-align:right;
   padding-right: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #dr-portfolio .hero-right{
@@ -112,6 +118,9 @@ body::after{
   padding-left: 30px;
   padding-left: 18px; /* reduce from 30px */
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 #dr-portfolio .hero-right .h1{
   white-space: nowrap;
@@ -150,6 +159,15 @@ body::after{
   margin-bottom:10px;
 }
 
+/* Align ARTIFICIAL and INTELLIGENCE on the same visual baseline.
+   The kicker should not push the headline down on large screens. */
+#dr-portfolio #hero .hero-left .kicker{
+  position: absolute;
+  right: 12px;
+  top: -22px;
+  margin: 0;
+}
+
 #dr-portfolio .h1{
   margin:0;
   font-family:"Antonio", system-ui, sans-serif;
@@ -157,6 +175,7 @@ body::after{
   text-transform:uppercase;
   line-height:0.90;
   font-size: clamp(64px, 7.2vw, 110px);
+  color: var(--heroInk);
 }
 
 #dr-portfolio .sub{
@@ -165,6 +184,26 @@ body::after{
   line-height:1.6;
   color: var(--muted);
   max-width:44ch;
+}
+
+/* AI aura behind the hero card to make the orbit layer feel intentional */
+#dr-portfolio #hero .hero-aura{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(720px, 92vw);
+  height: min(540px, 72vh);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+
+  background:
+    radial-gradient(closest-side at 50% 50%, rgba(122,75,42,0.10), rgba(122,75,42,0) 68%),
+    radial-gradient(closest-side at 50% 55%, rgba(0,0,0,0.07), rgba(0,0,0,0) 72%),
+    repeating-radial-gradient(circle at 50% 50%, rgba(122,75,42,0.08) 0 1px, rgba(122,75,42,0) 1px 18px);
+
+  filter: blur(0.2px);
+  opacity: 0.95;
 }
 
 #dr-portfolio .h2{
@@ -304,9 +343,9 @@ body::after{
   place-items: center;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.34;              /* was 0.65 */
-  -webkit-mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 78%);
-  mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 78%);
+  opacity: 0.62;
+  -webkit-mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 56%, rgba(0,0,0,0) 86%);
+  mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 56%, rgba(0,0,0,0) 86%);
 }
 
 
@@ -322,34 +361,24 @@ body::after{
 
 #dr-portfolio .orbit ellipse{
   fill: none;
-  stroke: rgba(20,20,20,0.10);
-  stroke-width: 2;
+  stroke: rgba(20,20,20,0.14);
+  stroke-width: 2.2;
   stroke-linecap: round;
   stroke-dasharray: 14 22;
 }
 
-#dr-portfolio .orbit-b ellipse{
-  stroke: rgba(122,75,42,0.12);
-  stroke-dasharray: 12 24;
-}
-#dr-portfolio .orbit-c ellipse{
-  stroke: rgba(20,20,20,0.10);
-  stroke-dasharray: 18 28;
-}
-
-#dr-portfolio .orbit-d ellipse{
-  stroke: rgba(122,75,42,0.10);
-  stroke-dasharray: 18 30;
-}
-
-
+/* Variants (single set of definitions) */
 #dr-portfolio .orbit-b ellipse{
   stroke: rgba(122,75,42,0.20);
   stroke-dasharray: 10 22;
 }
 #dr-portfolio .orbit-c ellipse{
-  stroke: rgba(20,20,20,0.10);
+  stroke: rgba(20,20,20,0.13);
   stroke-dasharray: 18 26;
+}
+#dr-portfolio .orbit-d ellipse{
+  stroke: rgba(122,75,42,0.16);
+  stroke-dasharray: 18 30;
 }
 
 #dr-portfolio .orbit-a{
@@ -394,6 +423,13 @@ body::after{
   #dr-portfolio .card-layer{ display:none; }
   #dr-portfolio .card-slot{ display:none; }
   #dr-portfolio .hero-orbits{ display:none; }
+  #dr-portfolio #hero .hero-aura{ display:none; }
+
+  /* On mobile, let the kicker be normal flow again */
+  #dr-portfolio #hero .hero-left .kicker{
+    position: static;
+    margin-bottom: 10px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -831,6 +867,149 @@ body::after{
 
 
 /* =========================
+
+/* =========================
+   ABOUT SECTION – REF STYLE
+   ========================= */
+
+#dr-portfolio #about.section{
+  min-height: auto;
+  padding: 110px 0;
+}
+
+/* Two column layout already handled by .two-col.flip */
+
+/* Right column spacing */
+#dr-portfolio #about .col-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Intro paragraph */
+#dr-portfolio #about .p{
+  margin-top: 16px;
+  font-size: 18px;
+  line-height: 1.75;
+  max-width: 72ch;
+}
+
+/* ===== Stats row ===== */
+
+#dr-portfolio #about .aboutRefStats{
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+#dr-portfolio #about .aboutRefStat{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#dr-portfolio #about .aboutRefStatNum{
+  font-family: "Antonio", system-ui, sans-serif;
+  font-size: clamp(56px, 6vw, 92px);
+  font-weight: 700;
+  line-height: 0.9;
+  color: var(--accent);
+}
+
+#dr-portfolio #about .aboutRefStatLabel{
+  font-size: 20px;
+  font-weight: 750;
+  line-height: 1.15;
+  color: rgba(18,18,18,0.82);
+}
+
+/* ===== Contact row ===== */
+
+#dr-portfolio #about .aboutRefContact{
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+#dr-portfolio #about .aboutRefContactItem{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#dr-portfolio #about .aboutRefContactTitle{
+  font-size: 20px;
+  font-weight: 800;
+  color: rgba(18,18,18,0.82);
+}
+
+#dr-portfolio #about .aboutRefContactValue{
+  font-size: 18px;
+  color: var(--muted);
+}
+
+/* ===== CTA Button ===== */
+
+#dr-portfolio #about .aboutRefBtn{
+  margin-top: 34px;
+  align-self: flex-start;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 54px;
+  padding: 0 30px;
+  border-radius: 999px;
+
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  color: var(--accent);
+  background: transparent;
+  border: 1.6px solid rgba(122,75,42,0.55);
+
+  box-shadow: 0 18px 44px rgba(0,0,0,0.06);
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+#dr-portfolio #about .aboutRefBtn:hover{
+  transform: translateY(-2px);
+  background: rgba(122,75,42,0.06);
+  border-color: rgba(122,75,42,0.75);
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 980px){
+  #dr-portfolio #about.section{
+    padding: 86px 0;
+  }
+
+  #dr-portfolio #about .aboutRefStats{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  #dr-portfolio #about .aboutRefContact{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  #dr-portfolio #about .aboutRefBtn{
+    align-self: stretch;
+    text-align: center;
+  }
+}
+
+/* =========================
    SITE NAV + PORTFOLIO MEGA MENU
    Single source of truth (clean)
    ========================= */
@@ -1165,4 +1344,257 @@ body::after{
 
 @media (max-width: 560px){
   .megaGrid{ grid-template-columns: 1fr; }
+}
+/* =========================
+   Mega menu fix: solid bg, tighter width, remove heading bar
+   ========================= */
+
+/* Solid, non transparent dropdown */
+.megaMenu{
+  background: #fbfaf8 !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  box-shadow: 0 28px 80px rgba(0,0,0,0.16) !important;
+  backdrop-filter: none !important;
+}
+
+/* Remove any warm overlay that is making it look dirty */
+.megaMenu::before{
+  opacity: 0 !important;
+}
+
+/* Keep the small top pointer, but make it match the solid menu */
+.megaMenu::after{
+  background: #fbfaf8 !important;
+}
+
+/* Make the whole dropdown not so wide */
+.megaMenu{
+  width: min(640px, 92vw) !important;  /* was too big */
+  padding: 14px !important;
+}
+
+/* Reduce column width and spacing */
+.megaGrid{
+  gap: 12px !important;
+}
+
+.megaCol{
+  padding: 12px !important;
+  border-radius: 18px !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+/* Remove the weird bar in the heading */
+.megaHeading::after{
+  content: none !important;
+}
+
+/* Keep headings clean and not card like */
+.megaHeading{
+  background: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  color: rgba(0,0,0,0.70) !important;
+}
+
+/* Make link pills look intentional and less floaty */
+.megaLinks{
+  justify-items: center !important;
+  gap: 10px !important;
+}
+
+.megaLink{
+  background: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  box-shadow: none !important;
+}
+
+.megaLink:hover{
+  box-shadow: 0 14px 40px rgba(0,0,0,0.10) !important;
+}
+/* =========================
+   Mega menu redesign: stronger hierarchy, clearer columns, obvious links
+   ========================= */
+
+/* Stronger dropdown surface */
+.megaMenu{
+  background: rgba(250,248,244,0.98) !important;
+  border: 1px solid rgba(0,0,0,0.10) !important;
+  box-shadow: 0 26px 80px rgba(0,0,0,0.18) !important;
+}
+
+/* Remove any haze overlay */
+.megaMenu::before{
+  opacity: 0 !important;
+}
+
+/* Columns: look like distinct panels */
+.megaGrid{
+  gap: 14px !important;
+}
+
+.megaCol{
+  background: rgba(255,255,255,0.92) !important;
+  border: 1px solid rgba(0,0,0,0.10) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.65) !important;
+  padding: 14px !important;
+}
+
+/* Header: heavier, more premium, clear */
+.megaHeading{
+  background: rgba(246,242,236,0.95) !important;
+  border: 1px solid rgba(0,0,0,0.10) !important;
+  color: rgba(0,0,0,0.78) !important;
+
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.14em !important;
+}
+
+/* Ensure no extra bar shows up */
+.megaHeading::after{
+  content: none !important;
+}
+
+/* Links: make them full-width rows so it's obvious they're items */
+.megaLinks{
+  justify-items: stretch !important;
+  gap: 10px !important;
+}
+
+.megaLink{
+  width: 100% !important;        /* full row */
+  justify-content: space-between !important;
+  padding: 12px 14px !important;
+  border-radius: 14px !important;
+
+  background: rgba(255,255,255,0.98) !important;
+  border: 1px solid rgba(0,0,0,0.10) !important;
+
+  box-shadow: 0 10px 26px rgba(0,0,0,0.06) !important;
+}
+
+/* Remove the weird line before links */
+.megaLink::before{
+  content: none !important;
+}
+
+.megaLinkTitle{
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: rgba(0,0,0,0.72) !important;
+}
+
+/* Arrow: more visible */
+.megaLinkArrow{
+  color: rgba(0,0,0,0.55) !important;
+  font-size: 18px !important;
+}
+
+/* Hover state: obvious clickability */
+.megaLink:hover{
+  transform: translateY(-2px) !important;
+  background: rgba(255,255,255,1) !important;
+  border-color: rgba(122,75,42,0.24) !important;
+  box-shadow: 0 18px 46px rgba(0,0,0,0.12) !important;
+}
+
+.megaLink:hover .megaLinkArrow{
+  color: rgba(0,0,0,0.78) !important;
+  transform: translateX(4px) !important;
+}
+/* =========================
+   FIX: megaLink overflow
+   ========================= */
+
+/* Make sure widths include padding/borders */
+.megaMenu,
+.megaGrid,
+.megaCol,
+.megaLinks,
+.megaLink{
+  box-sizing: border-box;
+}
+
+/* Prevent grid children from overflowing their columns */
+.megaGrid > *{
+  min-width: 0;
+}
+
+/* Column content should not spill */
+.megaCol{
+  overflow: hidden;
+}
+
+/* Links wrapper should not allow items to exceed width */
+.megaLinks{
+  width: 100%;
+}
+
+/* Link row must stay inside the column */
+.megaLink{
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Text should truncate, not push the arrow outside */
+.megaLinkTitle{
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Arrow stays visible */
+.megaLinkArrow{
+  flex: 0 0 auto;
+}
+/* Force consistent selected state for ALL main nav items */
+.siteNavLink.isActive,
+.siteNavBtn.isActive,
+.siteNavCta.isActive{
+  background: rgba(122,75,42,0.14) !important;
+  box-shadow: inset 0 0 0 1px rgba(122,75,42,0.16) !important;
+  color: rgba(0,0,0,0.78) !important;
+}
+
+/* Kill old "Contact CTA black pill" rules */
+.siteNavCta{
+  background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(0,0,0,0.64) !important;
+}
+
+.siteNavCta:hover{
+  background: rgba(122,75,42,0.09) !important;
+  box-shadow: inset 0 0 0 1px rgba(122,75,42,0.10) !important;
+  color: rgba(0,0,0,0.72) !important;
+}
+/* =========================
+   Fix active highlight: make it a full pill, not a tiny chip
+   ========================= */
+
+.siteNavLink,
+.siteNavBtn,
+.siteNavCta{
+  padding: 10px 16px !important;
+  border-radius: 999px !important;
+}
+
+/* Active state should fill the whole button */
+.siteNavLink.isActive,
+.siteNavBtn.isActive,
+.siteNavCta.isActive{
+  background: rgba(122,75,42,0.16) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(122,75,42,0.18) !important;
+  color: rgba(0,0,0,0.80) !important;
+}
+
+/* Remove the little underline indicator when active (looks odd combined) */
+.siteNavLink.isActive::after,
+.siteNavBtn.isActive::after{
+  opacity: 0 !important;
 }

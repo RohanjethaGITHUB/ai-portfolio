@@ -201,16 +201,10 @@ function LiftCard({ item }: { item: LiftItem }) {
   );
 }
 
-function StoryRotator({
-  slides,
-  ariaLabel,
-}: {
-  slides: Slide[];
-  ariaLabel: string;
-}) {
-const [active, setActive] = useState(0);
-const [paused, setPaused] = useState(false);
-const [progress, setProgress] = useState(0);
+function StoryRotator({ slides, ariaLabel }: { slides: Slide[]; ariaLabel: string }) {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const rafRef = useRef<number | null>(null);
   const lastRef = useRef<number | null>(null);
@@ -244,7 +238,6 @@ const [progress, setProgress] = useState(0);
       setProgress((p) => {
         const nextP = p + dt / durationMs;
         if (nextP >= 1) {
-          // advance slide
           setTimeout(() => next(), 0);
           return 0;
         }
@@ -265,7 +258,6 @@ const [progress, setProgress] = useState(0);
 
   return (
     <div className={context.storyWrap} aria-label={ariaLabel} tabIndex={0}>
-      {/* Slide heading now lives INSIDE the rotator so it is visually attached */}
       <div className={context.slideHeader}>
         <h2 className={context.slideTitle}>{activeSlide.title}</h2>
         <p className={context.slideDesc}>{activeSlide.body}</p>
@@ -299,7 +291,6 @@ const [progress, setProgress] = useState(0);
               onClick={() => setPaused((p) => !p)}
               aria-label={paused ? "Play" : "Pause"}
               aria-pressed={!paused}
-
             >
               {paused ? <IconPlay /> : <IconPause />}
             </button>
@@ -310,11 +301,7 @@ const [progress, setProgress] = useState(0);
           </div>
         </div>
 
-        <div
-          className={context.storyBars}
-          aria-hidden="true"
-          style={{ ["--storyCount" as any]: slides.length }}
-        >
+        <div className={context.storyBars} aria-hidden="true" style={{ ["--storyCount" as any]: slides.length }}>
           {slides.map((s, i) => {
             const isActive = i === active;
             const fill = isActive ? progress : i < active ? 1 : 0;
@@ -369,7 +356,19 @@ const [progress, setProgress] = useState(0);
             </div>
           </div>
         ) : (
-          <div className={context.storyGrid}>
+          /* DEFAULT LAYOUT: Image on top, text below */
+          <div className={context.defaultStack}>
+            <div className={context.imageTop}>
+              <div className={context.imageBoxFixed}>
+                <img
+                  src={activeSlide.imageSrc ?? "/context.png"}
+                  alt={`${activeSlide.title} diagram`}
+                  className={context.imageFixed}
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
             <article className={context.storySlide}>
               {activeSlide.tags?.length ? (
                 <div className={context.tagRow}>
@@ -408,26 +407,11 @@ const [progress, setProgress] = useState(0);
 
               {activeSlide.calloutTitle || activeSlide.calloutBody ? (
                 <div className={context.callout}>
-                  {activeSlide.calloutTitle ? (
-                    <div className={context.calloutTitle}>{activeSlide.calloutTitle}</div>
-                  ) : null}
-                  {activeSlide.calloutBody ? (
-                    <div className={context.calloutBody}>{activeSlide.calloutBody}</div>
-                  ) : null}
+                  {activeSlide.calloutTitle ? <div className={context.calloutTitle}>{activeSlide.calloutTitle}</div> : null}
+                  {activeSlide.calloutBody ? <div className={context.calloutBody}>{activeSlide.calloutBody}</div> : null}
                 </div>
               ) : null}
             </article>
-
-            <aside className={context.storySide}>
-              <div className={context.imageBox}>
-                <img
-                  src={activeSlide.imageSrc ?? "/context.png"}
-                  alt={`${activeSlide.title} diagram`}
-                  className={context.image}
-                  loading="lazy"
-                />
-              </div>
-            </aside>
           </div>
         )}
       </div>
@@ -511,7 +495,7 @@ export default function Context() {
           { label: "Measurable", tone: "measurable" },
         ],
         layout: "lift",
-        bannerSrc: "/lift.png", // you can swap this with your final image later
+        bannerSrc: "/lift.png",
         liftItems: [
           {
             tone: "conversion",

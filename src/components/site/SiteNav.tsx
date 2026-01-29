@@ -9,7 +9,7 @@ type TopMenu = "portfolio" | null;
 export function SiteNav() {
   const [openTop, setOpenTop] = useState<TopMenu>(null);
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const pathname = usePathname();
+  const pathname = usePathname() || "/";
 
   const closeTimerRef = useRef<number | null>(null);
 
@@ -58,13 +58,20 @@ export function SiteNav() {
 
   const topIsOpen = openTop === "portfolio";
 
-  // Treat both /portfolio/* and /company-teardowns/* as Portfolio routes
-  const isPortfolioRoute =
-    pathname?.startsWith("/portfolio") || pathname?.startsWith("/company-teardowns");
+  // Active route detection
+  const isHome = pathname === "/";
+  const isAbout = pathname === "/about";
+  const isContact = pathname === "/contact";
 
-  const isAboutRoute = pathname === "/about";
-  const isHomeRoute = pathname === "/";
-  const isContactRoute = pathname === "/contact";
+  // Portfolio should highlight for any portfolio page
+const isPortfolio =
+  pathname === "/portfolio" ||
+  pathname.startsWith("/portfolio/") ||
+  pathname === "/company-teardowns" ||
+  pathname.startsWith("/company-teardowns/") ||
+  pathname === "/company-teardowns" ||      // safety if you have both spellings anywhere
+  pathname.startsWith("/company-teardowns/");
+
 
   const linkStyle: React.CSSProperties = {
     textDecoration: "none",
@@ -100,15 +107,10 @@ export function SiteNav() {
       onMouseLeave={() => scheduleClose(140)}
     >
       <nav className="siteNav" aria-label="Primary">
-        <Link
-          className={`siteNavLink ${isHomeRoute ? "isActive" : ""}`}
-          href="/"
-          style={linkStyle}
-        >
+        <Link className={`siteNavLink ${isHome ? "isActive" : ""}`} href="/" style={linkStyle}>
           Home
         </Link>
 
-        {/* Portfolio */}
         <div
           className="siteNavItem"
           style={{ position: "relative" }}
@@ -117,20 +119,17 @@ export function SiteNav() {
         >
           <button
             type="button"
-            className={`siteNavBtn ${isPortfolioRoute ? "isActive" : ""}`}
+            className={`siteNavBtn ${isPortfolio ? "isActive" : ""}`}
             aria-haspopup="menu"
             aria-expanded={topIsOpen}
             onMouseEnter={() => openPortfolio()}
             onFocus={() => openPortfolio()}
-            onClick={() => {
-              setOpenTop((v) => (v === "portfolio" ? null : "portfolio"));
-            }}
-            style={{ ...btnReset }}
+            onClick={() => setOpenTop((v) => (v === "portfolio" ? null : "portfolio"))}
+            style={btnReset}
           >
             Portfolio <span className={`chev ${topIsOpen ? "isOpen" : ""}`}>▾</span>
           </button>
 
-          {/* 2-column mega menu */}
           <div
             className={`megaMenu ${topIsOpen ? "isOpen" : "isClosed"}`}
             role="menu"
@@ -139,100 +138,50 @@ export function SiteNav() {
             onMouseLeave={() => scheduleClose(140)}
           >
             <div className="megaGrid">
-              {/* Column 1 */}
               <div className="megaCol">
                 <div className="megaHeading">Company Tear Downs</div>
                 <div className="megaLinks">
-                  <Link
-                    className="megaLink"
-                    role="menuitem"
-                    href="/company-teardowns/razorpay"
-                    onClick={closeAll}
-                    style={linkStyle}
-                  >
+                  <Link className="megaLink" role="menuitem" href="/company-teardowns/razorpay" onClick={closeAll} style={linkStyle}>
                     <span className="megaLinkTitle">Razorpay</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link
-                    className="megaLink"
-                    role="menuitem"
-                    href="/portfolio/company-teardowns/google"
-                    onClick={closeAll}
-                    style={linkStyle}
-                  >
+                  <Link className="megaLink" role="menuitem" href="/portfolio/company-teardowns/google" onClick={closeAll} style={linkStyle}>
                     <span className="megaLinkTitle">Google</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link
-                    className="megaLink"
-                    role="menuitem"
-                    href="/portfolio/company-teardowns/stripe"
-                    onClick={closeAll}
-                    style={linkStyle}
-                  >
+                  <Link className="megaLink" role="menuitem" href="/portfolio/company-teardowns/stripe" onClick={closeAll} style={linkStyle}>
                     <span className="megaLinkTitle">Stripe (dummy)</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link
-                    className="megaLink"
-                    role="menuitem"
-                    href="/portfolio/company-teardowns/canva"
-                    onClick={closeAll}
-                    style={linkStyle}
-                  >
+                  <Link className="megaLink" role="menuitem" href="/portfolio/company-teardowns/canva" onClick={closeAll} style={linkStyle}>
                     <span className="megaLinkTitle">Canva (dummy)</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
                 </div>
               </div>
 
-              {/* Column 2 */}
               <div className="megaCol">
                 <div className="megaHeading">AI Systems Built</div>
                 <div className="megaLinks">
-                  <Link
-                    className="megaLink"
-                    role="menuitem"
-                    href="/portfolio/ai-money-coach"
-                    onClick={closeAll}
-                    style={linkStyle}
-                  >
+                  <Link className="megaLink" role="menuitem" href="/portfolio/ai-money-coach" onClick={closeAll} style={linkStyle}>
                     <span className="megaLinkTitle">AI Money Coach</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link
-                    className="megaLink"
-                    role="menuitem"
-                    href="/portfolio/ai-lead-gen"
-                    onClick={closeAll}
-                    style={linkStyle}
-                  >
+                  <Link className="megaLink" role="menuitem" href="/portfolio/ai-lead-gen" onClick={closeAll} style={linkStyle}>
                     <span className="megaLinkTitle">AI Personalized Lead Gen</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link
-                    className="megaLink"
-                    role="menuitem"
-                    href="/portfolio/ai-end-to-end-recruiter"
-                    onClick={closeAll}
-                    style={linkStyle}
-                  >
+                  <Link className="megaLink" role="menuitem" href="/portfolio/ai-end-to-end-recruiter" onClick={closeAll} style={linkStyle}>
                     <span className="megaLinkTitle">AI End-to-End Recruiter</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link
-                    className="megaLink"
-                    role="menuitem"
-                    href="/portfolio/influencer-discovery"
-                    onClick={closeAll}
-                    style={linkStyle}
-                  >
+                  <Link className="megaLink" role="menuitem" href="/portfolio/influencer-discovery" onClick={closeAll} style={linkStyle}>
                     <span className="megaLinkTitle">Influencer Discovery (dummy)</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
@@ -242,19 +191,12 @@ export function SiteNav() {
           </div>
         </div>
 
-        <Link
-          className={`siteNavLink ${isAboutRoute ? "isActive" : ""}`}
-          href="/about"
-          style={linkStyle}
-        >
+        <Link className={`siteNavLink ${isAbout ? "isActive" : ""}`} href="/about" style={linkStyle}>
           About
         </Link>
 
-        <Link
-          className={`siteNavCta ${isContactRoute ? "isActive" : "isGhost"}`}
-          href="/contact"
-          style={linkStyle}
-        >
+        {/* Contact should highlight like others, not black */}
+        <Link className={`siteNavCta ${isContact ? "isActive" : ""}`} href="/contact" style={linkStyle}>
           Contact
         </Link>
       </nav>

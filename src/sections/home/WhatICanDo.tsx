@@ -22,8 +22,8 @@ export function WhatICanDo() {
           "Scope the MVP so it ships fast and proves value",
           "Align stakeholders with a simple decision narrative",
         ],
-        hoverImg:
-          "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1400&q=80",
+        // local PNG from /public
+        hoverImg: "/ai-product-strategy.png",
       },
       {
         title: "Automation systems",
@@ -33,30 +33,26 @@ export function WhatICanDo() {
           "Add monitoring so failures do not go silent",
           "Ship in iterations with measurable impact",
         ],
-        hoverImg:
-          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80",
+        hoverImg: "/automation-systems.png",
       },
       {
-        title: "UX and interaction",
+        title: "AI experience design",
         points: [
-          "Make structure obvious in 5 seconds",
-          "Create reusable components and patterns",
-          "Improve clarity of CTAs and page flow",
-          "Polish micro interactions for trust",
+          "User journeys around AI decisions",
+          "Making AI outputs understandable",
+          "Guardrails, confidence, clarity",
         ],
-        hoverImg:
-          "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1400&q=80",
+        hoverImg: "/ai-experience.png",
       },
       {
-        title: "AI delivery",
+        title: "AI delivery & governance",
         points: [
           "Pick the right model for the use case",
           "Add lightweight evaluation for consistency",
           "Handle edge cases and failure modes",
           "Ship a working system with clean handover",
         ],
-        hoverImg:
-          "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1400&q=80",
+        hoverImg: "/governance.png",
       },
     ],
     []
@@ -100,20 +96,18 @@ export function WhatICanDo() {
   }, []);
 
   const showFollower = (idx: number) => {
-  setHoverIndex(idx);
+    setHoverIndex(idx);
 
-  const el = followerRef.current;
-  const img = followerImgRef.current;
+    const el = followerRef.current;
+    const img = followerImgRef.current;
 
-  if (img) {
-    img.src = items[idx].hoverImg;
-  }
+    if (img) {
+      img.src = items[idx].hoverImg;
+    }
 
-  if (el) el.style.opacity = "1";
-  if (img) img.style.opacity = "1";
-};
-
-
+    if (el) el.style.opacity = "1";
+    if (img) img.style.opacity = "1";
+  };
 
   const hideFollower = (idx: number) => {
     setHoverIndex((v) => (v === idx ? null : v));
@@ -155,7 +149,6 @@ export function WhatICanDo() {
                   className={`dr-acc-item ${isOpen ? "is-open" : ""}`}
                   role="listitem"
                 >
-                  {/* Clicking anywhere on the header toggles open and close */}
                   <button
                     className="dr-acc-btn"
                     type="button"
@@ -178,7 +171,6 @@ export function WhatICanDo() {
                       </span>
                     </span>
 
-                    {/* Icon is only a cue, no text */}
                     <span className="dr-acc-icon" aria-hidden="true">
                       {isOpen ? "−" : "+"}
                     </span>
@@ -200,7 +192,6 @@ export function WhatICanDo() {
             })}
           </div>
 
-          {/* Follower hover image (fixed to cursor, landscape, smooth) */}
           <div ref={followerRef} className="dr-hover-follower" aria-hidden="true">
             {hoverIndex !== null ? (
               <img
@@ -217,7 +208,6 @@ export function WhatICanDo() {
         <div className="col-visual what-visual">
           <CardSlot imgSrc="/what-p.png" />
         </div>
-
       </div>
     </section>
   );
