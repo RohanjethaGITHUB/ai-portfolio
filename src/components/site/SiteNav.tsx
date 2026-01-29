@@ -12,6 +12,31 @@ export function SiteNav() {
   const pathname = usePathname() || "/";
 
   const closeTimerRef = useRef<number | null>(null);
+  const isTouchRef = useRef(false);
+
+  // Your original inline style hook (keep it)
+  const linkStyle: React.CSSProperties = {
+    textDecoration: "none",
+  };
+
+  useEffect(() => {
+    // Detect touch style interaction once on mount
+    // hover:none catches most mobiles, coarse pointer catches many touch devices
+    const mqHoverNone = window.matchMedia("(hover: none)");
+    const mqCoarse = window.matchMedia("(pointer: coarse)");
+    isTouchRef.current = mqHoverNone.matches || mqCoarse.matches;
+
+    const update = () => {
+      isTouchRef.current = mqHoverNone.matches || mqCoarse.matches;
+    };
+
+    mqHoverNone.addEventListener("change", update);
+    mqCoarse.addEventListener("change", update);
+    return () => {
+      mqHoverNone.removeEventListener("change", update);
+      mqCoarse.removeEventListener("change", update);
+    };
+  }, []);
 
   function clearCloseTimer() {
     if (closeTimerRef.current) {
@@ -26,11 +51,15 @@ export function SiteNav() {
   }
 
   function openPortfolio() {
+    // Desktop only (hover UX)
+    if (isTouchRef.current) return;
     clearCloseTimer();
     setOpenTop("portfolio");
   }
 
   function scheduleClose(ms = 120) {
+    // Desktop only (hover UX)
+    if (isTouchRef.current) return;
     clearCloseTimer();
     closeTimerRef.current = window.setTimeout(() => {
       setOpenTop(null);
@@ -38,94 +67,64 @@ export function SiteNav() {
     }, ms);
   }
 
+  function togglePortfolio() {
+    clearCloseTimer();
+    setOpenTop((v) => (v === "portfolio" ? null : "portfolio"));
+  }
+
   useEffect(() => {
-    function onDocMouseDown(e: MouseEvent) {
+    function onDocPointerDown(e: PointerEvent) {
       const el = rootRef.current;
       if (!el) return;
       if (!el.contains(e.target as Node)) closeAll();
     }
+
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") closeAll();
     }
 
-    document.addEventListener("mousedown", onDocMouseDown);
+    document.addEventListener("pointerdown", onDocPointerDown);
     document.addEventListener("keydown", onKeyDown);
+
     return () => {
-      document.removeEventListener("mousedown", onDocMouseDown);
+      document.removeEventListener("pointerdown", onDocPointerDown);
       document.removeEventListener("keydown", onKeyDown);
     };
   }, []);
 
-  const topIsOpen = openTop === "portfolio";
-
-  // Active route detection
+  // Active states
   const isHome = pathname === "/";
   const isAbout = pathname === "/about";
   const isContact = pathname === "/contact";
 
-  // Portfolio should highlight for any portfolio page
-const isPortfolio =
-  pathname === "/portfolio" ||
-  pathname.startsWith("/portfolio/") ||
-  pathname === "/company-teardowns" ||
-  pathname.startsWith("/company-teardowns/") ||
-  pathname === "/company-teardowns" ||      // safety if you have both spellings anywhere
-  pathname.startsWith("/company-teardowns/");
+  const isPortfolio =
+    pathname === "/portfolio" ||
+    pathname.startsWith("/portfolio/") ||
+    pathname === "/company-teardowns" ||
+    pathname.startsWith("/company-teardowns/");
 
-
-  const linkStyle: React.CSSProperties = {
-    textDecoration: "none",
-    color: "inherit",
-  };
-
-  const btnReset: React.CSSProperties = {
-    appearance: "none",
-    border: "none",
-    background: "transparent",
-    padding: 0,
-    margin: 0,
-    font: "inherit",
-    color: "inherit",
-    lineHeight: "inherit",
-    cursor: "pointer",
-  };
+  const topIsOpen = openTop === "portfolio";
 
   return (
-    <div
-      className="siteNavWrap"
-      ref={rootRef}
-      data-portfolio-open={topIsOpen ? "true" : "false"}
-      style={{
-        position: "fixed",
-        top: 18,
-        left: "50%",
-        transform: "translateX(-50%)",
-        zIndex: 1000,
-        width: "max-content",
-      }}
-      onMouseEnter={() => clearCloseTimer()}
-      onMouseLeave={() => scheduleClose(140)}
-    >
+    <div className="siteNavWrap" ref={rootRef} data-portfolio-open={topIsOpen ? "true" : "false"}>
       <nav className="siteNav" aria-label="Primary">
         <Link className={`siteNavLink ${isHome ? "isActive" : ""}`} href="/" style={linkStyle}>
           Home
         </Link>
 
-        <div
-          className="siteNavItem"
-          style={{ position: "relative" }}
-          onMouseEnter={() => openPortfolio()}
-          onMouseLeave={() => scheduleClose(140)}
-        >
+        {/* Portfolio */}
+        <div className="siteNavItem" onMouseEnter={openPortfolio} onMouseLeave={() => scheduleClose(140)}>
           <button
             type="button"
             className={`siteNavBtn ${isPortfolio ? "isActive" : ""}`}
             aria-haspopup="menu"
             aria-expanded={topIsOpen}
-            onMouseEnter={() => openPortfolio()}
-            onFocus={() => openPortfolio()}
-            onClick={() => setOpenTop((v) => (v === "portfolio" ? null : "portfolio"))}
-            style={btnReset}
+            // Fix double tap: use pointerdown and stop propagation so the document handler does not instantly close it
+            onPointerDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              togglePortfolio();
+            }}
           >
             Portfolio <span className={`chev ${topIsOpen ? "isOpen" : ""}`}>▾</span>
           </button>
@@ -134,29 +133,55 @@ const isPortfolio =
             className={`megaMenu ${topIsOpen ? "isOpen" : "isClosed"}`}
             role="menu"
             aria-label="Portfolio"
-            onMouseEnter={() => openPortfolio()}
+            onMouseEnter={openPortfolio}
             onMouseLeave={() => scheduleClose(140)}
+            // Prevent clicks inside menu from triggering outside close
+            onPointerDown={(e) => e.stopPropagation()}
           >
             <div className="megaGrid">
               <div className="megaCol">
                 <div className="megaHeading">Company Tear Downs</div>
                 <div className="megaLinks">
-                  <Link className="megaLink" role="menuitem" href="/company-teardowns/razorpay" onClick={closeAll} style={linkStyle}>
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/company-teardowns/razorpay"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
                     <span className="megaLinkTitle">Razorpay</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link className="megaLink" role="menuitem" href="/portfolio/company-teardowns/google" onClick={closeAll} style={linkStyle}>
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/company-teardowns/google"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
                     <span className="megaLinkTitle">Google</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link className="megaLink" role="menuitem" href="/portfolio/company-teardowns/stripe" onClick={closeAll} style={linkStyle}>
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/company-teardowns/stripe"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
                     <span className="megaLinkTitle">Stripe (dummy)</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link className="megaLink" role="menuitem" href="/portfolio/company-teardowns/canva" onClick={closeAll} style={linkStyle}>
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/company-teardowns/canva"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
                     <span className="megaLinkTitle">Canva (dummy)</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
@@ -166,22 +191,46 @@ const isPortfolio =
               <div className="megaCol">
                 <div className="megaHeading">AI Systems Built</div>
                 <div className="megaLinks">
-                  <Link className="megaLink" role="menuitem" href="/portfolio/ai-money-coach" onClick={closeAll} style={linkStyle}>
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/ai-money-coach"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
                     <span className="megaLinkTitle">AI Money Coach</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link className="megaLink" role="menuitem" href="/portfolio/ai-lead-gen" onClick={closeAll} style={linkStyle}>
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/ai-lead-gen"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
                     <span className="megaLinkTitle">AI Personalized Lead Gen</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link className="megaLink" role="menuitem" href="/portfolio/ai-end-to-end-recruiter" onClick={closeAll} style={linkStyle}>
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/ai-end-to-end-recruiter"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
                     <span className="megaLinkTitle">AI End-to-End Recruiter</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link className="megaLink" role="menuitem" href="/portfolio/influencer-discovery" onClick={closeAll} style={linkStyle}>
+                  <Link
+                    className="megaLink"
+                    role="menuitem"
+                    href="/portfolio/influencer-discovery"
+                    onClick={closeAll}
+                    style={linkStyle}
+                  >
                     <span className="megaLinkTitle">Influencer Discovery (dummy)</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
@@ -195,7 +244,6 @@ const isPortfolio =
           About
         </Link>
 
-        {/* Contact should highlight like others, not black */}
         <Link className={`siteNavCta ${isContact ? "isActive" : ""}`} href="/contact" style={linkStyle}>
           Contact
         </Link>

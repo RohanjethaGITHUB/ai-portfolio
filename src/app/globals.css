@@ -1,110 +1,62 @@
+/* =========================
+   DR PORTFOLIO
+   Single source of truth
+   ========================= */
+
 @import url("https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&display=swap");
-
-html, body {
-  height: 100%;
-}
-
-body{
-  background:
-    radial-gradient(900px 500px at 50% 78%, rgba(120, 90, 55, 0.10), transparent 60%),
-    radial-gradient(900px 500px at 50% 78%, rgba(0, 0, 0, 0.06), transparent 65%),
-    #fbfbfa;
-}
-body::after{
-  content:"";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Ccircle cx='2' cy='2' r='1'/%3E%3Ccircle cx='42' cy='18' r='1'/%3E%3Ccircle cx='78' cy='63' r='1'/%3E%3Ccircle cx='110' cy='91' r='1'/%3E%3C/g%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
-}
-
-#dr-portfolio .sr-only{
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
 
 #dr-portfolio{
   font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  position: relative;
 
   --cardW: clamp(264px, 28.6vw, 396px);
   --radius: 22px;
   --persp: 1200px;
 
-  /* White-silver base */
-  --bg0: #f7f7f6;
-  --bg1: #efefee;
-
-  /* Ink */
-  --ink: rgba(18, 18, 18, 0.78);
-  /* Slightly softer hero headline ink */
   --heroInk: rgba(18, 18, 18, 0.70);
+  --ink: rgba(18, 18, 18, 0.78);
   --muted: rgba(18, 18, 18, 0.58);
-   /* Leather brown accent */
+
   --accent: #7a4b2a;
-  --accent2: rgba(122,75,42,0.09);
   --shadowAccent: rgba(122,75,42,0.14);
 
-  background: transparent;
-  /* background:
-  radial-gradient(900px 600px at 50% 240px, rgba(122,75,42,0.10), rgba(122,75,42,0) 60%),
-  radial-gradient(800px 520px at 18% 900px, rgba(0,0,0,0.04), rgba(0,0,0,0) 62%),
-  linear-gradient(180deg, #fbfbfa 0%, #f6f6f4 55%, #f7f7f6 100%);
-  color: var(--ink); */
-}
-#dr-portfolio > *{
   position: relative;
-  z-index: 2;
+  background: transparent;
 }
 
-
-#dr-portfolio *{ box-sizing:border-box; }
+#dr-portfolio *{ box-sizing: border-box; }
 
 #dr-portfolio .wrap{
-  width:min(1180px, calc(100% - 64px));
-  margin:0 auto;
+  width: min(1180px, calc(100% - 64px));
+  margin: 0 auto;
 }
 
 #dr-portfolio .section{
-  min-height: 86vh;
-  display:flex;
-  align-items:center;
-  position:relative;
+  display: flex;
+  align-items: center;
+  position: relative;
   padding: 84px 0;
-  overflow:hidden;
+  overflow: hidden;
   background: transparent;
 }
 
-/* Keep hero as the only "full screen" section */
+/* HERO */
 #dr-portfolio #hero.section{
   min-height: 100vh;
   padding: 140px 0;
 }
 
-
-/* HERO layout */
 #dr-portfolio .hero-grid{
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr var(--cardW) 1fr;
-  column-gap: 22px;
+  gap: 22px;
   align-items: center;
   position: relative;
   z-index: 1;
-   overflow: visible;
 }
 
 #dr-portfolio .hero-left{
-  justify-self:end;
-  text-align:right;
+  justify-self: end;
+  text-align: right;
   padding-right: 12px;
   position: relative;
   display: flex;
@@ -113,54 +65,24 @@ body::after{
 }
 
 #dr-portfolio .hero-right{
-  justify-self:start;
-  text-align:left;
-  padding-left: 30px;
-  padding-left: 18px; /* reduce from 30px */
-  max-width: 100%;
+  justify-self: start;
+  text-align: left;
+  padding-left: 18px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-#dr-portfolio .hero-right .h1{
-  white-space: nowrap;
-    font-size: clamp(58px, 6.8vw, 108px);
 
-}
-
-/* Section layout */
-#dr-portfolio .two-col{
-  display:grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap:56px;
-  align-items:center;
-}
-
-#dr-portfolio .two-col.flip{
-  grid-template-columns: 0.85fr 1.15fr;
-}
-
-/* Slot anchors */
-#dr-portfolio .card-slot{
-  width: var(--cardW);
-  aspect-ratio: 3 / 4;
-  justify-self:center;
-  align-self:center;
-  pointer-events:none;
-}
-
-/* Typography */
 #dr-portfolio .kicker{
-  letter-spacing:0.12em;
-  font-weight:700;
-  font-size:13px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  font-size: 13px;
   color: var(--accent);
-  text-transform:uppercase;
-  margin-bottom:10px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
-/* Align ARTIFICIAL and INTELLIGENCE on the same visual baseline.
-   The kicker should not push the headline down on large screens. */
+/* Desktop kicker placement */
 #dr-portfolio #hero .hero-left .kicker{
   position: absolute;
   right: 12px;
@@ -169,70 +91,73 @@ body::after{
 }
 
 #dr-portfolio .h1{
-  margin:0;
-  font-family:"Antonio", system-ui, sans-serif;
-  font-weight:700;
-  text-transform:uppercase;
-  line-height:0.90;
+  margin: 0;
+  font-family: "Antonio", system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 0.90;
   font-size: clamp(64px, 7.2vw, 110px);
   color: var(--heroInk);
 }
 
 #dr-portfolio .sub{
-  margin-top:14px;
-  font-size:16px;
-  line-height:1.6;
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.6;
   color: var(--muted);
-  max-width:44ch;
+  max-width: 44ch;
 }
 
-/* AI aura behind the hero card to make the orbit layer feel intentional */
-#dr-portfolio #hero .hero-aura{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(720px, 92vw);
-  height: min(540px, 72vh);
-  transform: translate(-50%, -50%);
+/* Generic two col sections */
+#dr-portfolio .two-col{
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+
+#dr-portfolio .two-col.flip{
+  grid-template-columns: 0.85fr 1.15fr;
+}
+
+/* Card slot (position target for floating card, and mobile fallback image) */
+#dr-portfolio .card-slot{
+  width: var(--cardW);
+  aspect-ratio: 3 / 4;
+  justify-self: center;
+  align-self: center;
   pointer-events: none;
-  z-index: 0;
-
-  background:
-    radial-gradient(closest-side at 50% 50%, rgba(122,75,42,0.10), rgba(122,75,42,0) 68%),
-    radial-gradient(closest-side at 50% 55%, rgba(0,0,0,0.07), rgba(0,0,0,0) 72%),
-    repeating-radial-gradient(circle at 50% 50%, rgba(122,75,42,0.08) 0 1px, rgba(122,75,42,0) 1px 18px);
-
-  filter: blur(0.2px);
-  opacity: 0.95;
+  position: relative;
 }
 
-#dr-portfolio .h2{
-  margin:0;
-  font-family:"Antonio", system-ui, sans-serif;
-  font-weight:700;
-  text-transform:uppercase;
-  font-size: clamp(44px, 5.6vw, 86px);
-  line-height:0.92;
+#dr-portfolio .card-slot .cardMedia{
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
 }
 
-#dr-portfolio .p{
-  margin:14px 0 0;
-  max-width:60ch;
-  color: var(--muted);
-  line-height:1.65;
-  font-size:16px;
+#dr-portfolio .card-slot .cardImg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius);
+  filter:
+    drop-shadow(0 14px 34px rgba(0,0,0,0.14))
+    drop-shadow(0 20px 56px var(--shadowAccent));
 }
 
-/* Floating layer */
+/* Floating follower layer (desktop only) */
 #dr-portfolio .card-layer{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:10;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
 }
 
 #dr-portfolio .card{
-  position:absolute;
+  position: absolute;
   width: var(--cardW);
   aspect-ratio: 3 / 4;
   perspective: var(--persp);
@@ -241,20 +166,22 @@ body::after{
 }
 
 #dr-portfolio .card-inner{
-  width:100%;
-  height:100%;
-  transform-style:preserve-3d;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
   will-change: transform;
+}
+
+#dr-portfolio .card-face{
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
 }
 
 #dr-portfolio .card-back{
   transform: rotateY(180deg);
 }
-#dr-portfolio .card-face{
-  position:absolute;
-  inset:0;
-  backface-visibility:hidden;
-}
+
 #dr-portfolio .cardMedia{
   position: absolute;
   inset: 0;
@@ -262,67 +189,49 @@ body::after{
   border-radius: var(--radius);
 }
 
-
-
 #dr-portfolio .card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
   border-radius: var(--radius);
   filter:
     drop-shadow(0 14px 34px rgba(0,0,0,0.14))
     drop-shadow(0 20px 56px var(--shadowAccent));
 }
 
-#dr-portfolio .cardImg.is-hero{
-    filter: saturate(0.95) contrast(0.98) brightness(0.98);
-
-  transform: scale(1.08);
-  transform-origin: center;
-}
-#dr-portfolio .card.is-hero-seg .cardImg{
-  transform: scale(1.16);
-  transform-origin: center;
-  /* filter: saturate(0.92) contrast(0.98); */
-  filter: saturate(0.88) contrast(0.98) brightness(1.02);
-
-}
-#dr-portfolio .card,
-#dr-portfolio .card-face{
-  overflow: visible !important;
-}
-
-
 /* Hi bubble */
 #dr-portfolio .hi-bubble{
-  position:absolute;
-  left:-14px !important;
+  position: absolute;
+  left: -14px;
+  bottom: -14px;
   z-index: 5;
-  bottom:-14px!important;
-  width:54px;
-  height:54px;
-  border-radius:999px;
-  display:grid;
-  place-items:center;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
   background: rgba(122,75,42,0.92);
   box-shadow:
     0 18px 44px rgba(0,0,0,0.20),
     0 18px 55px rgba(122,75,42,0.18);
-  opacity:0;
+  opacity: 0;
   transform: translateY(6px);
   transition: opacity 220ms ease, transform 220ms ease;
 }
+
 #dr-portfolio .hi-bubble.is-on{
-  opacity:1;
+  opacity: 1;
   transform: translateY(0);
 }
+
 #dr-portfolio .hi-icon{
-  font-size:22px;
-  display:inline-block;
-  transform-origin:70% 70%;
+  font-size: 22px;
+  display: inline-block;
+  transform-origin: 70% 70%;
   animation: drWave 1.2s ease-in-out infinite;
 }
+
 @keyframes drWave{
   0%{ transform: rotate(0deg); }
   15%{ transform: rotate(14deg); }
@@ -333,12 +242,27 @@ body::after{
   100%{ transform: rotate(0deg); }
 }
 
-/* Orbits */
+/* Orbits and aura */
 #dr-portfolio #hero .wrap{ position: relative; }
+
+#dr-portfolio .hero-aura{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(720px, 92vw);
+  height: min(540px, 72vh);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(closest-side at 50% 50%, rgba(122,75,42,0.10), rgba(122,75,42,0) 68%),
+    radial-gradient(closest-side at 50% 55%, rgba(0,0,0,0.07), rgba(0,0,0,0) 72%);
+  opacity: 0.95;
+}
 
 #dr-portfolio .hero-orbits{
   position: absolute;
-  inset: -90px;              /* was -40px, makes it wider */
+  inset: -90px;
   display: grid;
   place-items: center;
   pointer-events: none;
@@ -348,12 +272,10 @@ body::after{
   mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 56%, rgba(0,0,0,0) 86%);
 }
 
-
 #dr-portfolio .orbits-svg{
   width: min(930px, 110vw);
   height: auto;
   overflow: visible;
-
   filter:
     drop-shadow(0 18px 50px rgba(0,0,0,0.06))
     drop-shadow(0 0 16px rgba(122,75,42,0.07));
@@ -367,7 +289,6 @@ body::after{
   stroke-dasharray: 14 22;
 }
 
-/* Variants (single set of definitions) */
 #dr-portfolio .orbit-b ellipse{
   stroke: rgba(122,75,42,0.20);
   stroke-dasharray: 10 22;
@@ -376,497 +297,666 @@ body::after{
   stroke: rgba(20,20,20,0.13);
   stroke-dasharray: 18 26;
 }
-#dr-portfolio .orbit-d ellipse{
-  stroke: rgba(122,75,42,0.16);
-  stroke-dasharray: 18 30;
-}
 
 #dr-portfolio .orbit-a{
   transform-origin: 400px 400px;
-  animation: drOrbitSpinA 18s linear infinite;
+  animation: drOrbitSpinA 14s linear infinite;
 }
 #dr-portfolio .orbit-b{
   transform-origin: 400px 400px;
-  animation: drOrbitSpinB 24s linear infinite reverse;
+  animation: drOrbitSpinB 20s linear infinite reverse;
 }
 #dr-portfolio .orbit-c{
   transform-origin: 400px 400px;
-  animation: drOrbitSpinC 30s linear infinite;
+  animation: drOrbitSpinC 26s linear infinite;
 }
-
-#dr-portfolio .orbit-a{ animation: drOrbitSpinA 14s linear infinite; }
-#dr-portfolio .orbit-b{ animation: drOrbitSpinB 20s linear infinite reverse; }
-#dr-portfolio .orbit-c{ animation: drOrbitSpinC 26s linear infinite; }
-
-@keyframes drOrbitSpinD{ to{ transform: rotate(360deg); } }
-
 
 @keyframes drOrbitSpinA{ to{ transform: rotate(360deg); } }
 @keyframes drOrbitSpinB{ to{ transform: rotate(360deg); } }
 @keyframes drOrbitSpinC{ to{ transform: rotate(360deg); } }
-@keyframes drOrbitSpinD{ to{ transform: rotate(360deg); } }
 
-@keyframes drDash{ to{ stroke-dashoffset: -120; } }
+/* =========================
+   My Core Skills
+   ========================= */
 
-@media (max-width: 980px){
-  #dr-portfolio .wrap{ width:min(1180px, calc(100% - 40px)); }
-  #dr-portfolio .hero-grid{ grid-template-columns:1fr; gap:18px; }
-  #dr-portfolio .hero-left,
-  #dr-portfolio .hero-right{
-    text-align:left;
-    justify-self:start;
-    padding:0;
-  }
-  #dr-portfolio .two-col,
-  #dr-portfolio .two-col.flip{ grid-template-columns:1fr; gap:28px; }
-
-  #dr-portfolio .card-layer{ display:none; }
-  #dr-portfolio .card-slot{ display:none; }
-  #dr-portfolio .hero-orbits{ display:none; }
-  #dr-portfolio #hero .hero-aura{ display:none; }
-
-  /* On mobile, let the kicker be normal flow again */
-  #dr-portfolio #hero .hero-left .kicker{
-    position: static;
-    margin-bottom: 10px;
-  }
+#dr-portfolio .h2{
+  margin: 0;
+  font-family: "Antonio", system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(44px, 5.6vw, 86px);
+  line-height: 0.92;
+  color: var(--heroInk);
 }
 
-@media (prefers-reduced-motion: reduce){
-  #dr-portfolio .hi-icon{ animation:none; }
-  #dr-portfolio .orbit-a,
-  #dr-portfolio .orbit-b,
-  #dr-portfolio .orbit-c,
-  #dr-portfolio .orbit ellipse{
-    animation: none;
-  }
-}
-#dr-portfolio .orbit{
-  position: relative;
-}
-
-#dr-portfolio .orbit-dot{
-  transform-origin: 400px 400px;
-  animation: drOrbitSpinDot 12s linear infinite;
-  opacity: 0.55;
-}
-
-
-#dr-portfolio .orbit-dot circle{
-  fill: rgba(122,75,42,0.55);
-  filter: drop-shadow(0 0 8px rgba(122,75,42,0.16));
-}
-#dr-portfolio .orbit-dot.is-cool{
-  opacity: 0.45;
-}
-#dr-portfolio .orbit-dot.is-cool circle{
-  fill: rgba(20,20,20,0.40);
-  filter: drop-shadow(0 0 8px rgba(20,20,20,0.10));
-}
-
-@keyframes drOrbitSpinDot{
-  to{ transform: rotate(360deg); }
-}
-
-/* tighter spacing like Portavia */
-#dr-portfolio .section{
-  min-height: 86vh;
-  padding: 84px 0;
-}
-#dr-portfolio #hero.section{
-  min-height: 100vh;
-  padding: 140px 0;
-}
-
-#dr-portfolio .mini-kicker{
-  letter-spacing:0.14em;
-  font-weight:700;
-  font-size:12px;
-  color: var(--accent);
-  text-transform:uppercase;
-  margin-bottom:10px;
-}
-
-/* What I can do layout tweaks */
-#dr-portfolio .what-grid{
-  align-items: start;
-}
-#dr-portfolio .what-visual{
-  position: relative;
-}
-#dr-portfolio .hover-hint{
-  margin-top: 12px;
-  font-size: 13px;
+#dr-portfolio .p{
+  margin: 14px 0 0;
+  max-width: 60ch;
   color: var(--muted);
+  line-height: 1.65;
+  font-size: 16px;
 }
 
-/* Accordion */
 #dr-portfolio .dr-accordion{
-  margin-top: 22px;
-  border-top: 1px solid rgba(20,20,20,0.12);
+  margin-top: 18px;
+  display: grid;
+  gap: 14px;
 }
+
+#dr-portfolio .dr-acc-item{
+  border-radius: 16px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+#dr-portfolio .dr-acc-btn{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+#dr-portfolio .dr-acc-left{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+#dr-portfolio .dr-acc-num{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  color: rgba(18,18,18,0.78);
+  background: rgba(122,75,42,0.10);
+  border: 1px solid rgba(122,75,42,0.14);
+  flex: 0 0 auto;
+}
+
+#dr-portfolio .dr-acc-title{
+  font-weight: 700;
+  font-size: 16px;
+  color: rgba(18,18,18,0.78);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#dr-portfolio .dr-acc-icon{
+  font-weight: 800;
+  font-size: 18px;
+  color: rgba(18,18,18,0.55);
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.06);
+  flex: 0 0 auto;
+}
+
+#dr-portfolio .dr-acc-panel{
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 240ms ease;
+}
+
+#dr-portfolio .dr-acc-item.is-open .dr-acc-panel{
+  grid-template-rows: 1fr;
+}
+
+#dr-portfolio .dr-acc-list{
+  overflow: hidden;
+  margin: 0;
+  padding: 0 18px 14px 44px;
+  color: rgba(18,18,18,0.62);
+  line-height: 1.55;
+}
+
+#dr-portfolio .dr-acc-list li{
+  margin: 8px 0;
+}
+
+/* Hover follower image (desktop) */
 #dr-portfolio .dr-hover-follower{
   position: fixed;
   left: 0;
   top: 0;
-  width: 260px;
-  height: 150px;
+  width: 280px;
+  height: 180px;
   opacity: 0;
   pointer-events: none;
-  z-index: 9999;
-  transform: rotate(-4deg) translateY(6px);
-  transition: opacity 140ms ease, transform 180ms ease;
-}
-
-#dr-portfolio .dr-hover-follower.is-on{
-  opacity: 1;
-  transform: rotate(-4deg) translateY(0);
+  z-index: 99999;
 }
 
 #dr-portfolio .dr-hover-follower-img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 16px;
-  border: 1px solid rgba(20,20,20,0.10);
-  box-shadow: 0 24px 70px rgba(0,0,0,0.16);
-}
-
-#dr-portfolio .dr-acc-item{
-  border-bottom: 1px solid rgba(20,20,20,0.12);
-}
-
-#dr-portfolio .dr-acc-btn{
-  width: 100%;
-  background: transparent;
-  border: 0;
-  padding: 16px 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  text-align: left;
-  color: var(--ink);
-}
-
-#dr-portfolio .dr-acc-title{
-  font-size: 16px;
-  font-weight: 650;
-}
-
-#dr-portfolio .dr-acc-icon{
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--accent);
-  width: 26px;
-  text-align: right;
-}
-
-#dr-portfolio .dr-acc-panel{
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 260ms ease;
-}
-
-#dr-portfolio .dr-acc-item.is-open .dr-acc-panel{
-  max-height: 360px;
-}
-
-#dr-portfolio .dr-acc-list{
-  margin: 0 0 16px;
-  padding-left: 18px;
-  color: var(--muted);
-  line-height: 1.7;
-  font-size: 14px;
-}
-
-#dr-portfolio .dr-acc-list li{
-  margin: 8px 0;
-}
-
-/* About blocks */
-#dr-portfolio .about-blocks{
-  margin-top: 22px;
-  display: grid;
-  gap: 14px;
-}
-
-#dr-portfolio .about-card{
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(20,20,20,0.10);
-  border-radius: 14px;
-  padding: 14px 14px;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
-}
-
-#dr-portfolio .about-title{
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: var(--ink);
-  font-size: 14px;
-}
-
-#dr-portfolio .about-body{
-  color: var(--muted);
-  line-height: 1.65;
-  font-size: 14px;
-}
-
-@media (max-width: 980px){
-  #dr-portfolio .dr-acc-item.is-open .dr-acc-panel{
-    max-height: 520px;
-  }
-  #dr-portfolio .hover-hint{
-    display:none;
-  }
-}
-/* tighter type like Portavia */
-#dr-portfolio .h2-tight{
-  font-size: clamp(34px, 4.2vw, 64px);
-  line-height: 0.95;
-}
-#dr-portfolio .p-tight{
-  font-size: 15px;
-  line-height: 1.7;
-  max-width: 62ch;
-}
-
-/* Accordion layout improvements */
-#dr-portfolio .dr-accordion{
-  margin-top: 18px;
-  border-top: 1px solid rgba(20,20,20,0.12);
-}
-
-#dr-portfolio .dr-acc-item{
-  border-bottom: 1px solid rgba(20,20,20,0.12);
-}
-
-#dr-portfolio .dr-acc-btn{
-  width: 100%;
-  background: transparent;
-  border: 0;
-  padding: 16px 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  cursor: pointer;
-  text-align: left;
-  color: var(--ink);
-  gap: 18px;
-}
-
-#dr-portfolio .dr-acc-left{
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  min-width: 0;
-}
-
-#dr-portfolio .dr-acc-num{
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  font-weight: 800;
-  color: var(--accent);
-  margin-top: 2px;
-  width: 30px;
-  flex: 0 0 30px;
-}
-
-#dr-portfolio .dr-acc-head{
-  display: grid;
-  gap: 6px;
-  min-width: 0;
-}
-
-#dr-portfolio .dr-acc-title{
-  font-size: 16px;
-  font-weight: 720;
-  text-transform: none;
-}
-
-#dr-portfolio .dr-acc-body{
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-#dr-portfolio .dr-acc-icon{
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--accent);
-  width: 26px;
-  text-align: right;
-  margin-top: 2px;
-}
-
-#dr-portfolio .dr-acc-panel{
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 260ms ease;
-}
-
-#dr-portfolio .dr-acc-item.is-open .dr-acc-panel{
-  max-height: 360px;
-}
-
-#dr-portfolio .dr-acc-list{
-  margin: 0 0 16px;
-  padding-left: 58px; /* aligns under text, not under number */
-  color: var(--muted);
-  line-height: 1.7;
-  font-size: 13px;
-}
-
-#dr-portfolio .dr-acc-list li{
-  margin: 8px 0;
-}
-
-/* Hover preview card (separate from traveling card) */
-#dr-portfolio .what-visual{
-  position: relative;
-}
-
-#dr-portfolio .hover-preview{
-  position: absolute;
-  right: -18px;
-  bottom: -18px;
-  width: min(280px, 38vw);
-  aspect-ratio: 4 / 3;
-  pointer-events: none;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.50);
-  border: 1px solid rgba(20,20,20,0.10);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.10);
-  overflow: hidden;
-}
-
-#dr-portfolio .hover-preview-inner{
-  width: 100%;
-  height: 100%;
-}
-
-#dr-portfolio .hover-preview-img{
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  filter: saturate(1.05) contrast(1.02);
-  transform: scale(1.02);
-}
-
-/* Responsive: hide hover preview on mobile */
-@media (max-width: 980px){
-  #dr-portfolio .hover-preview{
-    display:none;
-  }
-  #dr-portfolio .dr-acc-item.is-open .dr-acc-panel{
-    max-height: 520px;
-  }
-}
-/* Make the row titles much bigger */
-#dr-portfolio .dr-acc-title{
-  font-size: 32px; /* ~2x */
-  font-weight: 780;
-  line-height: 1.05;
-}
-
-/* Title row wrapper so hover image can sit next to heading */
-#dr-portfolio .dr-acc-titleRow{
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  position: relative;
-}
-
-/* Bigger expand/collapse icon */
-#dr-portfolio .dr-acc-icon{
-  font-size: 34px;
-  font-weight: 800;
-  color: var(--accent);
-  width: 44px;
-  text-align: right;
-  margin-top: 4px;
-}
-
-/* Because title is bigger, tune body spacing */
-#dr-portfolio .dr-acc-body{
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.55;
-  margin-top: 8px;
-}
-
-/* Keep list aligned under text */
-#dr-portfolio .dr-acc-list{
-  padding-left: 58px;
-  font-size: 13px;
-}
-
-/* Responsive: hide hover images on small screens */
-@media (max-width: 980px){
-  #dr-portfolio .dr-hover-pop{
-    display:none;
-  }
-  #dr-portfolio .dr-acc-title{
-    font-size: 22px;
-  }
-  #dr-portfolio .dr-acc-icon{
-    font-size: 28px;
-    width: 36px;
-  }
-}
-/* My Core Skills hover image behavior */
-.wicdHeadingHit {
-  position: relative;
-  display: inline-block;
-}
-
-.wicdHoverImgWrap {
-  position: absolute;
-  top: -18px;
-  left: calc(100% + 24px);
-  width: 260px; /* about 50% of traveling card, adjust if needed */
-  max-width: 34vw;
-  pointer-events: none; /* critical: hovering image does not keep it alive */
-  transform: translateY(0) rotate(-6deg);
+  object-fit: contain;
+  filter: drop-shadow(0 18px 44px rgba(0,0,0,0.22));
   opacity: 0;
-  animation: wicdHoverIn 160ms ease-out forwards;
+  transition: opacity 160ms ease;
 }
 
-@keyframes wicdHoverIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px) rotate(-6deg);
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  #dr-portfolio .hi-icon{ animation: none; }
+  #dr-portfolio .orbit-a,
+  #dr-portfolio .orbit-b,
+  #dr-portfolio .orbit-c{
+    animation: none;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotate(-6deg);
+}
+
+/* Mobile */
+@media (max-width: 980px){
+  #dr-portfolio .wrap{
+    width: min(1180px, calc(100% - 40px));
   }
-}
 
-.wicdHoverImg {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 14px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.18);
-  border: 1px solid rgba(0,0,0,0.08);
-}
+  #dr-portfolio .hero-grid{
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 
-/* When the accordion is open, make sure no hover image can appear */
-.wicdRow .wicdPanel.isOpen + .wicdHoverImgWrap {
-  display: none;
-}
-.dr-acc-titleRow {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-}
+  #dr-portfolio .hero-left,
+  #dr-portfolio .hero-right{
+    text-align: left;
+    justify-self: start;
+    padding: 0;
+  }
 
+  /* Fix the weird split headline */
+  #dr-portfolio #hero.section{
+    min-height: auto;
+    padding: 110px 0 70px;
+  }
+
+  #dr-portfolio #hero .hero-left .kicker{
+    position: static;
+    margin: 0 0 10px 0;
+  }
+
+  #dr-portfolio .hero-right .h1{
+    white-space: normal;
+  }
+
+  #dr-portfolio .two-col,
+  #dr-portfolio .two-col.flip{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  /* On mobile: no floating follower layer */
+  #dr-portfolio .card-layer{
+    display: none;
+  }
+
+  /* Mobile: keep CardSlot visible so your updated CardSlot.tsx can render the image */
+  #dr-portfolio .card-slot{
+    display: block;
+    width: min(340px, 86vw);
+    margin: 12px auto 8px;
+    aspect-ratio: 3 / 4;
+  }
+
+  #dr-portfolio .hero-orbits{ display: none; }
+  #dr-portfolio .hero-aura{ display: none; }
+
+  /* No hover follower on touch */
+  #dr-portfolio .dr-hover-follower{ display: none; }
+}
 
 /* =========================
+   ABOUT SECTION – REF STYLE
+   ========================= */
+
+#dr-portfolio #about.section{
+  min-height: auto;
+  padding: 110px 0;
+}
+
+#dr-portfolio #about .col-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#dr-portfolio #about .p{
+  margin-top: 16px;
+  font-size: 18px;
+  line-height: 1.75;
+  max-width: 72ch;
+}
+
+/* Stats */
+#dr-portfolio #about .aboutRefStats{
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+#dr-portfolio #about .aboutRefStat{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#dr-portfolio #about .aboutRefStatNum{
+  font-family: "Antonio", system-ui, sans-serif;
+  font-size: clamp(56px, 6vw, 92px);
+  font-weight: 700;
+  line-height: 0.9;
+  color: var(--accent);
+}
+
+#dr-portfolio #about .aboutRefStatLabel{
+  font-size: 20px;
+  font-weight: 750;
+  line-height: 1.15;
+  color: rgba(18,18,18,0.82);
+}
+
+/* Contact */
+#dr-portfolio #about .aboutRefContact{
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+#dr-portfolio #about .aboutRefContactItem{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#dr-portfolio #about .aboutRefContactTitle{
+  font-size: 20px;
+  font-weight: 800;
+  color: rgba(18,18,18,0.82);
+}
+
+#dr-portfolio #about .aboutRefContactValue{
+  font-size: 18px;
+  color: var(--muted);
+}
+
+/* CTA */
+#dr-portfolio #about .aboutRefBtn{
+  margin-top: 34px;
+  align-self: flex-start;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 54px;
+  padding: 0 30px;
+  border-radius: 999px;
+
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  color: var(--accent);
+  background: transparent;
+  border: 1.6px solid rgba(122,75,42,0.55);
+
+  box-shadow: 0 18px 44px rgba(0,0,0,0.06);
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+#dr-portfolio #about .aboutRefBtn:hover{
+  transform: translateY(-2px);
+  background: rgba(122,75,42,0.06);
+  border-color: rgba(122,75,42,0.75);
+}
+
+@media (max-width: 980px){
+  #dr-portfolio #about.section{
+    padding: 86px 0;
+  }
+
+  #dr-portfolio #about .aboutRefStats{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  #dr-portfolio #about .aboutRefContact{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  #dr-portfolio #about .aboutRefBtn{
+    align-self: stretch;
+    text-align: center;
+  }
+}
+
+/* =========================
+   SITE NAV + PORTFOLIO MEGA MENU
+   Clean single design
+   ========================= */
+
+.siteNavWrap{
+  position: fixed;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: max-content;
+}
+
+.siteNav{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: max-content;
+  padding: 10px 12px;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow:
+    0 18px 55px rgba(0,0,0,0.10),
+    0 18px 55px rgba(122,75,42,0.08);
+
+  backdrop-filter: blur(18px);
+}
+
+.siteNavItem{ position: relative; }
+
+.siteNavLink,
+.siteNavBtn,
+.siteNavCta{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 15px;
+  padding: 10px 16px;
+  border-radius: 999px;
+
+  color: rgba(0,0,0,0.64);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+
+  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.siteNavLink:hover,
+.siteNavBtn:hover,
+.siteNavCta:hover{
+  background: rgba(122,75,42,0.09);
+  box-shadow: inset 0 0 0 1px rgba(122,75,42,0.10);
+  color: rgba(0,0,0,0.72);
+}
+
+/* Active highlight is a full pill */
+.siteNavLink.isActive,
+.siteNavBtn.isActive,
+.siteNavCta.isActive{
+  background: rgba(122,75,42,0.16);
+  box-shadow: inset 0 0 0 1px rgba(122,75,42,0.18);
+  color: rgba(0,0,0,0.80);
+}
+
+/* Dropdown chevron */
+.chev{
+  margin-left: 8px;
+  opacity: 0.55;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+.chev.isOpen{
+  transform: rotate(180deg);
+  opacity: 0.7;
+}
+
+/* Mega menu */
+.megaMenu{
+  position: fixed;
+  left: 50%;
+  top: 64px;
+  transform: translateX(-50%);
+
+  width: min(640px, 92vw);
+  padding: 14px;
+
+  background: rgba(250,248,244,0.98);
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 22px;
+  backdrop-filter: blur(18px);
+
+  box-shadow: 0 26px 80px rgba(0,0,0,0.18);
+  transform-origin: top center;
+  overflow: hidden;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+/* Top pointer */
+.megaMenu::after{
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  transform: translateX(-50%) rotate(45deg);
+  background: rgba(250,248,244,0.98);
+  border-left: 1px solid rgba(0,0,0,0.10);
+  border-top: 1px solid rgba(0,0,0,0.10);
+  border-top-left-radius: 6px;
+}
+
+.megaMenu.isClosed{
+  opacity: 0;
+  transform: translateX(-50%) translateY(-10px) scale(0.985);
+  pointer-events: none;
+}
+
+.megaMenu.isOpen{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  pointer-events: auto;
+  animation: megaIn 180ms ease-out;
+}
+
+@keyframes megaIn{
+  from{ opacity: 0; transform: translateX(-50%) translateY(-12px) scale(0.982); }
+  to{ opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
+
+.megaGrid{
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.megaGrid > *{ min-width: 0; }
+
+.megaCol{
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.10);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.megaHeading{
+  margin: 0 0 10px 0;
+  padding: 10px 12px;
+
+  border-radius: 14px;
+  background: rgba(246,242,236,0.95);
+  border: 1px solid rgba(0,0,0,0.10);
+
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  font-weight: 800;
+  text-transform: uppercase;
+
+  color: rgba(0,0,0,0.78);
+}
+
+.megaLinks{
+  width: 100%;
+  display: grid;
+  gap: 10px;
+  justify-items: stretch;
+}
+
+.megaLink{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  width: 100%;
+  max-width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.98);
+  border: 1px solid rgba(0,0,0,0.10);
+  text-decoration: none;
+
+  box-shadow: 0 10px 26px rgba(0,0,0,0.06);
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  box-sizing: border-box;
+}
+
+.megaLink:hover{
+  transform: translateY(-2px);
+  background: rgba(255,255,255,1);
+  border-color: rgba(122,75,42,0.24);
+  box-shadow: 0 18px 46px rgba(0,0,0,0.12);
+}
+
+.megaLinkTitle{
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(0,0,0,0.72);
+}
+
+.megaLinkArrow{
+  flex: 0 0 auto;
+  color: rgba(0,0,0,0.55);
+  font-size: 18px;
+  line-height: 1;
+  transform: translateX(0);
+  transition: transform 160ms ease, color 160ms ease;
+}
+
+.megaLink:hover .megaLinkArrow{
+  color: rgba(0,0,0,0.78);
+  transform: translateX(4px);
+}
+
+@media (max-width: 560px){
+  .megaGrid{ grid-template-columns: 1fr; }
+}
+
+/* =========================
+   Mobile
+   ========================= */
+
+@media (max-width: 980px){
+  #dr-portfolio .wrap{
+    width: min(1180px, calc(100% - 40px));
+  }
+
+  #dr-portfolio .hero-grid{
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  #dr-portfolio .hero-left,
+  #dr-portfolio .hero-right{
+    text-align: left;
+    justify-self: start;
+    padding: 0;
+  }
+
+  /* This fixes the weird split headline */
+  #dr-portfolio #hero.section{
+    min-height: auto;
+    padding: 110px 0 70px;
+  }
+
+  /* Kicker should not be absolute on mobile */
+  #dr-portfolio #hero .hero-left .kicker{
+    position: static;
+    margin: 0 0 10px 0;
+  }
+
+  /* Make sure the right heading can wrap naturally */
+  #dr-portfolio .hero-right .h1{
+    white-space: normal;
+  }
+
+  #dr-portfolio .two-col,
+  #dr-portfolio .two-col.flip{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  /* IMPORTANT: show the card on mobile */
+  #dr-portfolio .card-layer{
+    display: none;
+  }
+
+  #dr-portfolio .card-slot{
+    display: block;
+    width: min(340px, 86vw);
+    margin: 12px auto 8px;
+    aspect-ratio: 3 / 4;
+  }
+
+  #dr-portfolio .hero-orbits{ display: none; }
+  #dr-portfolio .hero-aura{ display: none; }
+
+  /* Hover follower off on touch */
+  #dr-portfolio .dr-hover-follower{ display: none; }
+}
+
+/* =========================
+   END DR PORTFOLIO (CLEAN)
+   ========================= */
+
 
 /* =========================
    ABOUT SECTION – REF STYLE
@@ -1598,3 +1688,50 @@ body::after{
 .siteNavBtn.isActive::after{
   opacity: 0 !important;
 }
+#dr-portfolio .dr-hover-follower{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 180px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate3d(0,0,0);
+}
+
+#dr-portfolio .dr-hover-follower-img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 44px rgba(0,0,0,0.22));
+  opacity: 0;
+  transition: opacity 160ms ease, transform 160ms ease;
+  transform: translateY(6px);
+}
+
+#dr-portfolio .dr-hover-follower.is-on{
+  opacity: 1;
+}
+
+#dr-portfolio .dr-hover-follower.is-on .dr-hover-follower-img{
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (max-width: 980px){
+  #dr-portfolio .hero-grid{
+    grid-template-columns: 1fr;
+  }
+
+  /* Force order: left text, right text, then image */
+  #dr-portfolio .hero-left{ grid-row: 1; }
+  #dr-portfolio .hero-right{ grid-row: 2; }
+  #dr-portfolio .card-slot{ grid-row: 3; }
+
+  /* Keep the image centered */
+  #dr-portfolio .card-slot{
+    justify-self: center;
+    margin-top: 14px;
+  }
+}
+

@@ -22,7 +22,6 @@ export function WhatICanDo() {
           "Scope the MVP so it ships fast and proves value",
           "Align stakeholders with a simple decision narrative",
         ],
-        // local PNG from /public
         hoverImg: "/ai-product-strategy.png",
       },
       {
@@ -37,11 +36,7 @@ export function WhatICanDo() {
       },
       {
         title: "AI experience design",
-        points: [
-          "User journeys around AI decisions",
-          "Making AI outputs understandable",
-          "Guardrails, confidence, clarity",
-        ],
+        points: ["User journeys around AI decisions", "Making AI outputs understandable", "Guardrails, confidence, clarity"],
         hoverImg: "/ai-experience.png",
       },
       {
@@ -68,6 +63,7 @@ export function WhatICanDo() {
   const currentRef = useRef<XY>({ x: 0, y: 0 });
   const rafRef = useRef<number | null>(null);
 
+  // Smooth follow
   useEffect(() => {
     const tick = () => {
       const el = followerRef.current;
@@ -95,37 +91,26 @@ export function WhatICanDo() {
     };
   }, []);
 
+  const moveFollower = (e: React.MouseEvent) => {
+    // Keep the image slightly to the right and above the cursor
+    targetRef.current = { x: e.clientX + 24, y: e.clientY - 18 };
+  };
+
   const showFollower = (idx: number) => {
     setHoverIndex(idx);
 
     const el = followerRef.current;
     const img = followerImgRef.current;
 
-    if (img) {
-      img.src = items[idx].hoverImg;
-    }
-
-    if (el) el.style.opacity = "1";
-    if (img) img.style.opacity = "1";
+    if (img) img.src = items[idx].hoverImg;
+    if (el) el.classList.add("is-on");
   };
 
   const hideFollower = (idx: number) => {
     setHoverIndex((v) => (v === idx ? null : v));
 
     const el = followerRef.current;
-    const img = followerImgRef.current;
-    if (el) el.style.opacity = "0";
-    if (img) img.style.opacity = "0";
-  };
-
-  const moveFollower = (e: React.MouseEvent) => {
-    const offsetX = 22;
-    const offsetY = 16;
-
-    targetRef.current = {
-      x: e.clientX + offsetX,
-      y: e.clientY - offsetY,
-    };
+    if (el) el.classList.remove("is-on");
   };
 
   return (
@@ -134,8 +119,7 @@ export function WhatICanDo() {
         <div className="col-text">
           <h2 className="h2 h2-tight">My Core skills</h2>
           <p className="p p-tight">
-            I build AI-first product experiences and automation workflows that reduce effort
-            and increase clarity.
+            I build AI-first product experiences and automation workflows that reduce effort and increase clarity.
           </p>
 
           <div className="dr-accordion" role="list">
@@ -144,11 +128,7 @@ export function WhatICanDo() {
               const num = String(idx + 1).padStart(2, "0");
 
               return (
-                <div
-                  key={it.title}
-                  className={`dr-acc-item ${isOpen ? "is-open" : ""}`}
-                  role="listitem"
-                >
+                <div key={it.title} className={`dr-acc-item ${isOpen ? "is-open" : ""}`} role="listitem">
                   <button
                     className="dr-acc-btn"
                     type="button"
@@ -176,11 +156,7 @@ export function WhatICanDo() {
                     </span>
                   </button>
 
-                  <div
-                    id={`dr-acc-panel-${idx}`}
-                    className="dr-acc-panel"
-                    aria-hidden={!isOpen}
-                  >
+                  <div id={`dr-acc-panel-${idx}`} className="dr-acc-panel" aria-hidden={!isOpen}>
                     <ul className="dr-acc-list">
                       {it.points.map((p) => (
                         <li key={p}>{p}</li>
@@ -192,16 +168,15 @@ export function WhatICanDo() {
             })}
           </div>
 
+          {/* Always mounted so refs are never null */}
           <div ref={followerRef} className="dr-hover-follower" aria-hidden="true">
-            {hoverIndex !== null ? (
-              <img
-                ref={followerImgRef}
-                className="dr-hover-follower-img"
-                src={items[hoverIndex].hoverImg}
-                alt=""
-                draggable={false}
-              />
-            ) : null}
+            <img
+              ref={followerImgRef}
+              className="dr-hover-follower-img"
+              src={hoverIndex !== null ? items[hoverIndex].hoverImg : items[0].hoverImg}
+              alt=""
+              draggable={false}
+            />
           </div>
         </div>
 

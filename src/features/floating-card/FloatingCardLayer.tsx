@@ -9,6 +9,12 @@ export function FloatingCardLayer() {
   const layerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    // Do not run the follower animation on mobile
+    if (typeof window !== "undefined") {
+      const mq = window.matchMedia("(max-width: 980px)");
+      if (mq.matches) return;
+    }
+
     const root = document.getElementById("dr-portfolio");
     if (!root) return;
 
@@ -23,7 +29,6 @@ export function FloatingCardLayer() {
 
     if (!card || !inner || !imgFront || !imgBack) return;
 
-    // Non-null aliases so TypeScript is happy inside nested functions
     const rootEl = root;
     const cardEl = card;
     const innerEl = inner;
@@ -109,7 +114,6 @@ export function FloatingCardLayer() {
       imgBackEl.src = backSrc;
     }
 
-    // IMPORTANT: segment is always [0 .. n-2]
     function getSegmentIndex() {
       const y = window.scrollY;
       const n = sectionTops.length;
@@ -157,14 +161,7 @@ export function FloatingCardLayer() {
       cardEl.classList.toggle("is-hero-seg", a === 0);
     }
 
-    function springStep(
-      curr: number,
-      v: number,
-      tgt: number,
-      k: number,
-      c: number,
-      dt: number
-    ) {
+    function springStep(curr: number, v: number, tgt: number, k: number, c: number, dt: number) {
       const a = k * (tgt - curr) - c * v;
       v += a * dt;
       curr += v * dt;
@@ -221,7 +218,6 @@ export function FloatingCardLayer() {
     }
 
     function measure() {
-      // Only sections that contain a card-slot participate in the animation
       const allSections = Array.from(rootEl.querySelectorAll<HTMLElement>(".section"));
       const participatingSections = allSections.filter((s) => s.querySelector(".card-slot"));
 
@@ -231,13 +227,11 @@ export function FloatingCardLayer() {
         .filter(Boolean) as HTMLElement[];
 
       if (!sections.length || sections.length !== slots.length) {
-        console.warn("Mismatch: participating sections != slots", sections.length, slots.length);
         return;
       }
 
       sectionTops = sections.map((s) => s.getBoundingClientRect().top + window.scrollY);
 
-      // preload all slot images once
       for (let i = 0; i < slots.length; i++) preloadImg(getImg(i));
 
       lastPairKey = "";
@@ -246,6 +240,7 @@ export function FloatingCardLayer() {
       applyTransform(true, 0);
     }
 
+    let rafId = 0;
     function raf() {
       const now = performance.now();
       let dt = (now - lastT) / 1000;
@@ -253,23 +248,21 @@ export function FloatingCardLayer() {
 
       dt = clamp(dt, 0.001, 0.033);
 
-      // always update target so bottom/top edges never freeze
       updateTargetFromScroll();
       applyTransform(false, dt);
 
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    // Important: keep the same function reference for add/remove
     const onResize = () => setTimeout(measure, 80);
     window.addEventListener("resize", onResize);
 
-    // initial measure after layout settles
     setTimeout(measure, 60);
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
       window.removeEventListener("resize", onResize);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 

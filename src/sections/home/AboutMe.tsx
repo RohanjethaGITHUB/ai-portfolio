@@ -21,13 +21,13 @@ export function AboutMe() {
           {/* Stats row (3 columns) */}
           <div className="aboutRefStats">
             <div className="aboutRefStat">
-              <div className="aboutRefStatNum">10+</div>
+              <div className="aboutRefStatNum">12+</div>
               <div className="aboutRefStatLabel">Years of Experience</div>
             </div>
 
             <div className="aboutRefStat">
               <div className="aboutRefStatNum">50+</div>
-              <div className="aboutRefStatLabel">Automations Shipped</div>
+              <div className="aboutRefStatLabel">AI Systems Shipped</div>
             </div>
 
             <div className="aboutRefStat">

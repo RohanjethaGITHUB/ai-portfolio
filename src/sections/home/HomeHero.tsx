@@ -48,7 +48,7 @@ export function HomeHero() {
           <div className="hero-right">
             <h1 className="h1">INTELLIGENCE</h1>
             <p className="sub">
-              I lead AI product strategy and ship practical automation systems that scale.
+              I turn AI into a real, durable capability that compounds over time, not a side project that fades after a quarter.
             </p>
           </div>
         </div>
