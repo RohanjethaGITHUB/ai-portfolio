@@ -113,9 +113,9 @@ function StepVisuals({ visual }: { visual?: StepVisual }) {
 
   const frameStyle: React.CSSProperties = {
     borderRadius: 18,
-    border: "1px solid rgba(55,32,18,.10)",
+    border: "1px solid var(--line2)",
     background:
-      "radial-gradient(900px 420px at 30% 0%, rgba(176,122,85,.08), transparent 62%), rgba(255,255,255,.60)",
+      "radial-gradient(900px 420px at 30% 0%, var(--a3), transparent 62%), var(--panel2)",
     padding: 12,
   };
 
@@ -132,7 +132,7 @@ function StepVisuals({ visual }: { visual?: StepVisual }) {
     fontWeight: 950,
     letterSpacing: ".10em",
     textTransform: "uppercase",
-    color: "rgba(38,22,12,.72)",
+    color: "var(--muted2)",
     margin: 0,
   };
 
@@ -141,9 +141,9 @@ function StepVisuals({ visual }: { visual?: StepVisual }) {
     fontWeight: 900,
     padding: "7px 10px",
     borderRadius: 999,
-    border: "1px solid rgba(55,32,18,.10)",
-    background: "rgba(255,255,255,.62)",
-    color: "rgba(38,22,12,.70)",
+    border: "1px solid var(--line2)",
+    background: "var(--panel2)",
+    color: "var(--muted)",
     whiteSpace: "nowrap",
   };
 
@@ -153,9 +153,9 @@ function StepVisuals({ visual }: { visual?: StepVisual }) {
     objectFit: "contain",
     display: "block",
     borderRadius: 14,
-    border: "1px solid rgba(55,32,18,.10)",
-    background: "rgba(255,255,255,.66)",
-    boxShadow: "0 12px 26px rgba(30,18,10,.06)",
+    border: "1px solid var(--line2)",
+    background: "var(--panel)",
+    boxShadow: "0 12px 26px rgba(0,0,0,.28)",
   };
 
   const captionStyle: React.CSSProperties = {
@@ -164,13 +164,13 @@ function StepVisuals({ visual }: { visual?: StepVisual }) {
     fontWeight: 850,
     letterSpacing: ".10em",
     textTransform: "uppercase",
-    color: "rgba(38,22,12,.56)",
+    color: "var(--muted2)",
   };
 
   const singleStage: React.CSSProperties = {
     borderRadius: 16,
-    border: "1px solid rgba(55,32,18,.08)",
-    background: "rgba(255,255,255,.56)",
+    border: "1px solid var(--line2)",
+    background: "var(--panel2)",
     padding: 12,
   };
 
@@ -206,12 +206,12 @@ function StepVisuals({ visual }: { visual?: StepVisual }) {
     width: 34,
     height: 34,
     borderRadius: 999,
-    border: "1px solid rgba(176,122,85,.22)",
-    background: "rgba(176,122,85,.10)",
+    border: "1px solid var(--a2)",
+    background: "var(--a3)",
     display: "grid",
     placeItems: "center",
     fontWeight: 950,
-    color: "rgba(38,22,12,.78)",
+    color: "var(--text)",
   };
 
   const grid2x2: React.CSSProperties = {
@@ -782,19 +782,12 @@ export default function Demo() {
             const totalTokens = r.usage.total_tokens || promptTokens + completionTokens;
 
             const tone = r.verdict.tone || "ok";
-            const selectedFill =
-              tone === "good"
-                ? "rgba(53, 208, 127, 0.14)"
-                : tone === "warn"
-                ? "rgba(219, 169, 107, 0.16)"
-                : "rgba(141, 117, 92, 0.12)";
 
             return (
               <button
                 key={r.key}
                 type="button"
                 className={"amc-demoModelCard" + (isActive ? " is-active" : "")}
-                style={isActive ? ({ background: selectedFill } as any) : undefined}
                 onClick={() => setSelectedKey(r.key)}
                 aria-label={`Select ${r.label}`}
               >

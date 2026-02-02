@@ -1,11 +1,40 @@
 /* =========================
    Razorpay Teardown
-   Premium tabs + connected panel
+   Dark premium glass, wine accent
+   Matches Home page palette
    ========================= */
 
 html { scroll-behavior: smooth; }
 
-.ctPage { min-height: 100vh; }
+/* Page-level palette */
+.ctPage{
+  min-height: 100vh;
+
+  --bg0: #0b0a0d;
+  --bg1: #111012;
+
+  --panel: rgba(17, 16, 18, 0.70);
+  --panel2: rgba(14, 13, 16, 0.62);
+
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.12);
+
+  --text: rgba(255,255,255,0.88);
+  --muted: rgba(255,255,255,0.62);
+
+  --accent: #8a1d2f;
+  --accent2: rgba(138, 29, 47, 0.55);
+  --accentGlow: rgba(138, 29, 47, 0.22);
+
+  color: var(--text);
+
+  /* Dark base with subtle red energy like your hero */
+  background:
+    radial-gradient(900px 540px at 50% -220px, rgba(255,255,255,0.06), transparent 60%),
+    radial-gradient(720px 420px at 18% 14%, rgba(138,29,47,0.18), transparent 55%),
+    radial-gradient(720px 420px at 82% 22%, rgba(138,29,47,0.12), transparent 55%),
+    linear-gradient(to bottom, var(--bg0), var(--bg1));
+}
 
 /* -------------------------
    HERO
@@ -13,47 +42,51 @@ html { scroll-behavior: smooth; }
 
 .ctHero { padding: 54px 18px 18px; }
 
-.ctHeroInner {
+.ctHeroInner{
   max-width: 1120px;
   margin: 0 auto;
   padding: 42px 34px 22px;
 
   border-radius: 26px;
-  border: 1px solid rgba(0, 0, 0, 0.09);
+  border: 1px solid var(--border);
 
   background:
-    radial-gradient(900px 340px at 50% 26%, rgba(120, 72, 40, 0.18), rgba(255, 255, 255, 0)),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.70), rgba(255, 255, 255, 0.52));
+    radial-gradient(900px 420px at 50% 0%, rgba(255,255,255,0.07), transparent 60%),
+    radial-gradient(520px 260px at 50% 24%, rgba(138,29,47,0.18), transparent 62%),
+    linear-gradient(to bottom, rgba(17,16,18,0.78), rgba(14,13,16,0.62));
 
-  backdrop-filter: blur(12px);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 18px 60px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.06);
 
   text-align: center;
 }
 
-.ctKicker {
+.ctKicker{
   margin: 0 0 12px;
   font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 0.7;
+  color: var(--muted);
 }
 
-.ctTitle {
+.ctTitle{
   margin: 0 0 14px;
   font-size: 64px;
   line-height: 1.04;
+  color: rgba(255,255,255,0.92);
 }
 
-.ctSubTitle {
+.ctSubTitle{
   margin: 0 auto 18px;
   max-width: 78ch;
-  opacity: 0.85;
+  color: var(--muted);
   font-size: 18px;
   line-height: 1.6;
 }
 
-.ctMetaRow {
+.ctMetaRow{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -61,7 +94,7 @@ html { scroll-behavior: smooth; }
   margin: 0;
 }
 
-.ctMetaPill {
+.ctMetaPill{
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -69,63 +102,246 @@ html { scroll-behavior: smooth; }
   padding: 10px 14px;
   border-radius: 999px;
 
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid var(--border);
+  background: rgba(12,11,14,0.52);
+
   font-size: 14px;
-  opacity: 0.94;
+  color: rgba(255,255,255,0.78);
+
+  backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 10px 26px rgba(0,0,0,0.45);
 }
 
-.ctDot {
+.ctDot{
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: rgba(120, 72, 40, 0.55);
+  background: rgba(138,29,47,0.85);
+  box-shadow: 0 0 0 3px rgba(138,29,47,0.18);
 }
 
 /* -------------------------
    MAIN WRAPPER
    ------------------------- */
 
-.ctShell { padding: 16px 18px 90px; }
+.ctShell{ padding: 16px 18px 90px; }
 
-.ctShellInner {
+.ctShellInner{
   max-width: 1120px;
   margin: 0 auto;
   padding: 0;
   border: 0;
   background: transparent;
   box-shadow: none;
+}.ctShell,
+.ctShellInner{
+  overflow: visible;
+}
+
+/* -------------------------
+   2-column body (left rail + right panel)
+   Matches AI Money Coach layout
+   ------------------------- */
+
+.ctBodyGrid{
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 18px;
+  align-items: start;
+  margin-top: 18px;
+}
+
+/* Left rail */
+.ctRail{
+  position: sticky;
+  top: 18px;
+  z-index: 40;
+}
+
+.ctRailCard{
+  border-radius: 18px;
+  border: 1px solid var(--border);
+
+  background:
+    radial-gradient(520px 260px at 50% 0%, rgba(255,255,255,0.06), transparent 60%),
+    radial-gradient(380px 220px at 40% 10%, rgba(138,29,47,0.10), transparent 60%),
+    rgba(12,11,14,0.50);
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.05),
+    0 18px 46px rgba(0,0,0,0.55);
+
+  padding: 16px;
+}
+
+.ctRailTitle{
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.70);
+  margin-bottom: 12px;
+}
+
+.ctRailList{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ctRailBtn{
+  appearance: none;
+  cursor: pointer;
+  user-select: none;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 14px 14px;
+  border-radius: 16px;
+
+  border: 1px solid var(--border);
+  background: rgba(18,17,20,0.55);
+
+  color: rgba(255,255,255,0.74);
+  font-weight: 820;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 10px 24px rgba(0,0,0,0.35);
+
+  opacity: 0.92;
+
+  transition:
+    transform 140ms ease,
+    opacity 140ms ease,
+    background 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    color 140ms ease;
+}
+
+.ctRailBtn:hover{
+  opacity: 1;
+  transform: translateY(-1px);
+  border-color: var(--border2);
+  color: rgba(255,255,255,0.88);
+  background: rgba(22,21,24,0.64);
+}
+
+.ctRailBtn:active{ transform: translateY(0); }
+
+.ctRailBtn:focus-visible{
+  outline: 2px solid var(--accent2);
+  outline-offset: 3px;
+}
+
+.ctRailBtnActive{
+  opacity: 1;
+  color: rgba(255,255,255,0.92);
+
+  background:
+    radial-gradient(240px 90px at 50% 30%, rgba(138,29,47,0.28), rgba(18,17,20,0.70));
+
+  border-color: rgba(138,29,47,0.45);
+
+  box-shadow:
+    0 2px 0 rgba(0,0,0,0.35),
+    0 18px 38px rgba(0,0,0,0.55),
+    0 0 0 6px rgba(138,29,47,0.08);
+
+  outline: 2px solid rgba(138,29,47,0.14);
+  outline-offset: 2px;
+}
+
+.ctRailBtnLabel{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ctRailBtnNum{
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.30);
+  color: rgba(255,255,255,0.72);
+
+  font-size: 13px;
+  font-weight: 860;
+}
+
+.ctRailHint{
+  margin: 14px 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.58);
+}
+
+/* Right side panel: keep your existing container, just make sure it fills */
+.ctSectionTabsWrap{
+  min-width: 0;
+}
+
+/* -------------------------
+   Responsive: rail collapses to top
+   ------------------------- */
+
+@media (max-width: 900px){
+  .ctBodyGrid{
+    grid-template-columns: 1fr;
+  }
+
+  .ctRail{
+    position: sticky;
+  top: 18px;        /* adjust: 18px, or match your nav height */
+  align-self: start;
+  height: fit-content;
+  z-index: 20;
+  }
 }
 
 /* -------------------------
    Connected container (tabs + panel)
    ------------------------- */
 
-.ctSectionTabsWrap {
-  --ctPanelTopTint: rgba(120, 72, 40, 0.06);
+.ctSectionTabsWrap{
+  --ctPanelTopTint: rgba(138, 29, 47, 0.12);
 
   border-radius: 26px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
+  border: 1px solid var(--border);
 
-  /* lighter top glow so it doesn't show through the rounded edges */
   background:
-    radial-gradient(900px 420px at 50% 0%, rgba(120, 72, 40, 0.045), rgba(255, 255, 255, 0) 60%),
-    rgba(255, 255, 255, 0.72);
+    radial-gradient(900px 520px at 50% 0%, rgba(255,255,255,0.06), transparent 60%),
+    linear-gradient(to bottom, rgba(17,16,18,0.74), rgba(14,13,16,0.60));
 
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 18px 70px rgba(0,0,0,0.60),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
   overflow: hidden;
   padding-top: 0;
 }
 
-
-
 /* -------------------------
    Sticky tabs bar
-   This should NOT look like a massive header strip.
-   Only the pill control should be visible.
+   Only pill control visible
    ------------------------- */
 
-.ctStickyTabsBar {
+.ctStickyTabsBar{
   position: sticky;
   top: 18px;
   z-index: 80;
@@ -134,14 +350,12 @@ html { scroll-behavior: smooth; }
   border: 0;
   box-shadow: none;
 
-  /* tighter so there is no "header strip" feeling */
   padding: 10px 14px 10px;
   margin: 0;
 }
 
-
-/* The actual "control" */
-.ctTopTabs {
+/* Tabs control pill */
+.ctTopTabs{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,22 +367,23 @@ html { scroll-behavior: smooth; }
   margin: 0;
 
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
+  border: 1px solid var(--border);
 
   background:
-    radial-gradient(900px 240px at 40% 0%, rgba(120, 72, 40, 0.14), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.72);
+    radial-gradient(900px 260px at 50% 0%, rgba(255,255,255,0.07), transparent 60%),
+    linear-gradient(to bottom, rgba(10,10,12,0.70), rgba(10,10,12,0.52));
 
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
 
   box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.06),
-    0 12px 26px rgba(0, 0, 0, 0.08);
-     position: relative;
+    0 1px 0 rgba(255,255,255,0.05),
+    0 16px 36px rgba(0,0,0,0.55);
+
+  position: relative;
 }
 
 /* Tabs */
-.ctTab {
+.ctTab{
   appearance: none;
   cursor: pointer;
   user-select: none;
@@ -176,19 +391,18 @@ html { scroll-behavior: smooth; }
   padding: 13px 18px;
   border-radius: 16px;
 
-  border: 1px solid rgba(0, 0, 0, 0.14);
-  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border);
+  background: rgba(18,17,20,0.55);
 
   font-weight: 820;
   font-size: 15px;
   letter-spacing: 0.01em;
 
-  color: rgba(20, 16, 14, 0.78);
+  color: rgba(255,255,255,0.72);
 
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.70),
-    0 1px 0 rgba(0, 0, 0, 0.06),
-    0 12px 20px rgba(0, 0, 0, 0.06);
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 10px 24px rgba(0,0,0,0.35);
 
   opacity: 0.92;
   position: relative;
@@ -202,41 +416,42 @@ html { scroll-behavior: smooth; }
     color 140ms ease;
 }
 
-.ctTab:hover {
+.ctTab:hover{
   opacity: 1;
   transform: translateY(-1px);
-  border-color: rgba(0, 0, 0, 0.22);
-  color: rgba(20, 16, 14, 0.92);
-  background: rgba(255, 255, 255, 0.84);
+  border-color: var(--border2);
+  color: rgba(255,255,255,0.86);
+  background: rgba(22,21,24,0.64);
 }
 
-.ctTab:active { transform: translateY(0); }
+.ctTab:active{ transform: translateY(0); }
 
-.ctTab:focus-visible {
-  outline: 2px solid rgba(120, 72, 40, 0.55);
+.ctTab:focus-visible{
+  outline: 2px solid var(--accent2);
   outline-offset: 3px;
 }
 
 /* Active tab */
-.ctTabActive {
+.ctTabActive{
   opacity: 1;
-  color: rgba(60, 34, 18, 0.98);
+  color: rgba(255,255,255,0.92);
 
   background:
-    radial-gradient(240px 80px at 50% 30%, rgba(120, 72, 40, 0.20), rgba(255, 255, 255, 0.86));
+    radial-gradient(240px 90px at 50% 30%, rgba(138,29,47,0.28), rgba(18,17,20,0.70));
 
-  border-color: rgba(120, 72, 40, 0.40);
+  border-color: rgba(138,29,47,0.45);
 
   box-shadow:
-    0 2px 0 rgba(0, 0, 0, 0.08),
-    0 18px 34px rgba(0, 0, 0, 0.10);
+    0 2px 0 rgba(0,0,0,0.35),
+    0 18px 38px rgba(0,0,0,0.55),
+    0 0 0 6px rgba(138,29,47,0.08);
 
-  outline: 2px solid rgba(120, 72, 40, 0.14);
+  outline: 2px solid rgba(138,29,47,0.14);
   outline-offset: 2px;
 }
 
-/* Small notch arrow, softer and less "stuck on" */
-.ctTabActive::before {
+/* Notch arrow */
+.ctTabActive::before{
   content: "";
   position: absolute;
   left: 50%;
@@ -246,27 +461,25 @@ html { scroll-behavior: smooth; }
   width: 22px;
   height: 12px;
 
-  background: linear-gradient(to bottom, var(--ctPanelTopTint), rgba(255, 255, 255, 0));
+  background: linear-gradient(to bottom, var(--ctPanelTopTint), rgba(0,0,0,0));
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   pointer-events: none;
 
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.05));
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.45));
 }
 
 /* -------------------------
    Content panel
-   Fix headings being too close to top.
    ------------------------- */
 
-.ctPanel {
+.ctPanel{
   padding: 46px 22px 22px;
 
-  /* lighter and fades sooner */
   background:
     linear-gradient(
       to bottom,
-      rgba(120, 72, 40, 0.07),
-      rgba(255, 255, 255, 0) 120px
+      rgba(138,29,47,0.10),
+      rgba(0,0,0,0) 140px
     );
 
   position: relative;
@@ -277,8 +490,7 @@ html { scroll-behavior: smooth; }
   display: flow-root;
 }
 
-
-.ctPanelFading {
+.ctPanelFading{
   opacity: 0;
   transform: translateY(6px);
 }
@@ -287,70 +499,84 @@ html { scroll-behavior: smooth; }
    Generic section helpers
    ------------------------- */
 
-.section { padding: 0; }
+.section{ padding: 0; }
 
-.sectionHeader { margin-bottom: 18px; }
+.sectionHeader{ margin-bottom: 18px; }
 
-.sectionTitle {
+.sectionTitle{
   font-size: 22px;
   margin: 0 0 6px;
+  color: rgba(255,255,255,0.90);
 }
 
-.sectionDesc {
+.sectionDesc{
   margin: 0;
-  opacity: 0.8;
+  color: var(--muted);
 }
 
 /* Cards */
-.cardGrid {
+.cardGrid{
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 14px;
 }
 
-.card {
+.card{
   grid-column: span 4;
   padding: 18px;
 
-  border: 1px solid rgba(0, 0, 0, 0.10);
+  border: 1px solid var(--border);
   border-radius: 18px;
 
   background:
-    radial-gradient(420px 220px at 20% 0%, rgba(120, 72, 40, 0.06), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.72);
+    radial-gradient(420px 240px at 20% 0%, rgba(255,255,255,0.06), transparent 60%),
+    radial-gradient(340px 200px at 60% 0%, rgba(138,29,47,0.12), transparent 55%),
+    rgba(12,11,14,0.50);
+
+  backdrop-filter: blur(12px);
 
   box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.05),
-    0 14px 32px rgba(0, 0, 0, 0.05);
+    0 1px 0 rgba(255,255,255,0.05),
+    0 18px 46px rgba(0,0,0,0.55);
 }
 
-.cardTitle { margin: 0 0 10px; font-size: 16px; }
+.cardTitle{
+  margin: 0 0 10px;
+  font-size: 16px;
+  color: rgba(255,255,255,0.88);
+}
 
-.cardBody { margin: 0; opacity: 0.85; }
+.cardBody{
+  margin: 0;
+  color: rgba(255,255,255,0.66);
+}
 
 /* 3 columns */
-.columns3 {
+.columns3{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
 
-.pillar {
+.pillar{
   padding: 18px;
 
-  border: 1px solid rgba(0, 0, 0, 0.10);
+  border: 1px solid var(--border);
   border-radius: 18px;
 
   background:
-    radial-gradient(420px 220px at 20% 0%, rgba(120, 72, 40, 0.06), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.72);
+    radial-gradient(420px 240px at 20% 0%, rgba(255,255,255,0.06), transparent 60%),
+    radial-gradient(340px 200px at 60% 0%, rgba(138,29,47,0.12), transparent 55%),
+    rgba(12,11,14,0.50);
+
+  backdrop-filter: blur(12px);
 
   box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.05),
-    0 14px 32px rgba(0, 0, 0, 0.05);
+    0 1px 0 rgba(255,255,255,0.05),
+    0 18px 46px rgba(0,0,0,0.55);
 }
 
-.pillarTop {
+.pillarTop{
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
@@ -358,78 +584,97 @@ html { scroll-behavior: smooth; }
   align-items: baseline;
 }
 
-.pillarTitle { margin: 0; font-size: 16px; }
+.pillarTitle{
+  margin: 0;
+  font-size: 16px;
+  color: rgba(255,255,255,0.88);
+}
 
-.pillarHint { margin: 0; opacity: 0.75; font-size: 13px; }
+.pillarHint{
+  margin: 0;
+  color: rgba(255,255,255,0.58);
+  font-size: 13px;
+}
 
-.bullets { margin: 0; padding-left: 18px; opacity: 0.9; }
+.bullets{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255,255,255,0.70);
+}
 
 /* 2 columns */
-.twoCol {
+.twoCol{
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
 }
 
-.diagramCard {
+.diagramCard{
   padding: 18px;
 
-  border: 1px solid rgba(0, 0, 0, 0.10);
+  border: 1px solid var(--border);
   border-radius: 18px;
 
   background:
-    radial-gradient(420px 220px at 20% 0%, rgba(120, 72, 40, 0.06), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.72);
+    radial-gradient(420px 240px at 20% 0%, rgba(255,255,255,0.06), transparent 60%),
+    radial-gradient(340px 200px at 60% 0%, rgba(138,29,47,0.12), transparent 55%),
+    rgba(12,11,14,0.50);
+
+  backdrop-filter: blur(12px);
 
   box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.05),
-    0 14px 32px rgba(0, 0, 0, 0.05);
+    0 1px 0 rgba(255,255,255,0.05),
+    0 18px 46px rgba(0,0,0,0.55);
 }
 
-.diagramPlaceholder {
+.diagramPlaceholder{
   height: 320px;
   border-radius: 14px;
-  border: 1px dashed rgba(0, 0, 0, 0.18);
-  background: rgba(0, 0, 0, 0.02);
+  border: 1px dashed rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.03);
   display: grid;
   place-items: center;
-  opacity: 0.75;
+  color: rgba(255,255,255,0.60);
 }
 
-.miniNote { margin: 10px 0 0; font-size: 13px; opacity: 0.75; }
+.miniNote{
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
 
 /* -------------------------
    Responsive
    ------------------------- */
 
-@media (max-width: 900px) {
-  .ctHeroInner {
+@media (max-width: 900px){
+  .ctHeroInner{
     padding: 30px 18px 18px;
     text-align: left;
   }
 
-  .ctTitle { font-size: 42px; }
+  .ctTitle{ font-size: 42px; }
 
-  .ctSubTitle {
+  .ctSubTitle{
     font-size: 16px;
     margin-left: 0;
     margin-right: 0;
   }
 
-  .ctMetaRow { justify-content: flex-start; }
+  .ctMetaRow{ justify-content: flex-start; }
 
-  .ctStickyTabsBar {
+  .ctStickyTabsBar{
     top: 24px;
     padding: 12px 10px 10px;
   }
 
-  .ctTopTabs { padding: 12px; gap: 10px; }
+  .ctTopTabs{ padding: 12px; gap: 10px; }
 
-  .ctPanel { padding: 44px 18px 18px; }
+  .ctPanel{ padding: 44px 18px 18px; }
 
-  .card { grid-column: span 12; }
+  .card{ grid-column: span 12; }
 
-  .columns3 { grid-template-columns: 1fr; }
+  .columns3{ grid-template-columns: 1fr; }
 
-  .twoCol { grid-template-columns: 1fr; }
+  .twoCol{ grid-template-columns: 1fr; }
 }

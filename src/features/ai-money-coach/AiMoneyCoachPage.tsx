@@ -8,8 +8,8 @@ import RoadmapMetrics from "./RoadmapMetrics";
 
 export default function AiMoneyCoachPage() {
   useEffect(() => {
-      document.body.classList.add("amcLightNav");
-    const root = document.querySelector(".amcLightNav");
+      document.body.classList.add("amcDarkNav");
+  const root = document.querySelector(".amc");
     if (!root) return;
 
     // Tabs
@@ -228,6 +228,7 @@ export default function AiMoneyCoachPage() {
     startLoop();
 
     return () => {
+      document.body.classList.remove("amcDarkNav");
       navButtons.forEach((btn) => btn.removeEventListener("click", onNavClick));
       jumpEls.forEach((el) => el.removeEventListener("click", onJumpClick));
 
@@ -251,7 +252,7 @@ export default function AiMoneyCoachPage() {
   // If your current file still has TODO sections, it will look broken.
 
  return (
-    <main className="amc amc-themeLight">
+    <main className="amc amc-themeDark">
       {/* HERO */}
       <div className="amc-hero">
         <div className="amc-wrap">

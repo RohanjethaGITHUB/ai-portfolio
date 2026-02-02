@@ -4,24 +4,66 @@
   width: 100%;
 }
 
-/* Full-width footer background — lighter */
+/* Full-width footer background, aligned to site dark palette */
 .shell{
+  position: relative;
   width: 100%;
-  border-top: 1px solid rgba(55, 32, 18, 0.14);
+  overflow: hidden;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
   background:
-    radial-gradient(1200px 520px at 12% -10%, rgba(176, 122, 85, 0.18), transparent 62%),
-    radial-gradient(900px 520px at 90% 10%, rgba(55, 32, 18, 0.10), transparent 60%),
+    radial-gradient(900px 420px at 14% 120%, rgba(176, 122, 85, 0.14), transparent 62%),
+    radial-gradient(720px 360px at 86% 120%, rgba(156, 46, 60, 0.10), transparent 64%),
+    radial-gradient(900px 520px at 50% -30%, rgba(255, 255, 255, 0.06), transparent 62%),
     linear-gradient(
       180deg,
-      rgba(132, 96, 72, 0.86),
-      rgba(108, 76, 56, 0.92)
+      rgba(17, 16, 18, 0.96) 0%,
+      rgba(12, 11, 14, 0.92) 55%,
+      rgba(17, 16, 18, 0.98) 100%
     );
-  box-shadow: 0 -12px 44px rgba(20, 12, 8, 0.14);
+
+  box-shadow: 0 -18px 60px rgba(0, 0, 0, 0.55);
   padding: 26px 18px 18px;
+}
+
+/* Subtle texture so it feels like the rest of the page */
+.shell::before{
+  content:"";
+  position:absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(1px 1px at 12% 22%, rgba(255,255,255,0.10), transparent 55%),
+    radial-gradient(1px 1px at 78% 34%, rgba(255,255,255,0.08), transparent 55%),
+    radial-gradient(1px 1px at 56% 78%, rgba(255,255,255,0.08), transparent 55%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255,255,255,0.025) 0px,
+      rgba(255,255,255,0.025) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+}
+
+.shell::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: radial-gradient(900px 420px at 50% 0%, rgba(0,0,0,0.55), transparent 62%);
+  opacity: 0.9;
 }
 
 /* Constrain content */
 .inner{
+  position: relative;
+  z-index: 1;
   max-width: 1120px;
   margin: 0 auto;
 }
@@ -85,8 +127,8 @@
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.92);
   display: inline-flex;
   align-items: center;
@@ -95,11 +137,12 @@
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.02em;
+  backdrop-filter: blur(10px);
 }
 
 .iconBtn:hover{
-  background: rgba(176, 122, 85, 0.22);
-  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(156, 46, 60, 0.16);
+  border-color: rgba(255, 255, 255, 0.26);
 }
 
 /* Divider */
@@ -109,7 +152,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.26),
+    rgba(255, 255, 255, 0.22),
     transparent
   );
 }
@@ -145,14 +188,14 @@
   width: 36px;
   height: 36px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.20);
   background:
     radial-gradient(
       20px 20px at 35% 35%,
-      rgba(176, 122, 85, 0.30),
+      rgba(156, 46, 60, 0.22),
       transparent 70%
     ),
-    rgba(255, 255, 255, 0.14);
+    rgba(255, 255, 255, 0.10);
   display: inline-flex;
   align-items: center;
   justify-content: center;

@@ -2,9 +2,9 @@
 
 .storyShell {
   border-radius: 22px;
-  border: 1px solid rgba(92, 64, 45, 0.16);
-  background: rgba(255, 255, 255, 0.70);
-  box-shadow: 0 18px 60px rgba(30, 18, 10, 0.10);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(12,12,14,0.58);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.55);
   padding: 14px;
 }
 
@@ -18,7 +18,7 @@
   flex: 1;
   height: 6px;
   border-radius: 999px;
-  background: rgba(92, 64, 45, 0.10);
+  background: rgba(255,255,255,0.08);
   overflow: hidden;
 }
 
@@ -26,7 +26,7 @@
   height: 100%;
   width: 0%;
   border-radius: 999px;
-  background: rgba(139, 90, 60, 0.70);
+  background: rgba(138,29,47,0.70);
   opacity: 0.55;
 }
 
@@ -52,10 +52,10 @@
 
 .storySlide {
   border-radius: 18px;
-  border: 1px solid rgba(92, 64, 45, 0.14);
+  border: 1px solid rgba(255,255,255,0.10);
   background:
-    radial-gradient(720px 340px at 50% 0%, rgba(192, 138, 69, 0.10), transparent 60%),
-    rgba(255, 255, 255, 0.76);
+    radial-gradient(720px 340px at 50% 0%, rgba(138,29,47,0.14), transparent 60%),
+    rgba(18,18,22,0.72);
   overflow: hidden;
 }
 
@@ -75,7 +75,7 @@
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(56, 43, 33, 0.60);
+  color: rgba(255,255,255,0.58);
   font-weight: 820;
 }
 
@@ -84,7 +84,7 @@
   font-size: 20px;
   line-height: 1.25;
   font-weight: 820;
-  color: rgba(34, 26, 20, 0.90);
+  color: rgba(255,255,255,0.92);
 }
 
 .storySubtitle {
@@ -92,7 +92,7 @@
   font-size: 13px;
   line-height: 1.65;
   font-weight: 620;
-  color: rgba(56, 43, 33, 0.70);
+  color: rgba(255,255,255,0.70);
   max-width: 560px;
 }
 
@@ -106,28 +106,28 @@
   width: 34px;
   height: 34px;
   border-radius: 12px;
-  border: 1px solid rgba(92, 64, 45, 0.14);
-  background: rgba(255, 255, 255, 0.70);
-  color: rgba(34, 26, 20, 0.78);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(12,12,14,0.58);
+  color: rgba(255,255,255,0.82);
   cursor: pointer;
-  box-shadow: 0 10px 24px rgba(30, 18, 10, 0.06);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.40);
   transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
   font-weight: 760;
 }
 
 .storyIconBtn:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.82);
-  border-color: rgba(139, 90, 60, 0.18);
+  background: rgba(24,24,28,0.82);
+  border-color: rgba(138,29,47,0.18);
 }
 
 .storyImageSlot {
   padding: 16px;
-  border-top: 1px solid rgba(92, 64, 45, 0.10);
-  border-bottom: 1px solid rgba(92, 64, 45, 0.10);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   background:
-    radial-gradient(520px 260px at 50% 10%, rgba(176, 122, 85, 0.10), transparent 60%),
-    rgba(255, 255, 255, 0.60);
+    radial-gradient(520px 260px at 50% 10%, rgba(138,29,47,0.12), transparent 60%),
+    rgba(12,12,14,0.52);
 }
 
 /* Visual frame (no image, but same slot styling) */
@@ -138,11 +138,11 @@
   margin: 0 auto;
   aspect-ratio: 16 / 7;
   border-radius: 16px;
-  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.95), rgba(245,239,231,0.92));
-  border: 1px solid rgba(55, 35, 20, 0.10);
+  background: radial-gradient(circle at 30% 20%, rgba(138,29,47,0.22), rgba(12,12,14,0.62));
+  border: 1px solid rgba(255,255,255,0.09);
   box-shadow:
-    0 18px 45px rgba(30, 20, 10, 0.10),
-    inset 0 1px 0 rgba(255,255,255,0.70);
+    0 18px 45px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.06);
   overflow: hidden;
   padding: 14px;
   display: flex;
@@ -162,13 +162,13 @@
   flex: 1;
   min-width: 0;
   border-radius: 14px;
-  border: 1px solid rgba(92, 64, 45, 0.12);
-  background: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(12,12,14,0.58);
   padding: 10px 10px;
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  box-shadow: 0 10px 24px rgba(30, 18, 10, 0.06);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.40);
   transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, opacity 160ms ease;
   opacity: 0.70;
 }
@@ -180,16 +180,16 @@
 .hirNodeActive {
   opacity: 0.98;
   transform: translateY(-1px);
-  border-color: rgba(139, 90, 60, 0.20);
-  background: linear-gradient(180deg, rgba(192, 138, 69, 0.14), rgba(255, 255, 255, 0.72));
+  border-color: rgba(138,29,47,0.22);
+  background: linear-gradient(180deg, rgba(138,29,47,0.18), rgba(18,18,22,0.70));
 }
 
 .hirNodeDot {
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: rgba(139, 90, 60, 0.60);
-  box-shadow: 0 0 0 4px rgba(139, 90, 60, 0.12);
+  background: rgba(138,29,47,0.60);
+  box-shadow: 0 0 0 4px rgba(138,29,47,0.12);
   margin-top: 4px;
   flex: 0 0 auto;
 }
@@ -198,7 +198,7 @@
   font-size: 12px;
   line-height: 1.35;
   font-weight: 720;
-  color: rgba(34, 26, 20, 0.78);
+  color: rgba(255,255,255,0.82);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -211,8 +211,8 @@
   width: 14px;
   height: 2px;
   border-radius: 999px;
-  background: rgba(92, 64, 45, 0.18);
-  box-shadow: 0 0 0 3px rgba(192, 138, 69, 0.08);
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 0 0 3px rgba(138,29,47,0.10);
   flex: 0 0 auto;
 }
 
@@ -224,7 +224,7 @@
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(56, 43, 33, 0.60);
+  color: rgba(255,255,255,0.58);
   font-weight: 820;
   margin-bottom: 10px;
 }
@@ -232,7 +232,7 @@
 .storyBullets {
   margin: 0;
   padding-left: 18px;
-  color: rgba(56, 43, 33, 0.70);
+  color: rgba(255,255,255,0.70);
   font-size: 13px;
   line-height: 1.65;
   font-weight: 620;
@@ -250,34 +250,43 @@
 }
 
 .storyImpactChip {
+  --chipAccent: rgba(138,29,47,0.78);
+
   border-radius: 999px;
-  border: 1px solid rgba(92, 64, 45, 0.14);
-  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(255,255,255,0.10);
+  background:
+    radial-gradient(600px 140px at 22% 0%, rgba(138,29,47,0.16), transparent 66%),
+    linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)),
+    rgba(18,18,22,0.72);
+
   padding: 8px 10px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 10px 22px rgba(30, 18, 10, 0.05);
-  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+
+  box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
 .storyImpactChip:hover {
   transform: translateY(-1px);
   box-shadow: 0 14px 26px rgba(30, 18, 10, 0.07);
-  border-color: rgba(139, 90, 60, 0.20);
+  border-color: rgba(138,29,47,0.22);
 }
 
 .storyImpactDot {
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: rgba(139, 90, 60, 0.65);
-  box-shadow: 0 0 0 3px rgba(139, 90, 60, 0.12);
+  background: var(--chipAccent);
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,0.05),
+    0 0 18px rgba(138,29,47,0.22);
 }
 
 .storyImpactLabel {
   font-size: 11px;
-  color: rgba(56, 43, 33, 0.66);
+  color: rgba(255,255,255,0.56);
   font-weight: 760;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -285,93 +294,37 @@
 
 .storyImpactValue {
   font-size: 12px;
-  color: rgba(34, 26, 20, 0.86);
+  color: rgba(255,255,255,0.88);
   font-weight: 740;
 }
 
 /* Tones */
-.storyImpactChip[data-tone="speed"] {
-  background: linear-gradient(180deg, rgba(170, 120, 85, 0.18), rgba(255, 255, 255, 0.74));
-  border-color: rgba(170, 120, 85, 0.22);
-}
-.storyImpactChip[data-tone="speed"] .storyImpactDot {
-  background: rgba(170, 120, 85, 0.90);
-  box-shadow: 0 0 0 3px rgba(170, 120, 85, 0.14);
-}
-
-.storyImpactChip[data-tone="risk"] {
-  background: linear-gradient(180deg, rgba(176, 122, 85, 0.18), rgba(255, 255, 255, 0.74));
-  border-color: rgba(176, 122, 85, 0.22);
-}
-.storyImpactChip[data-tone="risk"] .storyImpactDot {
-  background: rgba(176, 122, 85, 0.88);
-  box-shadow: 0 0 0 3px rgba(176, 122, 85, 0.14);
-}
-
-.storyImpactChip[data-tone="quality"] {
-  background: linear-gradient(180deg, rgba(124, 99, 76, 0.16), rgba(255, 255, 255, 0.74));
-  border-color: rgba(124, 99, 76, 0.20);
-}
-.storyImpactChip[data-tone="quality"] .storyImpactDot {
-  background: rgba(124, 99, 76, 0.85);
-  box-shadow: 0 0 0 3px rgba(124, 99, 76, 0.14);
-}
-
-.storyImpactChip[data-tone="signal"] {
-  background: linear-gradient(180deg, rgba(163, 122, 92, 0.16), rgba(255, 255, 255, 0.74));
-  border-color: rgba(163, 122, 92, 0.20);
-}
-.storyImpactChip[data-tone="signal"] .storyImpactDot {
-  background: rgba(163, 122, 92, 0.88);
-  box-shadow: 0 0 0 3px rgba(163, 122, 92, 0.14);
-}
-
-.storyImpactChip[data-tone="ops"] {
-  background: linear-gradient(180deg, rgba(120, 104, 92, 0.16), rgba(255, 255, 255, 0.74));
-  border-color: rgba(120, 104, 92, 0.20);
-}
-.storyImpactChip[data-tone="ops"] .storyImpactDot {
-  background: rgba(120, 104, 92, 0.88);
-  box-shadow: 0 0 0 3px rgba(120, 104, 92, 0.14);
-}
-
-.storyImpactChip[data-tone="consistency"] {
-  background: linear-gradient(180deg, rgba(132, 102, 82, 0.16), rgba(255, 255, 255, 0.74));
-  border-color: rgba(132, 102, 82, 0.20);
-}
-.storyImpactChip[data-tone="consistency"] .storyImpactDot {
-  background: rgba(132, 102, 82, 0.90);
-  box-shadow: 0 0 0 3px rgba(132, 102, 82, 0.14);
-}
-
-.storyImpactChip[data-tone="alignment"] {
-  background: linear-gradient(180deg, rgba(156, 118, 88, 0.16), rgba(255, 255, 255, 0.74));
-  border-color: rgba(156, 118, 88, 0.20);
-}
-.storyImpactChip[data-tone="alignment"] .storyImpactDot {
-  background: rgba(156, 118, 88, 0.90);
-  box-shadow: 0 0 0 3px rgba(156, 118, 88, 0.14);
-}
-
+.storyImpactChip[data-tone="speed"]{ --chipAccent: rgba(204, 140, 96, 0.88); }
+.storyImpactChip[data-tone="risk"]{ --chipAccent: rgba(180, 64, 84, 0.88); }
+.storyImpactChip[data-tone="quality"]{ --chipAccent: rgba(120, 140, 120, 0.88); }
+.storyImpactChip[data-tone="signal"]{ --chipAccent: rgba(160, 120, 140, 0.88); }
+.storyImpactChip[data-tone="ops"]{ --chipAccent: rgba(150, 150, 150, 0.76); }
+.storyImpactChip[data-tone="consistency"]{ --chipAccent: rgba(150, 120, 110, 0.86); }
+.storyImpactChip[data-tone="alignment"]{ --chipAccent: rgba(170, 120, 150, 0.86); }
 .storyFooter {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid rgba(92, 64, 45, 0.10);
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 .storyCount {
   font-size: 12px;
   font-weight: 760;
-  color: rgba(34, 26, 20, 0.70);
+  color: rgba(255,255,255,0.74);
 }
 
 .storyHint {
   font-size: 12px;
   font-weight: 620;
-  color: rgba(56, 43, 33, 0.62);
+  color: rgba(255,255,255,0.60);
 }
 
 @media (max-width: 980px) {
@@ -405,11 +358,11 @@
   margin: 0 auto;
   aspect-ratio: 16 / 7;
   border-radius: 16px;
-  border: 1px solid rgba(55, 35, 20, 0.10);
-  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.95), rgba(245,239,231,0.92));
+  border: 1px solid rgba(255,255,255,0.09);
+  background: radial-gradient(circle at 30% 20%, rgba(138,29,47,0.22), rgba(12,12,14,0.62));
   box-shadow:
-    0 18px 45px rgba(30, 20, 10, 0.10),
-    inset 0 1px 0 rgba(255,255,255,0.70);
+    0 18px 45px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.06);
   overflow: hidden;
 }
 

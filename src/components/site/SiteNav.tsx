@@ -6,6 +6,11 @@ import { usePathname } from "next/navigation";
 
 type TopMenu = "portfolio" | null;
 
+function isPathActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(href + "/");
+}
+
 export function SiteNav() {
   const [openTop, setOpenTop] = useState<TopMenu>(null);
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -14,14 +19,11 @@ export function SiteNav() {
   const closeTimerRef = useRef<number | null>(null);
   const isTouchRef = useRef(false);
 
-  // Your original inline style hook (keep it)
   const linkStyle: React.CSSProperties = {
     textDecoration: "none",
   };
 
   useEffect(() => {
-    // Detect touch style interaction once on mount
-    // hover:none catches most mobiles, coarse pointer catches many touch devices
     const mqHoverNone = window.matchMedia("(hover: none)");
     const mqCoarse = window.matchMedia("(pointer: coarse)");
     isTouchRef.current = mqHoverNone.matches || mqCoarse.matches;
@@ -51,14 +53,12 @@ export function SiteNav() {
   }
 
   function openPortfolio() {
-    // Desktop only (hover UX)
     if (isTouchRef.current) return;
     clearCloseTimer();
     setOpenTop("portfolio");
   }
 
   function scheduleClose(ms = 120) {
-    // Desktop only (hover UX)
     if (isTouchRef.current) return;
     clearCloseTimer();
     closeTimerRef.current = window.setTimeout(() => {
@@ -93,33 +93,42 @@ export function SiteNav() {
   }, []);
 
   // Active states
-  const isHome = pathname === "/";
-  const isAbout = pathname === "/about";
-  const isContact = pathname === "/contact";
+  const isHome = isPathActive(pathname, "/");
+  const isAbout = isPathActive(pathname, "/about");
+  const isContact = isPathActive(pathname, "/contact");
 
+  // Portfolio should be active for any child route under portfolio or company-teardowns
   const isPortfolio =
-    pathname === "/portfolio" ||
-    pathname.startsWith("/portfolio/") ||
-    pathname === "/company-teardowns" ||
-    pathname.startsWith("/company-teardowns/");
+    isPathActive(pathname, "/portfolio") || isPathActive(pathname, "/company-teardowns");
 
   const topIsOpen = openTop === "portfolio";
 
   return (
-    <div className="siteNavWrap" ref={rootRef} data-portfolio-open={topIsOpen ? "true" : "false"}>
+    <div
+      className="siteNavWrap"
+      ref={rootRef}
+      data-portfolio-open={topIsOpen ? "true" : "false"}
+    >
       <nav className="siteNav" aria-label="Primary">
-        <Link className={`siteNavLink ${isHome ? "isActive" : ""}`} href="/" style={linkStyle}>
+        <Link
+          className={`siteNavLink ${isHome ? "isActive" : ""}`}
+          href="/"
+          style={linkStyle}
+        >
           Home
         </Link>
 
         {/* Portfolio */}
-        <div className="siteNavItem" onMouseEnter={openPortfolio} onMouseLeave={() => scheduleClose(140)}>
+        <div
+          className="siteNavItem"
+          onMouseEnter={openPortfolio}
+          onMouseLeave={() => scheduleClose(140)}
+        >
           <button
             type="button"
             className={`siteNavBtn ${isPortfolio ? "isActive" : ""}`}
             aria-haspopup="menu"
             aria-expanded={topIsOpen}
-            // Fix double tap: use pointerdown and stop propagation so the document handler does not instantly close it
             onPointerDown={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -135,7 +144,6 @@ export function SiteNav() {
             aria-label="Portfolio"
             onMouseEnter={openPortfolio}
             onMouseLeave={() => scheduleClose(140)}
-            // Prevent clicks inside menu from triggering outside close
             onPointerDown={(e) => e.stopPropagation()}
           >
             <div className="megaGrid">
@@ -240,11 +248,20 @@ export function SiteNav() {
           </div>
         </div>
 
-        <Link className={`siteNavLink ${isAbout ? "isActive" : ""}`} href="/about" style={linkStyle}>
+        <Link
+          className={`siteNavLink ${isAbout ? "isActive" : ""}`}
+          href="/about"
+          style={linkStyle}
+        >
           About
         </Link>
 
-        <Link className={`siteNavCta ${isContact ? "isActive" : ""}`} href="/contact" style={linkStyle}>
+        {/* Contact CTA: only looks "CTA highlighted" when active */}
+        <Link
+          className={`siteNavCta ${isContact ? "isActive" : ""}`}
+          href="/contact"
+          style={linkStyle}
+        >
           Contact
         </Link>
       </nav>

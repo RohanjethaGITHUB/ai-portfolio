@@ -3,26 +3,50 @@
 /* wrapper */
 .ctxSingle {
   width: 100%;
+
+  /* local theme tokens for this section */
+  --bg-0: rgba(8, 8, 10, 0.70);
+  --bg-1: rgba(10, 10, 12, 0.55);
+  --bg-2: rgba(12, 12, 14, 0.42);
+
+  --card: rgba(8, 8, 10, 0.40);
+  --card-strong: rgba(8, 8, 10, 0.52);
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.70);
+  --soft: rgba(255, 255, 255, 0.58);
+
+  /* home page red accent */
+  --accent: rgba(145, 24, 45, 0.95);
+  --accent-2: rgba(145, 24, 45, 0.55);
+  --accent-wash: rgba(145, 24, 45, 0.12);
 }
 
 /* -------------------------
    Rotator shell
    ------------------------- */
 .storyWrap {
-  border: 1px solid rgba(0, 0, 0, 0.10);
+  border: 1px solid var(--border);
   border-radius: 18px;
   overflow: hidden;
+
   background:
-    radial-gradient(620px 300px at 18% 0%, rgba(120, 72, 40, 0.07), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.76);
+    radial-gradient(720px 340px at 18% 0%, var(--accent-wash), rgba(0, 0, 0, 0)),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.22)),
+    var(--bg-1);
+
   box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.05),
-    0 16px 34px rgba(0, 0, 0, 0.05);
+    0 1px 0 rgba(255, 255, 255, 0.03),
+    0 22px 60px rgba(0, 0, 0, 0.55);
+
   outline: none;
 }
 
 .storyWrap:focus-visible {
-  outline: 2px solid rgba(120, 72, 40, 0.55);
+  outline: 2px solid var(--accent-2);
   outline-offset: 3px;
 }
 
@@ -31,10 +55,13 @@
    ------------------------- */
 .slideHeader {
   padding: 22px 18px 12px;
+
   background:
-    radial-gradient(640px 260px at 18% 0%, rgba(120, 72, 40, 0.10), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.90);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    radial-gradient(760px 280px at 18% 0%, rgba(145, 24, 45, 0.16), rgba(0, 0, 0, 0)),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.26)),
+    var(--bg-2);
+
+  border-bottom: 1px solid var(--border);
 }
 
 .slideTitle {
@@ -42,7 +69,7 @@
   font-size: 26px;
   font-weight: 950;
   letter-spacing: -0.01em;
-  color: rgba(20, 16, 14, 0.94);
+  color: var(--text);
 }
 
 .slideDesc {
@@ -50,7 +77,7 @@
   max-width: 980px;
   font-size: 14.8px;
   line-height: 1.65;
-  color: rgba(20, 16, 14, 0.78);
+  color: var(--muted);
 }
 
 /* colored header tags under the slide heading */
@@ -68,26 +95,28 @@
   border-radius: 999px;
   font-size: 13px;
   font-weight: 850;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.70);
-  color: rgba(20, 16, 14, 0.84);
+
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(255, 255, 255, 0.82);
 }
 
-.hTag_conversion { background: rgba(120, 72, 40, 0.10); border-color: rgba(120, 72, 40, 0.20); }
-.hTag_risk { background: rgba(160, 74, 74, 0.10); border-color: rgba(160, 74, 74, 0.22); }
-.hTag_ops { background: rgba(70, 120, 120, 0.12); border-color: rgba(70, 120, 120, 0.22); }
-.hTag_measurable { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.12); }
-.hTag_platform { background: rgba(120, 72, 40, 0.10); border-color: rgba(120, 72, 40, 0.20); }
-.hTag_compliance { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.12); }
+/* tag tones (kept, but aligned to home palette) */
+.hTag_conversion { background: rgba(145, 24, 45, 0.14); border-color: rgba(145, 24, 45, 0.26); }
+.hTag_risk { background: rgba(180, 60, 60, 0.12); border-color: rgba(180, 60, 60, 0.24); }
+.hTag_ops { background: rgba(120, 140, 150, 0.10); border-color: rgba(120, 140, 150, 0.20); }
+.hTag_measurable { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.12); }
+.hTag_platform { background: rgba(145, 24, 45, 0.14); border-color: rgba(145, 24, 45, 0.26); }
+.hTag_compliance { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.12); }
 
 /* -------------------------
    Top rail
    ------------------------- */
 .storyTop {
   padding: 14px 14px 10px;
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
 }
 
 .storyTopRow {
@@ -110,11 +139,13 @@
   align-items: center;
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.86);
+
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.35);
+
   font-size: 13px;
   font-weight: 900;
-  color: rgba(60, 34, 18, 0.92);
+  color: rgba(255, 255, 255, 0.90);
 }
 
 .storyPillMuted {
@@ -122,11 +153,14 @@
   align-items: center;
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.72);
+
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.26);
+
   font-size: 13px;
   font-weight: 800;
-  opacity: 0.88;
+  opacity: 0.92;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .storyNavTop {
@@ -139,29 +173,38 @@
   width: 46px;
   height: 46px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  background: rgba(255, 255, 255, 0.80);
+
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.32);
+
   display: grid;
   place-items: center;
   cursor: pointer;
+
   box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.04),
-    0 10px 20px rgba(0, 0, 0, 0.05);
-  transition: transform 140ms ease, opacity 140ms ease;
+    0 1px 0 rgba(255, 255, 255, 0.03),
+    0 12px 26px rgba(0, 0, 0, 0.55);
+
+  transition: transform 140ms ease, opacity 140ms ease, background 140ms ease, border-color 140ms ease;
 }
 
-.iconBtn:hover { transform: translateY(-1px); }
+.iconBtn:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-strong);
+  background: rgba(0, 0, 0, 0.38);
+}
+
 .iconBtn:active { transform: translateY(0); }
 
 .iconBtn:focus-visible {
-  outline: 2px solid rgba(120, 72, 40, 0.55);
+  outline: 2px solid var(--accent-2);
   outline-offset: 3px;
 }
 
 .icon {
   width: 20px;
   height: 20px;
-  color: rgba(20, 16, 14, 0.78);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .storyBars {
@@ -176,15 +219,17 @@
   height: 8px;
   border-radius: 999px;
   padding: 0;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(0, 0, 0, 0.04);
+
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.35);
+
   overflow: hidden;
   cursor: pointer;
 }
 
 .storyBarActive {
-  border-color: rgba(120, 72, 40, 0.22);
-  background: rgba(120, 72, 40, 0.06);
+  border-color: rgba(145, 24, 45, 0.28);
+  background: rgba(145, 24, 45, 0.10);
 }
 
 .storyFill {
@@ -192,7 +237,7 @@
   inset: 0;
   transform-origin: left center;
   transform: scaleX(0);
-  background: rgba(120, 72, 40, 0.45);
+  background: rgba(145, 24, 45, 0.60);
 }
 
 /* -------------------------
@@ -219,7 +264,7 @@
 }
 
 /* =========================
-   NEW: Default layout stacked
+   Default layout stacked
    Image on top, centered, fixed size
    ========================= */
 
@@ -237,12 +282,15 @@
   width: 100%;
   max-width: 520px;
   border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.72);
+
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.28);
+
   padding: 12px;
+
   box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.04),
-    0 12px 26px rgba(0, 0, 0, 0.05);
+    0 1px 0 rgba(255, 255, 255, 0.03),
+    0 14px 36px rgba(0, 0, 0, 0.55);
 }
 
 .imageFixed {
@@ -260,10 +308,11 @@
 .storySlide {
   padding: 18px;
   border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
+
+  border: 1px solid var(--border);
   background:
-    radial-gradient(520px 240px at 20% 0%, rgba(120, 72, 40, 0.06), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.82);
+    radial-gradient(560px 260px at 20% 0%, rgba(145, 24, 45, 0.10), rgba(0, 0, 0, 0)),
+    rgba(0, 0, 0, 0.26);
 }
 
 .tagRow {
@@ -278,25 +327,28 @@
   align-items: center;
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.80);
+
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.30);
+
   font-size: 13px;
   font-weight: 850;
-  opacity: 0.92;
+  opacity: 0.94;
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .panelTitle {
   margin: 0 0 8px;
   font-size: 18px;
   font-weight: 950;
-  color: rgba(20, 16, 14, 0.92);
+  color: var(--text);
 }
 
 .panelBody {
   margin: 0 0 14px;
   font-size: 14.5px;
   line-height: 1.65;
-  color: rgba(20, 16, 14, 0.78);
+  color: var(--muted);
 }
 
 .cardGrid {
@@ -307,8 +359,8 @@
 
 .miniCard {
   border-radius: 14px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.24);
   padding: 12px 12px;
 }
 
@@ -322,38 +374,41 @@
 
 .miniCardTitle {
   font-weight: 950;
-  color: rgba(20, 16, 14, 0.90);
+  color: rgba(255, 255, 255, 0.90);
 }
 
 .miniTag {
   padding: 6px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(120, 72, 40, 0.18);
-  background: rgba(120, 72, 40, 0.08);
+
+  border: 1px solid rgba(145, 24, 45, 0.26);
+  background: rgba(145, 24, 45, 0.12);
+
   font-weight: 850;
   font-size: 12.5px;
-  color: rgba(60, 34, 18, 0.88);
+  color: rgba(255, 255, 255, 0.84);
 }
 
 .miniCardDesc {
   font-size: 14px;
   line-height: 1.6;
-  color: rgba(20, 16, 14, 0.76);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .storyList {
   margin: 0;
   padding-left: 18px;
   line-height: 1.65;
-  color: rgba(20, 16, 14, 0.78);
+  color: rgba(255, 255, 255, 0.74);
 }
 
 .callout {
   margin-top: 14px;
   padding: 14px 14px;
   border-radius: 14px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(120, 72, 40, 0.06);
+
+  border: 1px solid rgba(145, 24, 45, 0.22);
+  background: rgba(145, 24, 45, 0.10);
 }
 
 .calloutTitle {
@@ -362,17 +417,17 @@
   letter-spacing: 0.06em;
   font-size: 12px;
   margin-bottom: 6px;
-  color: rgba(60, 34, 18, 0.90);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .calloutBody {
   font-size: 14px;
   line-height: 1.6;
-  color: rgba(20, 16, 14, 0.78);
+  color: rgba(255, 255, 255, 0.74);
 }
 
 /* -------------------------
-   Lift layout (unchanged)
+   Lift layout
    ------------------------- */
 .liftViewport {
   display: grid;
@@ -381,27 +436,28 @@
 
 .bannerBox {
   width: 100%;
-  max-width: 520px;              /* same as default slides */
-  margin: 0 auto;                /* center aligned */
+  max-width: 520px;
+  margin: 0 auto;
+
   border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.28);
+
   padding: 12px;
   overflow: hidden;
-  box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.04),
-    0 12px 26px rgba(0, 0, 0, 0.05);
-}
 
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.03),
+    0 14px 36px rgba(0, 0, 0, 0.55);
+}
 
 .bannerImg {
   width: 100%;
-  height: 240px;                 /* match .imageFixed */
-  object-fit: contain;           /* stops it looking “zoomed” */
+  height: 240px;
+  object-fit: contain;
   display: block;
   border-radius: 12px;
 }
-
 
 .recommendedRow {
   display: flex;
@@ -413,13 +469,15 @@
   align-items: center;
   padding: 7px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.80);
+
+  border: 1px solid rgba(145, 24, 45, 0.26);
+  background: rgba(145, 24, 45, 0.12);
+
   font-size: 12.5px;
   font-weight: 950;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(20, 16, 14, 0.72);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .solutionsHead { padding: 0 2px; }
@@ -428,14 +486,14 @@
   margin: 0;
   font-size: 18px;
   font-weight: 950;
-  color: rgba(20, 16, 14, 0.92);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .solutionsSub {
   margin: 6px 0 0;
   font-size: 14px;
   line-height: 1.6;
-  color: rgba(20, 16, 14, 0.74);
+  color: rgba(255, 255, 255, 0.70);
 }
 
 .liftGrid {
@@ -448,14 +506,16 @@
 /* lift cards */
 .liftCard {
   border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
+  border: 1px solid var(--border);
   background:
-    radial-gradient(520px 260px at 18% 0%, rgba(120, 72, 40, 0.06), rgba(255, 255, 255, 0)),
-    rgba(255, 255, 255, 0.86);
+    radial-gradient(560px 280px at 18% 0%, rgba(145, 24, 45, 0.10), rgba(0, 0, 0, 0)),
+    rgba(0, 0, 0, 0.28);
+
   padding: 14px;
+
   box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.04),
-    0 12px 28px rgba(0, 0, 0, 0.05);
+    0 1px 0 rgba(255, 255, 255, 0.03),
+    0 14px 36px rgba(0, 0, 0, 0.55);
 }
 
 .solutionBadgeRow { display: flex; justify-content: flex-start; margin-bottom: 10px; }
@@ -465,8 +525,10 @@
   border-radius: 999px;
   font-size: 12.5px;
   font-weight: 950;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.80);
+
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.30);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .liftCardHead { margin-bottom: 12px; }
@@ -479,22 +541,23 @@
   margin-bottom: 6px;
 }
 
-.liftTitle { font-size: 18px; font-weight: 950; }
+.liftTitle { font-size: 18px; font-weight: 950; color: rgba(255, 255, 255, 0.92); }
 
 .liftMetric {
   padding: 7px 12px;
   border-radius: 999px;
   font-size: 12.5px;
   font-weight: 900;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.78);
-  color: rgba(20, 16, 14, 0.80);
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.30);
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .liftSubtitle {
   font-size: 14px;
   line-height: 1.6;
-  color: rgba(20, 16, 14, 0.74);
+  color: rgba(255, 255, 255, 0.70);
 }
 
 .chipRow {
@@ -509,24 +572,27 @@
   align-items: center;
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.78);
+
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.26);
+
   font-size: 12.8px;
   font-weight: 850;
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .liftList {
   margin: 0 0 12px;
   padding-left: 18px;
   line-height: 1.65;
-  color: rgba(20, 16, 14, 0.78);
+  color: rgba(255, 255, 255, 0.74);
 }
 
 /* RICE */
 .riceWrap {
   border-radius: 14px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.26);
   padding: 12px;
 }
 
@@ -542,10 +608,10 @@
   font-size: 12.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(20, 16, 14, 0.70);
+  color: rgba(255, 255, 255, 0.66);
 }
 
-.riceScore { font-weight: 950; font-size: 16px; }
+.riceScore { font-weight: 950; font-size: 16px; color: rgba(255, 255, 255, 0.88); }
 
 .riceGrid { display: grid; gap: 10px; }
 
@@ -559,15 +625,15 @@
 .riceKey {
   font-size: 13px;
   font-weight: 900;
-  color: rgba(20, 16, 14, 0.72);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .riceBar,
 .riceBarEffort {
   height: 10px;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.35);
   overflow: hidden;
 }
 
@@ -576,32 +642,32 @@
   height: 100%;
   transform-origin: left center;
   transform: scaleX(0);
-  background: rgba(120, 72, 40, 0.45);
+  background: rgba(145, 24, 45, 0.60);
 }
 
 .riceHint {
   grid-column: 2 / 3;
   font-size: 12px;
   margin-top: 4px;
-  color: rgba(20, 16, 14, 0.60);
+  color: rgba(255, 255, 255, 0.58);
 }
 
-/* tone helpers */
-.toneText_conversion { color: rgba(60, 34, 18, 0.92); }
-.toneText_risk { color: rgba(120, 46, 46, 0.92); }
-.toneText_ops { color: rgba(32, 86, 86, 0.92); }
+/* tone helpers (used by TSX classnames) */
+.toneText_conversion { color: rgba(255, 255, 255, 0.92); }
+.toneText_risk { color: rgba(255, 255, 255, 0.90); }
+.toneText_ops { color: rgba(255, 255, 255, 0.90); }
 
-.toneBorder_conversion { border-color: rgba(120, 72, 40, 0.18); }
-.toneBorder_risk { border-color: rgba(160, 74, 74, 0.22); }
-.toneBorder_ops { border-color: rgba(70, 120, 120, 0.22); }
+.toneBorder_conversion { border-color: rgba(145, 24, 45, 0.22); }
+.toneBorder_risk { border-color: rgba(180, 60, 60, 0.22); }
+.toneBorder_ops { border-color: rgba(120, 140, 150, 0.20); }
 
-.tonePill_conversion { background: rgba(120, 72, 40, 0.10); border-color: rgba(120, 72, 40, 0.18); }
-.tonePill_risk { background: rgba(160, 74, 74, 0.10); border-color: rgba(160, 74, 74, 0.20); }
-.tonePill_ops { background: rgba(70, 120, 120, 0.12); border-color: rgba(70, 120, 120, 0.20); }
+.tonePill_conversion { background: rgba(145, 24, 45, 0.12); border-color: rgba(145, 24, 45, 0.22); }
+.tonePill_risk { background: rgba(180, 60, 60, 0.10); border-color: rgba(180, 60, 60, 0.20); }
+.tonePill_ops { background: rgba(120, 140, 150, 0.10); border-color: rgba(120, 140, 150, 0.18); }
 
-.toneChip_conversion { background: rgba(120, 72, 40, 0.08); border-color: rgba(120, 72, 40, 0.16); }
-.toneChip_risk { background: rgba(160, 74, 74, 0.08); border-color: rgba(160, 74, 74, 0.16); }
-.toneChip_ops { background: rgba(70, 120, 120, 0.10); border-color: rgba(70, 120, 120, 0.18); }
+.toneChip_conversion { background: rgba(145, 24, 45, 0.10); border-color: rgba(145, 24, 45, 0.18); }
+.toneChip_risk { background: rgba(180, 60, 60, 0.08); border-color: rgba(180, 60, 60, 0.16); }
+.toneChip_ops { background: rgba(120, 140, 150, 0.08); border-color: rgba(120, 140, 150, 0.16); }
 
 /* -------------------------
    Responsive

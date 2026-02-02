@@ -11,15 +11,15 @@ import ExecutionGovernance from "./sections/ExecutionGovernance";
 type Tab = {
   id: "context" | "ai-capabilities" | "platform-architecture" | "execution-governance";
   label: string;
+  n: 1 | 2 | 3 | 4;
 };
 
 export default function RazorpayTeardown() {
   const tabs: Tab[] = useMemo(
     () => [
-      { id: "context", label: "Context" },
-      { id: "ai-capabilities", label: "AI Capabilities" },
-      { id: "platform-architecture", label: "Platform Architecture" },
-      { id: "execution-governance", label: "Execution & AI Governance" },
+      { id: "context", label: "Contex", n: 1 },
+      { id: "ai-capabilities", label: "AI Capabilities", n: 2 },
+      { id: "execution-governance", label: "Governance", n: 3 },
     ],
     []
   );
@@ -97,35 +97,50 @@ export default function RazorpayTeardown() {
 
       <section className={styles.ctShell}>
         <div className={styles.ctShellInner}>
-          {/* One connected box, but ONLY the tabs bar is sticky */}
-          <div
-            className={styles.ctSectionTabsWrap}
-            style={{ ["--ctPanelTopTint" as any]: panelTint }}
-          >
-            <div className={styles.ctStickyTabsBar}>
-              <nav className={styles.ctTopTabs} aria-label="Sections">
-                {tabs.map((t) => (
-                  <button
-                    key={t.id}
-                    type="button"
-                    onClick={() => switchTab(t.id)}
-                    className={`${styles.ctTab} ${activeId === t.id ? styles.ctTabActive : ""}`}
-                    aria-current={activeId === t.id ? "page" : undefined}
-                  >
-                    {t.label}
-                  </button>
-                ))}
-              </nav>
-            </div>
+          <div className={styles.ctBodyGrid}>
+            {/* LEFT RAIL (like AI Money Coach) */}
+            <aside className={styles.ctRail}>
+              <div className={styles.ctRailCard}>
+                <div className={styles.ctRailTitle}>SECTIONS</div>
 
+                <div className={styles.ctRailList}>
+                  {tabs.map((t) => {
+                    const isActive = activeId === t.id;
+                    return (
+                      <button
+                        key={t.id}
+                        type="button"
+                        onClick={() => switchTab(t.id)}
+                        className={`${styles.ctRailBtn} ${isActive ? styles.ctRailBtnActive : ""}`}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        <span className={styles.ctRailBtnLabel}>{t.label}</span>
+                        <span className={styles.ctRailBtnNum}>{t.n}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+               
+              </div>
+            </aside>
+
+            {/* RIGHT PANEL (connected box) */}
             <div
-              className={`${styles.ctPanel} ${isFading ? styles.ctPanelFading : ""}`}
-              aria-live="polite"
+              className={styles.ctSectionTabsWrap}
+              style={{ ["--ctPanelTopTint" as any]: panelTint }}
             >
-              {activeId === "context" && <Context />}
-              {activeId === "ai-capabilities" && <AICapabilities />}
-              {activeId === "platform-architecture" && <PlatformArchitecture />}
-              {activeId === "execution-governance" && <ExecutionGovernance />}
+              {/* Removed top sticky tabs bar */}
+
+              <div
+                className={`${styles.ctPanel} ${isFading ? styles.ctPanelFading : ""}`}
+                aria-live="polite"
+              >
+                {activeId === "context" && <Context />}
+                {activeId === "ai-capabilities" && <AICapabilities />}
+                {activeId === "platform-architecture" && <PlatformArchitecture />}
+                {activeId === "execution-governance" && <ExecutionGovernance />}
+              </div>
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ import RoadmapMetrics from "./RoadmapMetrics";
 
 export default function AiLeadGenPage() {
   useEffect(() => {
-    document.body.classList.add("amcLightNav");
+    document.body.classList.add("amcDarkNav");
 
     const root = document.querySelector(".amc");
     if (!root) return;
@@ -54,12 +54,12 @@ export default function AiLeadGenPage() {
     return () => {
       navButtons.forEach((btn) => btn.removeEventListener("click", onNavClick));
       jumpEls.forEach((el) => el.removeEventListener("click", onJumpClick));
-      document.body.classList.remove("amcLightNav");
+      document.body.classList.remove("amcDarkNav");
     };
   }, []);
 
   return (
-    <main className="amc amc-themeLight">
+    <main className="amc amc-themeDark">
       {/* HERO */}
       <div className="amc-hero">
         <div className="amc-wrap">
