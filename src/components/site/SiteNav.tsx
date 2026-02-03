@@ -172,7 +172,7 @@ export function SiteNav() {
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link
+                  {/* <Link
                     className="megaLink"
                     role="menuitem"
                     href="/portfolio/company-teardowns/stripe"
@@ -192,7 +192,7 @@ export function SiteNav() {
                   >
                     <span className="megaLinkTitle">Canva (dummy)</span>
                     <span className="megaLinkArrow">›</span>
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
 
@@ -232,7 +232,7 @@ export function SiteNav() {
                     <span className="megaLinkArrow">›</span>
                   </Link>
 
-                  <Link
+                  {/* <Link
                     className="megaLink"
                     role="menuitem"
                     href="/portfolio/influencer-discovery"
@@ -241,7 +241,7 @@ export function SiteNav() {
                   >
                     <span className="megaLinkTitle">Influencer Discovery (dummy)</span>
                     <span className="megaLinkArrow">›</span>
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>
@@ -257,13 +257,13 @@ export function SiteNav() {
         </Link>
 
         {/* Contact CTA: only looks "CTA highlighted" when active */}
-        <Link
+        {/* <Link
           className={`siteNavCta ${isContact ? "isActive" : ""}`}
           href="/contact"
           style={linkStyle}
         >
           Contact
-        </Link>
+        </Link> */}
       </nav>
     </div>
   );

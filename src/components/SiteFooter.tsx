@@ -11,8 +11,8 @@ export default function SiteFooter() {
             {/* Email */}
             <div className={styles.block}>
               <div className={styles.label}>Email :</div>
-              <a className={styles.value} href="mailto:hello@yourdomain.com">
-                hello@yourdomain.com
+              <a className={styles.value} href="mailto:contact@RohanJetha.me">
+                Contact@RohanJetha.me
               </a>
             </div>
 
@@ -20,7 +20,7 @@ export default function SiteFooter() {
             <div className={styles.blockCenter}>
               <div className={styles.label}>Call Today :</div>
               <a className={styles.value} href="tel:+61400000000">
-                +61 400 000 000
+                +61 426 836 741
               </a>
             </div>
 
@@ -30,7 +30,7 @@ export default function SiteFooter() {
               <div className={styles.social}>
                 <a
                   className={styles.iconBtn}
-                  href="https://www.linkedin.com"
+                  href="https://www.linkedin.com/in/rohan-jetha-1fb13415133/"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn"
@@ -38,7 +38,7 @@ export default function SiteFooter() {
                 >
                   in
                 </a>
-                <a
+                {/* <a
                   className={styles.iconBtn}
                   href="https://github.com"
                   target="_blank"
@@ -47,8 +47,8 @@ export default function SiteFooter() {
                   title="GitHub"
                 >
                   gh
-                </a>
-                <a
+                </a> */}
+                {/* <a
                   className={styles.iconBtn}
                   href="https://www.youtube.com"
                   target="_blank"
@@ -67,7 +67,7 @@ export default function SiteFooter() {
                   title="X"
                 >
                   x
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@ export default function SiteFooter() {
             </div>
 
             <div className={styles.created}>
-              <span className={styles.createdLabel}>Created by</span>
+              <span className={styles.createdLabel}>Website created and maintained by</span>
               <span className={styles.avatar} aria-hidden="true">
                 RJ
               </span>
