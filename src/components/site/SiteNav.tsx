@@ -164,11 +164,11 @@ export function SiteNav() {
                   <Link
                     className="megaLink"
                     role="menuitem"
-                    href="/portfolio/company-teardowns/google"
+                    href="/company-teardowns/bambooHR"
                     onClick={closeAll}
                     style={linkStyle}
                   >
-                    <span className="megaLinkTitle">Google</span>
+                    <span className="megaLinkTitle">BambooHR</span>
                     <span className="megaLinkArrow">›</span>
                   </Link>
 

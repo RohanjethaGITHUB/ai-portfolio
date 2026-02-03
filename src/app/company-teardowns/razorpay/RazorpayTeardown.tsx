@@ -17,7 +17,7 @@ type Tab = {
 export default function RazorpayTeardown() {
   const tabs: Tab[] = useMemo(
     () => [
-      { id: "context", label: "Contex", n: 1 },
+      { id: "context", label: "Context", n: 1 },
       { id: "ai-capabilities", label: "AI Capabilities", n: 2 },
       { id: "execution-governance", label: "Governance", n: 3 },
     ],

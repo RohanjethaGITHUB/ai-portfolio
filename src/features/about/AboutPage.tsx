@@ -138,31 +138,6 @@ const CAPABILITIES = [
   },
 ];
 
-const HOW_I_WORK = [
-  {
-    title: "User job",
-    body: "Define the decision the system must support, then work backward to data and flow.",
-  },
-  {
-    title: "Data path",
-    body: "Inputs, transformations, storage, and feedback loops come before model choice.",
-  },
-  {
-    title: "Prototype fast",
-    body: "Prove value early, then invest in reliability, security, and maintenance.",
-  },
-  {
-    title: "Measure",
-    body: "Latency, cost, accuracy, and human feedback loops. No vanity metrics.",
-  },
-];
-
-const PROOF = [
-  { k: "12+", v: "Years building systems" },
-  { k: "50+", v: "Systems shipped" },
-  { k: "20+", v: "Case studies and builds" },
-];
-
 const NOW_FOCUS = [
   "Cost-aware AI product decisions",
   "Human-in-the-loop workflows that scale",
@@ -187,7 +162,6 @@ export default function AboutPage() {
   const pathRef = useRef<SVGPathElement | null>(null);
 
   const [walkStage, setWalkStage] = useState(0);
-  // This is now pixel coordinates inside .timelineWrap
   const [walkerPose, setWalkerPose] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -219,7 +193,6 @@ export default function AboutPage() {
       const len = p.getTotalLength();
       const pt = p.getPointAtLength(len * t);
 
-      // Convert SVG viewBox coords to screen pixels
       const ctm = svg.getScreenCTM();
       if (!ctm) return;
 
@@ -229,7 +202,6 @@ export default function AboutPage() {
 
       const screen = sp.matrixTransform(ctm);
 
-      // Convert screen pixels to .timelineWrap-local pixels
       const localX = screen.x - rect.left;
       const localY = screen.y - rect.top;
 
@@ -259,207 +231,202 @@ export default function AboutPage() {
   const walkerScaleByStage = [1.08, 1.1, 1.12, 1.14, 1.16];
   const walkerScale = walkerScaleByStage[stage];
 
-  // Face toward card content for Education, Product, Business Owner (0, 2, 4)
   const walkerFace = stage % 2 === 0 ? "left" : "right";
 
   return (
     <div className={styles.page}>
       <div className={styles.content}>
-        {/* HERO */}
-        <section className={styles.hero}>
-          <div className={styles.heroInner}>
-            <div className={styles.heroTopKicker}>ABOUT</div>
+        <div className={styles.stack}>
+          <section className={styles.hero}>
+            <div className={styles.heroInner}>
+              <div className={styles.heroTopKicker}>ABOUT</div>
 
-            <h1 className={styles.heroTitle}>
-              Builder at the intersection of product, systems, and execution.
-            </h1>
+              <h1 className={styles.heroTitle}>
+                I build AI systems that ship, scale, and stay reliable in the real world.
+              </h1>
 
-            <p className={styles.heroSub}>
-              I design AI-first product experiences, automate workflows end to end, and ship systems
-              that are practical, measurable, and reliable.
-            </p>
+              <p className={styles.heroSub}>
+                I help teams turn messy AI ideas into operational systems: clear inputs, safe fallbacks, measurable
+                outcomes, and workflows people actually use.
+              </p>
 
-            <div className={styles.heroMetaRow}>
-              <div className={styles.metaChip}>
-                <span className={styles.metaLabel}>Based in</span>
-                <span className={styles.metaValue}>Sydney</span>
-              </div>
-              <div className={styles.metaChip}>
-                <span className={styles.metaLabel}>Focus</span>
-                <span className={styles.metaValue}>AI systems, automation</span>
-              </div>
-              <div className={styles.metaChip}>
-                <span className={styles.metaLabel}>Style</span>
-                <span className={styles.metaValue}>Practical, calm, rigorous</span>
+              <div className={styles.heroMetaRow}>
+                <div className={styles.metaChip}>
+                  <span className={styles.metaLabel}>Based in</span>
+                  <span className={styles.metaValue}>Sydney</span>
+                </div>
+                <div className={styles.metaChip}>
+                  <span className={styles.metaLabel}>Focus</span>
+                  <span className={styles.metaValue}>AI systems, automation</span>
+                </div>
+                <div className={styles.metaChip}>
+                  <span className={styles.metaLabel}>Style</span>
+                  <span className={styles.metaValue}>Practical, calm, rigorous</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className={styles.heroGlow} aria-hidden="true" />
-          <div className={styles.heroNoise} aria-hidden="true" />
-        </section>
+            <div className={styles.heroGlow} aria-hidden="true" />
+            <div className={styles.heroNoise} aria-hidden="true" />
+          </section>
 
-        {/* PRINCIPLES */}
-        <section className={styles.section}>
-          <div className={styles.sectionHead}>
-            <h2 className={styles.h2}>How I think about AI systems</h2>
-            <p className={styles.lede}>
-              Principles I use to keep systems useful in the real world, not just in demos.
-            </p>
-          </div>
-
-          <div className={styles.grid2}>
-            {PRINCIPLES.map((p) => (
-              <div key={p.title} className={styles.card}>
-                <div className={styles.cardTitle}>{p.title}</div>
-                <div className={styles.cardBody}>{p.body}</div>
+          <div className={styles.flowPanel}>
+            {/* <section className={styles.section}>
+              <div className={styles.sectionHead}>
+                <h2 className={styles.h2}>How I think about AI systems</h2>
+                <p className={styles.lede}>
+                  Principles I use to keep systems useful in the real world, not just in demos.
+                </p>
               </div>
-            ))}
-          </div>
-        </section>
 
-        {/* TIMELINE */}
-        <section className={styles.section}>
-          <div className={styles.sectionHead}>
-            <h2 className={styles.h2}>Timeline</h2>
-            <p className={styles.lede}>The chapters that shaped how I build systems.</p>
-          </div>
+              <div className={styles.grid2}>
+                {PRINCIPLES.map((p) => (
+                  <div key={p.title} className={styles.card}>
+                    <div className={styles.cardTitle}>{p.title}</div>
+                    <div className={styles.cardBody}>{p.body}</div>
+                  </div>
+                ))}
+              </div>
+            </section> */}
 
-          <div className={styles.timelineWrap} ref={timelineRef}>
-            {/* Road background */}
-            <div className={styles.road} aria-hidden="true">
-              <svg className={styles.roadSvg} viewBox="0 0 240 1400" preserveAspectRatio="none">
-                <path ref={pathRef} className={styles.roadBody} d={ROAD_PATH} />
-                <path className={styles.roadDash} d={ROAD_PATH} />
-              </svg>
-              <span className={styles.roadGlow} />
-            </div>
+            <div className={styles.panelDivider} aria-hidden="true" />
 
-            {/* Walker overlay */}
-            <div
-              className={styles.walkerWrap}
-              data-face={walkerFace}
-              style={
-                {
-                  "--walkerX": `${walkerPose.x}px`,
-                  "--walkerY": `${walkerPose.y}px`,
-                  "--walkerScale": walkerScale,
-                } as CSSProperties
-              }
-              aria-hidden="true"
-            >
-              {stage >= 3 ? <span className={styles.aura} /> : null}
+            <section className={styles.section}>
+              <div className={styles.sectionHead}>
+                <h2 className={styles.h2}>Timeline</h2>
+                <p className={styles.lede}>The chapters that shaped how I build systems.</p>
+              </div>
 
-              <img
-                className={styles.walkerImg}
-                src={WALKER_SRC[stage]}
-                alt=""
-                draggable={false}
-              />
-            </div>
+              <div className={styles.timelineWrap} ref={timelineRef}>
+                <div className={styles.road} aria-hidden="true">
+                  <svg className={styles.roadSvg} viewBox="0 0 240 1400" preserveAspectRatio="none">
+                    <path ref={pathRef} className={styles.roadBody} d={ROAD_PATH} />
+                    <path className={styles.roadDash} d={ROAD_PATH} />
+                  </svg>
+                  <span className={styles.roadGlow} />
+                </div>
 
-            {/* Cards */}
-            <div className={styles.timeline}>
-              {TIMELINE.map((t, idx) => {
-                const isLeft = idx % 2 === 0;
-                return (
-                  <article
-                    key={t.id}
-                    className={`${styles.step} ${isLeft ? styles.left : styles.right}`}
-                  >
-                    <div className={styles.stepContent}>
-                      <div className={styles.stepRange}>{t.range}</div>
+                <div
+                  className={styles.walkerWrap}
+                  data-face={walkerFace}
+                  style={
+                    {
+                      "--walkerX": `${walkerPose.x}px`,
+                      "--walkerY": `${walkerPose.y}px`,
+                      "--walkerScale": walkerScale,
+                    } as CSSProperties
+                  }
+                  aria-hidden="true"
+                >
+                  {stage >= 3 ? <span className={styles.aura} /> : null}
 
-                      <h3 className={styles.stepTitle}>{t.title}</h3>
-                      <div className={styles.stepSubtitle}>{t.subtitle}</div>
+                  <img className={styles.walkerImg} src={WALKER_SRC[stage]} alt="" draggable={false} />
+                </div>
 
-                      <div className={styles.contextBlock}>
-                        <div className={styles.contextLabel}>Context</div>
-                        <ul className={styles.contextList}>
-                          {t.context.map((c) => (
-                            <li key={c} className={styles.contextItem}>
-                              {c}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                <div className={styles.timeline}>
+                  {TIMELINE.map((t, idx) => {
+                    const isLeft = idx % 2 === 0;
+                    return (
+                      <article
+                        key={t.id}
+                        className={`${styles.step} ${isLeft ? styles.left : styles.right}`}
+                      >
+                        <div className={styles.stepContent}>
+                          <div className={styles.stepRange}>{t.range}</div>
 
-                      <div className={styles.learntBlock}>
-                        <div className={styles.learntLabel}>Learnt</div>
-                        <div className={styles.learntText}>{t.learnt}</div>
-                      </div>
+                          <h3 className={styles.stepTitle}>{t.title}</h3>
+                          <div className={styles.stepSubtitle}>{t.subtitle}</div>
 
-                      {t.tags?.length ? (
-                        <div className={styles.tags}>
-                          {t.tags.map((tag) => (
-                            <span key={tag} className={styles.tag}>
-                              {tag}
-                            </span>
-                          ))}
+                          <div className={styles.contextBlock}>
+                            <div className={styles.contextLabel}>Context</div>
+                            <ul className={styles.contextList}>
+                              {t.context.map((c) => (
+                                <li key={c} className={styles.contextItem}>
+                                  {c}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <div className={styles.learntBlock}>
+                            <div className={styles.learntLabel}>Learnt</div>
+                            <div className={styles.learntText}>{t.learnt}</div>
+                          </div>
+
+                          {t.tags?.length ? (
+                            <div className={styles.tags}>
+                              {t.tags.map((tag) => (
+                                <span key={tag} className={styles.tag}>
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          ) : null}
                         </div>
-                      ) : null}
-                    </div>
 
-                    <div className={styles.markerWrap} aria-hidden="true">
-                      <div className={styles.marker}>
-                        <span className={styles.markerNum}>{t.id}</span>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* CAPABILITIES */}
-        <section className={styles.section}>
-          <div className={styles.sectionHead}>
-            <h2 className={styles.h2}>What that journey gave me</h2>
-            <p className={styles.lede}>Capabilities that show up consistently across my work.</p>
-          </div>
-
-          <div className={styles.grid3}>
-            {CAPABILITIES.map((c) => (
-              <div key={c.title} className={styles.card}>
-                <div className={styles.cardTitle}>{c.title}</div>
-                <div className={styles.cardBody}>{c.body}</div>
+                        <div className={styles.markerWrap} aria-hidden="true">
+                          <div className={styles.marker}>
+                            <span className={styles.markerNum}>{t.id}</span>
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </section>
 
-       
+            <div className={styles.panelDivider} aria-hidden="true" />
 
-        {/* NOW */}
-        <section className={styles.section}>
-          <div className={styles.sectionHead}>
-            <h2 className={styles.h2}>What I am focused on now</h2>
-            <p className={styles.lede}>
-              The direction I am leaning into as AI systems become more operational.
-            </p>
-          </div>
-
-          <div className={styles.nowGrid}>
-            {NOW_FOCUS.map((x) => (
-              <div key={x} className={styles.nowItem}>
-                <span className={styles.bullet} aria-hidden="true" />
-                <span className={styles.nowText}>{x}</span>
+            <section className={styles.section}>
+              <div className={styles.sectionHead}>
+                <h2 className={styles.h2}>What that journey gave me</h2>
+                <p className={styles.lede}>Capabilities that show up consistently across my work.</p>
               </div>
-            ))}
-          </div>
-        </section>
 
-        {/* CLOSE */}
-        <section className={styles.close}>
-          <div className={styles.closeCard}>
-            <h2 className={styles.closeTitle}>If this resonates</h2>
-            <p className={styles.closeText}>
-              If you are building AI systems and want them to feel calm, reliable, and measurable,
-              we will probably work well together.
-            </p>
+              <div className={styles.grid3}>
+                {CAPABILITIES.map((c) => (
+                  <div key={c.title} className={styles.card}>
+                    <div className={styles.cardTitle}>{c.title}</div>
+                    <div className={styles.cardBody}>{c.body}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <div className={styles.panelDivider} aria-hidden="true" />
+
+            <section className={styles.section}>
+              <div className={styles.sectionHead}>
+                <h2 className={styles.h2}>What I am focused on now</h2>
+                <p className={styles.lede}>
+                  The direction I am leaning into as AI systems become more operational.
+                </p>
+              </div>
+
+              <div className={styles.nowGrid}>
+                {NOW_FOCUS.map((x) => (
+                  <div key={x} className={styles.nowItem}>
+                    <span className={styles.bullet} aria-hidden="true" />
+                    <span className={styles.nowText}>{x}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <div className={styles.panelDivider} aria-hidden="true" />
+
+            <section className={styles.close}>
+              <div className={styles.closeCard}>
+                <h2 className={styles.closeTitle}>If this resonates</h2>
+                <p className={styles.closeText}>
+                  If you are building AI systems and want them to feel calm, reliable, and measurable,
+                  we will probably work well together.
+                </p>
+              </div>
+            </section>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );
