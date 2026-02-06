@@ -63,12 +63,12 @@ export function Hero() {
         </p>
 
         <div className={styles.btnRow}>
-          <a className={`${styles.btn} ${styles.btnPrimary}`} href="/portfolio">
-            View Portfolio
+          <a className={`${styles.btn} ${styles.btnPrimary}`} href="/about">
+            About Me
           </a>
-          <a className={styles.btn} href="/company-teardowns">
+          {/* <a className={styles.btn} href="/company-teardowns">
             Company Teardowns
-          </a>
+          </a> */}
         </div>
       </div>
     </section>

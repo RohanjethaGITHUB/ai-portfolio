@@ -238,11 +238,14 @@ export default function BelowHeroFlow() {
                 </div>
               </div>
 
-              <div className={styles.ctaRow}>
+              {/* <div className={styles.ctaRow}>
+                <button className={styles.ctaGhost} type="button">
+                  About Me
+                </button>
                 <button className={styles.ctaGhost} type="button">
                   LINKEDIN
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>

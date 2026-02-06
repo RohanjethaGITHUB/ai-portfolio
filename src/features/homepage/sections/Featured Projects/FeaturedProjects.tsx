@@ -29,7 +29,7 @@ const items: FeaturedItem[] = [
   },
   {
     title: "Recruitment OS",
-    href: "/portfolio/recruitment-os",
+    href: "/portfolio/ai-end-to-end-recruiter",
     imgSrc: "/recruitment-os.png",
     alt: "Recruitment OS preview",
   },
